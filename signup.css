@@ -1,0 +1,72 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.container{
+   
+   margin-top:200px;
+   background-color:#f3f4f6;
+   height:400px;
+   width:500px;
+   margin-left:500px;
+   border-radius:5px;
+
+    
+
+}
+h1{
+    text-align: center;
+}
+.form{
+    margin-left:110px;
+}
+.input{
+    width:300px;
+    height:30px;
+    margin-top:10px;
+    background-color:white;
+    border-color: #636AE8;
+    border-radius: 5px;
+    border-style:solid;
+}
+label{
+   font-size: 18px;
+   margin-top:10px; 
+}
+button{
+    width:150px;
+    height:35px;
+    margin-top:20px;
+    margin-left: 80px;
+    background-color: #636AE8;
+    border-style: solid;
+    border-radius: 5px;
+    border-color:#636AE8;
+    
+}
+button a{
+    text-decoration: none;
+    color:black;
+    font-weight: bold;
+}
+.signupmessege{
+    background-color:#636AE8;
+    color:black;
+    font-size:24px;
+    font-weight:bold;
+    text-align: center;
+    border-radius:5px;
+}
+.log{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+margin-top:10px;
+}
+.log a{
+ color:#636AE8;
+ text-decoration: none;
+}
+

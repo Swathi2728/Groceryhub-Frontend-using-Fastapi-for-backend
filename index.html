@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Basket</title>
+    <script type="module" src="pushData.js"></script> <!-- Ensure correct path -->
+    <script type="module" src="fetchData.js"></script> <!-- Ensure correct path -->
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="hcontainer">
+            <div>
+                <p class="logo">logo</p>
+            </div>
+            <div>
+                <h1 class="title">Grocery Hub</h1>
+            </div>
+            <div class="ncontainer">
+                <div class="home">
+                    <li><a href="#">Home</a></li>
+                </div>
+                <div class="home">
+                    <li><a href="#">About us</a></li>
+                </div>
+                <div class="home">
+                    <li><a href="#">Contact us</a></li>
+                </div>
+            </div>
+            <div>
+                <input type="text" placeholder="Search for product" class="search">
+                <select name="category" id="category">
+                    <option>Shop by category</option>
+                    <option value="fruits">Fruits</option>
+                    <option value="vegetables">Vegetables</option>
+                    <option value="snacks">Snacks</option>
+                    <option value="dairy">Dairy</option>
+                </select>
+                <button><a href="login.html">Sign In</a></button>
+                <i class="fa-solid fa-bag-shopping fa-xl" style="color: #636ae8;"></i>
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content area for products -->
+    <div id="products"></div>
+
+    <script>
+        // Make sure fetchData.js is handling product data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Assuming fetchData is a function to fetch and display products
+            fetchGroceryData(); // This will display the products on page load
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+{
+    "Featured product": [
+      {
+        "name": "fruits",
+        "img": "https://www.freshfruitsbasket.com/wp-content/uploads/2017/02/avasflowers-bon-appetit-fruit-basket_max.jpg"
+      },
+      {
+        "name": "vegetables",
+        "img": "https://www.freshfruitsbasket.com/wp-content/uploads/2017/02/avasflowers-bon-appetit-fruit-basket_max.jpg"
+      },
+      {
+        "name": "Dairy",
+        "img": "https://www.freshfruitsbasket.com/wp-content/uploads/2017/02/avasflowers-bon-appetit-fruit-basket_max.jpg"
+      },
+      {
+        "name": "snacks",
+        "img": "https://www.freshfruitsbasket.com/wp-content/uploads/2017/02/avasflowers-bon-appetit-fruit-basket_max.jpg"
+      }
+    ],
+    "Newproducts": [
+      {
+        "name": "apple",
+        "img": "https://www.freshfruitsbasket.com/wp-content/uploads/2017/02/avasflowers-bon-appetit-fruit-basket_max.jpg",
+        "price": {
+          "1kg": 100,
+          "500g": 50,
+          "250g": 25
+        },
+        "kilogram": ["1kg", "500g", "250g"]
+      },
+      {
+        "name": "banana",
+        "img": "https://www.freshfruitsbasket.com/wp-content/uploads/2017/02/avasflowers-bon-appetit-fruit-basket_max.jpg",
+        "price": {
+          "1kg": 120,
+          "500g": 60,
+          "250g": 30
+        },
+        "kilogram": ["1kg", "500g", "250g"]
+      },
+      {
+        "name": "orange",
+        "img": "https://www.freshfruitsbasket.com/wp-content/uploads/2017/02/avasflowers-bon-appetit-fruit-basket_max.jpg",
+        "price": {
+          "1kg": 180,
+          "500g": 90,
+          "250g": 45
+        },
+        "kilogram": ["1kg", "500g", "250g"]
+      },
+      {
+        "name": "mango",
+        "img": "https://www.freshfruitsbasket.com/wp-content/uploads/2017/02/avasflowers-bon-appetit-fruit-basket_max.jpg",
+        "price": {
+          "1kg": 200,
+          "500g": 100,
+          "250g": 50
+        },
+        "kilogram": ["1kg", "500g", "250g"]
+      }
+    ]
+  }

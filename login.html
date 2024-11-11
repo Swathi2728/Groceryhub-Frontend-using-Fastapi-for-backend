@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+    <script type="module" src="firebasesignin.js" defer></script>
+</head>
+
+<body>
+    <form>
+
+
+        <div class="container">
+            <div id="loginmsg" class="signupmessege" style="display:none;"></div>
+            <h1>Sign In</h1>
+            <div class="epcontain">
+                <div class="form">
+                    <label for="email1">Email</label>
+                    <input id="email1" type="email" name="pwd" class="email" placeholder="Enter your email"><br>
+                </div>
+                <div class="form"><label for="pwd">Password</label>
+                    <input type="password" id="pwd1" name="pwd" class="pwd" placeholder="Enter your password">
+                </div>
+
+                <div class="fed"><a href="forgot.html">Forgot password</a></div>
+                <button id="loginbtn" >Sign In</button>
+                <div class="account">
+                <div>Dont have an account? </div>
+                <a href="signup.html" class="sign">Sign up</a>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</body>
+
+</html>
