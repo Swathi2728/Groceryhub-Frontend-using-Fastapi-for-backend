@@ -3,6 +3,9 @@
     padding:0;
     box-sizing: border-box;
 }
+html{
+    background-color: #636AE8;
+}
 
 .container{
     background-color: #f3f4f6;
@@ -15,9 +18,9 @@
 h1{
     text-align: center;
 }
-.form{
-    margin:15px;
-}
+/* .form{
+    margin:15px; */
+/* } */
 input{
     width:270px;
     height:25px;
@@ -31,6 +34,7 @@ input{
 }
 .pwd{
     margin-left: 7px;
+    position:relative;
 }
 label{
     font-size: 20px;
@@ -79,4 +83,17 @@ button a{
 a{
     color:#636AE8;
     text-decoration: none;
+}
+.pcontainer{
+   display:flex;
+}
+.form{
+    margin-left:20px;
+    margin-bottom: 20px;
+
+}
+.eye-icon{
+    position:absolute;
+    left:899px
+
 }

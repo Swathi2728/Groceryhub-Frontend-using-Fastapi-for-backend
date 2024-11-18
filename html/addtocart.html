@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <script src="/java/fetchdata.js"></script>
+    <link rel="stylesheet" href="/css/cart.css"> <!-- Add your cart CSS here -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .cart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .cart-item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .cart-item img {
+            max-width: 100px;
+        }
+        .cart-item div {
+            flex: 1;
+        }
+        .cart-item .total {
+            font-weight: bold;
+        }
+        .cart-total {
+            padding-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .remove-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cart-container" id="cart-container">
+        <!-- Cart items will be displayed here -->
+    </div>
+
+    <!-- Cart total will be displayed here -->
+    <div class="cart-total" id="cart-total">
+        <!-- Total price will be injected here -->
+    </div>
+
+    <script src="/java/addtocart.js"></script> <!-- Link to your JavaScript file -->
+    <script src="/java/cart.js"></script> <!-- Link to the JavaScript that will handle cart display and remove -->
+</body>
+</html>
+
+
+

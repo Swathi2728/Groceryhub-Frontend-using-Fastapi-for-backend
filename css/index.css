@@ -1,0 +1,267 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+.hcontainer{
+    display:flex;
+    height:7vh;
+    justify-content:flex-start;
+    align-items: center;
+    /* background-color: #f3f4f6; */
+}
+
+.ncontainer{
+    display: flex;
+    list-style-type: none;
+    font-size: 17px;
+    font-weight: bold;
+    
+
+    
+}
+.search{
+    height:30px;
+    width:500px;
+   border-style: solid;
+    border-color: #636AE8;
+    border-radius: 5px;
+    padding:10px;
+    font-size:15px;
+    margin-left:50px;
+    margin-right:20px
+   
+}
+.home{
+    padding:6px;
+}
+.logo{
+    margin-left: 50px;
+    margin-right:10px;
+}
+.title{
+    margin-right: 50px;
+}
+#category{
+    background-color: #636AE8;
+    height:30px;
+    width:150px;
+    border-radius: 5px;
+    color:white;
+    font-weight: bold;
+    padding: 3px;
+
+}
+button{
+    background-color: #636AE8;
+    border-style: solid;
+    border-color: #636AE8;
+    height:30px;
+    width:80px;
+    border-radius: 5px;
+
+}
+button a{
+    text-decoration: none;
+    color:white;
+    font-weight: bold;
+}
+.icon{
+    color:black;
+    height:200px
+}
+.image-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .image-wrapper {
+    display: flex;
+    overflow: hidden;
+    width: 300px; /* Container width */
+  }
+  .image {
+    width: 100px; /* Image width */
+    height: 600px; /* Image height */
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .fruits{
+    height:70vh;
+    width:98vw;
+    margin:5px;
+    margin-top:20px;
+    border-radius:10px;
+ }
+ .parentposition{
+    position:relative;
+
+ }
+ .childposition{
+    position:absolute;
+    right:300px;
+    top:270px;
+    color:white;
+    font-weight: bold;
+    
+ }
+ .center{
+    text-align: center;
+    margin:20px;
+    color:white;
+    font-weight: bold;
+ }
+ .sbtn{
+    margin-left:300px;
+    margin-top:20px;
+    width:200px;
+ }
+ .ncontainer li a{
+    text-decoration: none;
+    color:#000;
+ }
+ .category{
+    /* text-align: center; */
+     display:flex;
+    /* flex-wrap:wrap;
+    column-gap:200px;
+    margin-left:400px;
+    margin-right: 400px; */ 
+    justify-content: center;
+    align-items: center;
+    column-gap:70px;
+
+ }
+ .item{
+    color:#636AE8;
+    margin:auto;
+    display:flex;
+    gap:40px;
+ }
+ #products {
+
+}
+ /* #fruits{
+   display:grid;
+   grid-template-columns: 1fr 1fr;
+   grid-template-rows: 1fr 1fr;
+ } */
+ .subhead{
+    text-align:center; 
+    margin-top:50px;
+    font-size:40px;
+    font-weight: bold;
+ }
+ .head{
+    height:600px
+ }
+.shop-now{
+   height:30px;
+   width:150px;
+   margin:5px;
+   color:white;
+   padding:5px;
+   font-weight: bold;
+}
+.bname{
+    margin-top:60px;
+}
+.itemname{
+    color:#000;
+    padding:10px;
+    font-size:24px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+.allimg{
+    margin-top:50px
+}
+.img{
+    margin-top:50px;
+}
+.head2{
+    text-align:center; 
+    margin-top:20px;
+    font-size:40px;
+    font-weight: bold;
+}
+.main-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    column-gap:70px;
+    
+}
+/* .product-pair{
+    display:flex;
+} */
+.item1{
+    display:flex;
+    gap:40px;
+    margin:40px
+}
+.container3{
+   height:600px;
+}
+.ihead{
+    margin-top:10px;
+    font-size:19px;
+    font-weight: bold;
+    font-family:'Times New Roman', Times, serif;
+
+}
+.select{
+    height:20px;
+    width:80px;
+    border-radius:5px;
+    border-color: #636AE8;
+    border-style: solid;
+    border-width: 2px;
+    background-color: white;
+    color:#000;
+    font-weight: 300;
+
+}
+.ascontainer{
+    display:flex;
+}
+.welcome{
+  font-size: 26px;
+  font-weight: bold;
+}
+.flex1{
+  font-size: 24px;
+  margin-top:20px;
+  
+  text-indent: 150px;
+  font-weight: 500;
+}
+.aboutus{
+
+    text-align:center; 
+    margin:30px;
+    font-size:45px;
+    font-weight: bold;
+    margin-bottom:60px;
+}
+.imgdelivery{
+    margin-bottom: 50px;
+    height:200px;
+    width:650px
+}
+.flex2{
+    font-size: 24px;
+    margin-top:20px;
+     font-weight: 500;
+     margin-left:50px;
+     margin-right: 50px;
+}
+.shead{
+    font-size: 26px;
+    font-weight: bold;
+}
+.hub{
+    color: #636AE8;
+}
+

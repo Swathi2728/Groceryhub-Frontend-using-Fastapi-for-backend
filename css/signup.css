@@ -3,6 +3,9 @@
     padding:0;
     box-sizing:border-box;
 }
+html{
+    background-color:#636AE8;
+}
 
 .container{
    
@@ -30,6 +33,7 @@ h1{
     border-color: #636AE8;
     border-radius: 5px;
     border-style:solid;
+    position:relative;
 }
 label{
    font-size: 18px;
@@ -69,4 +73,11 @@ margin-top:10px;
  color:#636AE8;
  text-decoration: none;
 }
+
+.eye-icon{
+    position:absolute;
+    right:600px;
+    top:453px
+}
+
 

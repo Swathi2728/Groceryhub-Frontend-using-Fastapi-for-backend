@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Basket</title>
+    <script type="module" src="/java/pushdata.js"></script> <!-- Ensure correct path -->
+    <script type="module" src="/java/fetchdata.js"></script> <!-- Ensure correct path -->
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="hcontainer">
+            <div>
+                <p class="logo">logo</p>
+            </div>
+            <div>
+                <h1 class="title">Grocery <span class="hub">Hub</span></h1>
+            </div>
+            <div class="ncontainer">
+                <div class="home">
+                    <li><a href="#">Home</a></li>
+                </div>
+                <div class="home">
+                    <li><a href="#about">About us</a></li>
+                </div>
+                <div class="home">
+                    <li><a href="#">Contact us</a></li>
+                </div>
+            </div>
+            <div>
+                <input type="text" placeholder="Search for product" class="search">
+                <select name="category" id="category">
+                    <option>Shop by category</option>
+                    <option value="/html/fruits.html">Fruits</option>
+                    <option value="/html/vegetable.html">Vegetables</option>
+                    <option value="/html/snacks.html">Snacks</option>
+                    <option value="/html/dairy.html">Dairy</option>
+                </select>
+                <button><a href="/html/login.html">Sign In</a></button>
+                <a href="/html/addtocart.html">
+                <i class="fa-solid fa-bag-shopping fa-xl" style="color: #636ae8;"></i>
+                </a>
+                <a href="profile.html">
+                <i class="fa-solid fa-user"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="parentposition">
+        <img src="/img/front page.jpg" class="fruits">
+    </div>
+    <div class="childposition">
+        <h1 class="center">Welcome To Our Grocery Store</h1>
+        <h3>Discover Fresh produce Product and quality prices at unbeatable prices. Enjoy a seamless shopping with us
+        </h3>
+        <button class="sbtn">Shop now</button>
+    </div>
+    <!-- Main content area for products -->
+    <div id="products"></div>
+    <div id="about">
+    <h2 class="aboutus">About us</h2>
+    <div class="ascontainer" >
+        
+        <div>
+            <img src="/img/deliveryboy.jpg" class="imgdelivery">
+        </div>
+        <div>
+            <div class="welcome">Welcome to E-commerce Grocery Hub!
+            </div>
+            <div class="flex1">
+                At E-commerce Grocery Hub, we believe that shopping for groceries should be easy, convenient, and enjoyable. Our mission is to provide a comprehensive online platform where you can browse and purchase a diverse selection of grocery items, with a special emphasis on fresh produce and organic products.
+
+
+            </div>
+        </div>
+    </div>
+    <div class="flex2">
+       <span class="shead">Our Commitment to Quality:</span>
+We prioritize quality and freshness in every product we offer. From everyday essentials to specialty ingredients, we ensure that everything you buy meets the highest standards. Our team carefully sources products from trusted suppliers, and our partnerships with local farmers and sustainable brands ensure you receive the best possible groceries for your home.
+
+Whether its farm-fresh fruits and vegetables, organic pantry staples, or premium dairy and meat, we’ve got you covered.
+
+
+    </div>
+    <div class="flex2">
+       <span class="shead"> A Customer-Centric Experience:</span>
+At E-commerce Grocery Hub, we understand the importance of a seamless shopping experience. That’s why we’ve designed our platform to be as user-friendly as possible. With intuitive navigation, easy-to-use search filters, and a smooth checkout process, finding what you need has never been easier.
+
+Browse by category, filter by product type, and order with ease—all from the comfort of your home. We’re here to make your grocery shopping as quick, convenient, and enjoyable as possible.
+
+
+    </div>
+    <div class="flex2">
+        <span class="shead">Sustainability Focus:</span>
+        Weare not just about providing great groceries—we also care about the planet. At E-commerce Grocery Hub, we are committed to sustainability and environmental responsibility. From offering eco-friendly packaging to promoting organic and locally sourced products, we strive to reduce our carbon footprint and support sustainable practices in every aspect of our business.
+        
+        When you shop with us, you can feel confident that you're making choices that are better for you and the environment. Our eco-conscious approach ensures that your grocery shopping experience aligns with your values.
+        
+        
+    </div>
+    <div class="flex2">
+      <span class="shead"> Join Our Community:</span>
+        At E-commerce Grocery Hub, we dont just see our customers as buyers—they are a key part of our community. We value your feedback and suggestions, and weare always striving to improve our services and offerings. Whether you're looking for a new product, need help with an order, or just want to share your thoughts, we're here to listen.
+
+        Our goal is to build a community around healthy living and smart shopping. Join our community today and discover new products, recipes, and more—be part of the movement toward a healthier, more sustainable lifestyle.
+    </div>
+    </div>
+    <script>
+        // For direct redirection when category is selected
+        document.getElementById('category').addEventListener('change', function () {
+            var value = this.value;
+            if (value) {
+                window.location.href = value;  // Navigate to the selected category
+            }
+        });
+    </script>
+    
+
+</body>
+
+</html>

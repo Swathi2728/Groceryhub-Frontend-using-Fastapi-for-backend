@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  
+</head>
+<body>
+  <div id="profile-page">
+    <h1>Your Profile</h1>
+    <div id="profile-info">
+      <p><strong>First Name:</strong> <span id="first-name"></span></p>
+      <p><strong>Last Name:</strong> <span id="last-name"></span></p>
+      <p><strong>Email:</strong> <span id="email"></span></p>
+      <button id="logout-btn">Logout</button>
+    </div>
+  </div>
+
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script type="module"    src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script type="module"  src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <script type="module" src="/java/profile.js"></script>
+</body>
+</html>

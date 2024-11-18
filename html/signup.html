@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="signup.css">
-    <script type="module" src="firebaseauth.js" defer></script>
+    <link rel="stylesheet" href="/css/signup.css">
+    <script type="module" src="/java/firebaseauth.js" defer></script>
 </head>
 
 <body>
@@ -18,8 +18,8 @@
             <div id="signupmsg" class="signupmessege" style="display:none;"></div>
             <h1>Register</h1>
             <div class="form">
-                <label for="f_name">First Name</label><br>
-                <input type="text" id="f_name" name="f_name" class="input" >
+                <label for="f_name">First Name</label><br> 
+                <input type="text" id="f_name" name="f_name" class="input" min="15" >
             </div>
             <div class="form"> <label for="l_name">Last Name</label><br>
                 <input type="text" id="l_name" name="l_name"class="input">
@@ -30,18 +30,35 @@
             </div>
             <div class="form">
                 <label for="pwd" >Password</label><br>
-                <input type="password" id="pwd" name="pwd"class="input">
+              
+           <input type="password" id="pwd1" name="pwd"class="input" >
+                <span id="eye-icon" class="eye-icon">👁️</span>
+              
             </div>
             <div class="form">
-                <button id="signupbtn">Sign up</button>
+                <button  type="button" id="signupbtn">Sign up</button>
             </div>
             <div class="log">
             <div>Already you have an account?</div>
-            <a href="login.html">log in</a>
+            <a href="/html/login.html">log in</a>
 </div>
-            
+
+
+
+        
+
         </div>
     </form>
 </body>
+<script>
+    const passwordInput = document.getElementById("pwd1");
+    const eyeIcon = document.getElementById("eye-icon");
+  
+    eyeIcon.addEventListener("click", () => {
+      const isPassword = passwordInput.type === "password";
+      passwordInput.type = isPassword ? "text" : "password";
+      eyeIcon.textContent = isPassword ? "🙈" : "👁️";
+    });
+  </script>
 
 </html>
