@@ -113,7 +113,7 @@ signup.addEventListener("click", (event) => {
       const docRef = doc(db, "users", user.uid);
       setDoc(docRef, userData)
         .then(() => {
-          window.location.href = 'index.html'; // Redirect to home page
+          window.location.href = '/Groceryhub/html/index.html'; // Redirect to home page
         })
         .catch((error) => {
           console.log("Error writing document", error);
