@@ -1,35 +1,30 @@
-
-
 [build]
- 
   publish = "Groceryhub"
+  command = "php -S 0.0.0.0:8080 -t Groceryhub"  # Start PHP server if needed
+  environment = { PHP_VERSION = "7.4" }  # Set PHP version to 7.4 (or other version)
 
 [[redirects]]
-  
   from = "/css/*"
   to = "/Groceryhub/css/:splat"
   status = 200
 
 [[redirects]]
- 
   from = "/img/*"
   to = "/Groceryhub/img/:splat"
   status = 200
 
 [[redirects]]
-
   from = "/html/*"
   to = "/Groceryhub/html/:splat"
   status = 200
 
 [[redirects]]
-
   from = "/java/*"
   to = "/Groceryhub/java/:splat"
   status = 200
 
 [[redirects]]
- 
   from = "/json/*"
   to = "/Groceryhub/json/:splat"
   status = 200
+
