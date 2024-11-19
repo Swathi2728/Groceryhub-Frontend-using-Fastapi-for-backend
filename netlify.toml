@@ -1,9 +1,0 @@
-[build]
-  publish = "Groceryhub"   # Specify the correct folder where your static assets are located
-  command = ""             # No build step required (no need for a build process)
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  
