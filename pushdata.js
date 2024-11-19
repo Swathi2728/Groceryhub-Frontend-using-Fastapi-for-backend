@@ -19,7 +19,7 @@ const db = getFirestore(app);
 async function loadJSONAndPushData() {
     try {
         // Fetch the JSON file (ensure the path is correct)
-        const response = await fetch('/Groceryhub/json/dashboard.json'); 
+        const response = await fetch('dashboard.json'); 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

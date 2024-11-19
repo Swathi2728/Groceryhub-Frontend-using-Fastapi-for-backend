@@ -2,25 +2,25 @@
     "Featured product": [
       {
         "name": "Fruits",
-        "img": "/Groceryhub/img/fruits3.jpg"
+        "img": "fruits3.jpg"
       },
       {
         "name": "Vegetable",
-        "img": "/Groceryhub/img/vegetable.jpg"
+        "img": "vegetable.jpg"
       },
       {
         "name": "Dairy",
-        "img": "/Groceryhub/img/dairy.jpg"
+        "img": "dairy.jpg"
       },
       {
         "name": "Snacks",
-        "img": "/Groceryhub/img/images.jpg"
+        "img": "images.jpg"
       }
     ],
     "Newproducts": [
       {
         "name": "apple",
-        "img": "/Groceryhub/img/apples.jpg",
+        "img": "apples.jpg",
         "price": {
           "1kg": 100,
           "500g": 50,
@@ -30,7 +30,7 @@
       },
       {
         "name": "banana",
-        "img": "/Groceryhub/img/banana2.jpg",
+        "img": "banana2.jpg",
         "price": {
           "1kg": 120,
           "500g": 60,
@@ -40,7 +40,7 @@
       },
       {
         "name": "orange",
-        "img": "/Groceryhub/img/oranges.jpg",
+        "img": "oranges.jpg",
         "price": {
           "1kg": 180,
           "500g": 90,
@@ -50,7 +50,7 @@
       },
       {
         "name": "mango",
-        "img": "/Groceryhub/img/mangoes.jpg",
+        "img": "mangoes.jpg",
         "price": {
           "1kg": 200,
           "500g": 100,
