@@ -1,6 +1,6 @@
 [build]
-  publish = "src/Groceryhub"
-  command = ""
+  publish = "src/Groceryhub"  # Update this path if needed
+  command = "npm run build"   # Add the correct build command here
 
 [[redirects]]
   from = "/*"
