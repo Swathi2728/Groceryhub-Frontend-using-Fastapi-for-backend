@@ -44,7 +44,7 @@ signIn.addEventListener("click", (event) => {
             alert('Login is Successful');
             const user = userCredential.user;
             localStorage.setItem("logged In userId", user.uid);
-            window.location.href = '/Groceryhub/html/index.html';
+            window.location.href = 'index.html';
         })
         .catch((error) => {
             const errorCode = error.code;
