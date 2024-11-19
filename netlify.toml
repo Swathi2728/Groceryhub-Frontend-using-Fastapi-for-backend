@@ -1,7 +1,7 @@
 [build]
-  base = "."                      # This sets the root directory as the base for the build
-  command = "npm run build"        # Replace this with your build command, or leave it empty if you don’t have one
-  publish = "Groceryhub"           # This points to the directory that should be served after build
+  base = "."                   # Ensure the base directory is the root of the repo
+  command = ""                  # No build command, since it's a static site
+  publish = "Groceryhub"        # This is the directory with your site files
 
 [[redirects]]
   from = "/*"
