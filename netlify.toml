@@ -1,34 +1,8 @@
 [build]
-  publish = "Groceryhub"  # Directory where your site files are located
-  command = ""            # No build command needed for a static site
+  publish = "Groceryhub"
+  command = ""
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[[redirects]]
-  from = "/css/*"
-  to = "/css/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/img/*"
-  to = "/img/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/html/*"
-  to = "/html/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/java/*"
-  to = "/java/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/json/*"
-  to = "/json/:splat"
-  status = 200
-
