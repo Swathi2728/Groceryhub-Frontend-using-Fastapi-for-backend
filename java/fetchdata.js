@@ -32,11 +32,11 @@ function createProductHTML(item) {
     // Generate dynamic link based on item name (or category)
     let redirectURL = "";
     if (item.name === 'Fruits') {
-        redirectURL = "/Groceryhub/html/fruits.html"; // Redirect to fruits page
+        redirectURL = "/Groceryhubhtml/fruits.html"; // Redirect to fruits page
     } else if (item.name=== 'Vegetable') {
         redirectURL = "/Groceryhub/html/vegetable.html"; // Redirect to vegetables page
     }else if(item.name=='Dairy'){
-        redirectURL = "/Groceryhub/html/dairy.html";
+        redirectURL = "/Groceryhubhtml/dairy.html";
     }
     else if(item.name=='Snacks'){
         redirectURL = "/Groceryhub/html/snacks.html";

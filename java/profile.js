@@ -30,7 +30,7 @@ onAuthStateChanged(auth, async (user) => {
     }
   } else {
     console.log("No user logged in");
-    window.location.href = '/Groceryhub/html/login.html'; // Redirect to login page if no user is logged in
+    window.location.href = 'html/login.html'; // Redirect to login page if no user is logged in
   }
 });
 

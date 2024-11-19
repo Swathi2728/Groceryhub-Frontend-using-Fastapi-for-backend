@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
-    <script src="/Groceryhub/java/fetchdata.js"></script>
+    <script type="module" src="java/fetchdata.js"></script>
     <!-- Add your cart CSS here -->
     <style>
         body {
@@ -66,10 +66,12 @@
         <!-- Total price will be injected here -->
     </div>
 
-    <script src="/Groceryhub/java/addtocart.js"></script> <!-- Link to your JavaScript file -->
-    <script src="/Groceryhub/java/cart.js"></script> <!-- Link to the JavaScript that will handle cart display and remove -->
+    <!-- Include the JavaScript files -->
+    <script type="module" src="java/addtocart.js"></script>
+    <script type="module" src="java/cart.js"></script>
 </body>
 </html>
+
 
 
 
