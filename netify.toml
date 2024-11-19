@@ -1,0 +1,35 @@
+
+
+[build]
+ 
+  publish = "Groceryhub"
+
+[[redirects]]
+  
+  from = "/css/*"
+  to = "/Groceryhub/css/:splat"
+  status = 200
+
+[[redirects]]
+ 
+  from = "/img/*"
+  to = "/Groceryhub/img/:splat"
+  status = 200
+
+[[redirects]]
+
+  from = "/html/*"
+  to = "/Groceryhub/html/:splat"
+  status = 200
+
+[[redirects]]
+
+  from = "/java/*"
+  to = "/Groceryhub/java/:splat"
+  status = 200
+
+[[redirects]]
+ 
+  from = "/json/*"
+  to = "/Groceryhub/json/:splat"
+  status = 200
