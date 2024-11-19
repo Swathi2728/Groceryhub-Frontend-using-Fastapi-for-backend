@@ -1,8 +1,8 @@
 [build]
-  publish = "Groceryhub"   # This points to the folder containing your static assets.
-  command = ""             # No build step needed as you're not using a build tool.
+  publish = "public"   # Pointing to a different folder like `public`
+  command = ""         # No build step needed
 
 [[redirects]]
   from = "/*"
-  to = "/index.html"      # This ensures all routes redirect to index.html.
+  to = "/index.html"
   status = 200
