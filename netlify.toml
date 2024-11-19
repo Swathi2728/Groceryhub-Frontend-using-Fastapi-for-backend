@@ -1,6 +1,7 @@
 [build]
-  publish = "src/Groceryhub"  # Update this path if needed
-  command = "npm run build"   # Add the correct build command here
+  base = "src/Groceryhub"           # Set this to the directory containing package.json
+  command = "npm run build"         # Ensure this command works
+  publish = "src/Groceryhub/build"  # Specify the output directory after the build
 
 [[redirects]]
   from = "/*"
