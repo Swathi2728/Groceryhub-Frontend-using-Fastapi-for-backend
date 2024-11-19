@@ -1,9 +1,8 @@
 [build]
-  base = "."                   # Ensure the base directory is the root of the repo
-  command = ""                  # No build command, since it's a static site
-  publish = "Groceryhub"        # This is the directory with your site files
+  publish = "Groceryhub"   # This points to the folder containing your static assets.
+  command = ""             # No build step needed as you're not using a build tool.
 
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/index.html"      # This ensures all routes redirect to index.html.
   status = 200
