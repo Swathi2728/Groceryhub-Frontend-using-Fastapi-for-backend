@@ -1,6 +1,6 @@
 [build]
-  publish = "public"   # Pointing to a different folder like `public`
-  command = ""         # No build step needed
+  publish = "Groceryhub"   # Specify the correct folder where your static assets are located
+  command = ""             # No build step required (no need for a build process)
 
 [[redirects]]
   from = "/*"
