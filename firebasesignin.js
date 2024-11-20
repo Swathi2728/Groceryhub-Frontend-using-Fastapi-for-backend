@@ -10,57 +10,54 @@ const firebaseConfig = {
     messagingSenderId: "900436401273",
     appId: "1:900436401273:web:d09d181852913621e048a8"
 };
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
+
+//const app = initializeApp(firebaseConfig);
 const signIn = document.getElementById("loginbtn");
 signIn.addEventListener("click", (event) => {
     event.preventDefault();
-  
+
     const email = document.getElementById("email1").value.trim();
     const password = document.getElementById("pwd1").value.trim();
-  
-    // Basic Validation for empty fields
-    if (!email) {
-        alert('Please enter your email address.');
+
+    // Basic Validation
+    if (!email || !password) {
+        alert('Please fill in both email and password.');
         return;
     }
-    if (!password) {
-        alert('Please enter your password.');
-        return;
-    }
-  
-    // Email Format Validation (Basic Regex)
+
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(email)) {
         alert('Please enter a valid email address.');
         return;
     }
-  
-    // Sign in with Firebase Authentication
+
+    // Firebase sign-in
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            alert('Login is Successful');
             const user = userCredential.user;
-            localStorage.setItem("logged In userId", user.uid);
+            
+            // No check for email verification, just proceed to index.html
+            localStorage.setItem("loggedInUserId", user.uid);
             window.location.href = 'index.html';
         })
         .catch((error) => {
-            const errorCode = error.code;
-  
-            // Handle different Firebase authentication errors
-            if (errorCode === 'auth/wrong-password') {
-                alert('Invalid password. Please try again.');
-            } else if (errorCode === 'auth/user-not-found') {
-                alert('No account found with this email address.');
-            } else if (errorCode === 'auth/invalid-email') {
+            console.log('Firebase Error Code:', error.code);  // Log the error code
+            console.log('Firebase Error Message:', error.message);  // Log the error message
+            console.log(error);  // Log the full error
+
+            if (error.code === 'auth/wrong-password') {
+                alert('Incorrect password. Please try again.');
+            } else if (error.code === 'auth/invalid-email') {
                 alert('The email address is not valid.');
-            } else if (errorCode === 'auth/too-many-requests') {
+            } else if (error.code === 'auth/too-many-requests') {
                 alert('Too many login attempts. Please try again later.');
+            } else if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found') {
+                alert('No account found with this email address. Please check your email or sign up.');
             } else {
                 alert('Login Failed: ' + error.message);
             }
         });
-  });
-  
+});
