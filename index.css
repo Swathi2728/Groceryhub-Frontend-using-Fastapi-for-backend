@@ -264,4 +264,84 @@ button a{
 .hub{
     color: #636AE8;
 }
+.contactcontainer{
+    height:700px
+}
+.h2c{
+    text-align: center;
+    font-size: 45px;
+    font-weight: 600;
+}
+.formcontainer{
+    margin-left:100px;
+    margin-top: 60px;
+}
+.label{
+  font-size: 25px;
+  font-weight: bold;
 
+}
+.input{
+    margin-left:20px;
+   margin-bottom: 50px;
+   width:370px;
+   height:30px;
+   border-color: #636AE8;
+   border-style: solid;
+   border-radius: 7px;
+}
+.msgtxt{
+    border-color: #636AE8;
+    border-style: solid;
+    border-radius: 7px;
+    border-width: 2px;
+    margin-left:25px;
+}
+.cbtn{
+   width:180px;
+   height:40px;
+   border-radius: 50px;
+   margin-top: 20px;
+   color:white;
+   font-weight: 600;
+   font-size: 18px;
+  
+
+}
+section{
+    height:400px;
+    background-color:#f9fafa;
+}
+.footercontainer{
+    display:flex;
+    gap:100px;
+    margin-top:70px;
+   
+    justify-content: space-around;
+
+}
+.h3{
+    font-size: 24px;
+    margin-bottom:20px;
+}
+a{
+    list-style-type: none;
+    text-decoration: none;
+    color:#000;
+}
+.flexitem{
+    color:#000;
+    font-size: 23px;
+    font-weight: 500;
+}
+footer{
+    font-size: 20px;
+    text-align: center;
+    height:30px;
+    background-color: #f9fafa;
+}
+.head3{
+    text-align: center;
+    font-size: 38px;
+    font-weight: 600;
+}

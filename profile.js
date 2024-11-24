@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -14,59 +13,83 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app); // Initialize Firebase Auth
 const db = getFirestore(app); // Initialize Firestore
 
-// Check authentication state
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    console.log("User logged in:", user);
-    try {
-      await loadUserProfile(user.uid);  // Load user profile using their UID
-    } catch (error) {
-      console.error("Error loading user profile:", error);
-    }
-  } else {
-    console.log("No user logged in");
-    window.location.href = 'login.html'; // Redirect to login page if no user is logged in
-  }
-});
-
 // Load user profile data from Firestore
 const loadUserProfile = async (uid) => {
-  const userRef = doc(db, 'users', uid); // Reference to the user's document in Firestore
+    const userRef = doc(db, 'users', uid); // Reference to the user's document in Firestore
 
-  try {
-    const docSnap = await getDoc(userRef);
-    if (docSnap.exists()) {
-      const userData = docSnap.data();
-      displayProfile(userData);
-    } else {
-      console.log("No user data found");
+    try {
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+            const userData = docSnap.data();
+            displayProfile(userData);
+        } else {
+            console.log("No user data found");
+        }
+    } catch (error) {
+        console.error("Error getting document:", error);
     }
-  } catch (error) {
-    console.error("Error getting document:", error);
-    throw error; // Re-throw the error to handle it in the calling function
-  }
 };
 
 // Display the profile data on the page
 const displayProfile = (userData) => {
-  document.getElementById('first-name').textContent = userData.firstname;
-  document.getElementById('last-name').textContent = userData.lastname;
-  document.getElementById('email').textContent = userData.email;
+    document.getElementById('first-name').value = userData.firstName || '';
+    document.getElementById('last-name').value = userData.lastName || '';
+    document.getElementById('email').value = userData.email || '';
 };
+
+// Update profile data
+const updateUserProfile = async () => {
+    const firstName = document.getElementById('first-name').value;
+    const lastName = document.getElementById('last-name').value;
+    const email = document.getElementById('email').value;
+
+    if (firstName && lastName && email) {
+        const user = auth.currentUser;
+        if (user) {
+            try {
+                const userRef = doc(db, 'users', user.uid);
+                await setDoc(userRef, {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email
+                }, { merge: true }); // Merge updates without overwriting entire document
+                console.log('Profile updated successfully');
+                alert('Profile updated successfully');
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                alert('Failed to update profile. Please try again.');
+            }
+        }
+    } else {
+        alert('Please fill out all fields');
+    }
+};
+
+// Check if the user is logged in and load the profile
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        const uid = user.uid; // Get the user UID
+        loadUserProfile(uid);
+    } else {
+        window.location.href = 'login.html'; // Redirect to login page if user is not logged in
+    }
+});
 
 // Logout function
 document.getElementById('logout-btn').addEventListener('click', () => {
-  signOut(auth)
-    .then(() => {
-      console.log("User logged out");
-      window.location.href = 'login.html';
-    })
-    .catch((error) => {
-      console.error("Error logging out:", error);
-    });
+    signOut(auth)
+        .then(() => {
+            console.log("User logged out");
+            window.location.href = 'login.html'; // Redirect to login page after logout
+        })
+        .catch((error) => {
+            console.error("Error logging out:", error);
+        });
 });
+
+// Add an event listener to handle profile updates
+document.getElementById('update-profile-btn').addEventListener('click', updateUserProfile);
