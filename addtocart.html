@@ -6,56 +6,12 @@
     <title>Shopping Cart</title>
     <script type="module" src="fetchdata.js"></script>
     <!-- Add your cart CSS here -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .cart-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .cart-item {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff;
-        }
-        .cart-item img {
-            max-width: 100px;
-        }
-        .cart-item div {
-            flex: 1;
-        }
-        .cart-item .total {
-            font-weight: bold;
-        }
-        .cart-total {
-            padding-top: 20px;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .remove-btn {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .remove-btn:hover {
-            background-color: darkred;
-        }
-    </style>
+     <link rel="stylesheet" href="addcart.css">
+   
 </head>
 <body>
+    <h1>Shopping Cart </h1>
+    <button class="cbtn"><a href="index.html" >Continue shopping</a></button>
 
     <div class="cart-container" id="cart-container">
         <!-- Cart items will be displayed here -->

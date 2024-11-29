@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -13,7 +14,20 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth();
 
+
+auth.onAuthStateChanged(user => {
+    if (user) {
+        fetchGroceryData()
+        // If user is authenticated, call the fetchVegetables function
+    ;
+    } else {
+      // If user is not authenticated, show a message and redirect to login
+      alert('You must be logged in to view the products.');
+      window.location.href = 'login.html'; // Redirect to login page
+    }
+  });
 
 
 // Function to generate product HTML
