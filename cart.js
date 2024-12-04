@@ -1,38 +1,67 @@
-// Function to display items in the cart
-function displayCartItems() {
-    const cartContainer = document.getElementById('cart-container');
-    const cartTotal = document.getElementById('cart-total');
+// Import necessary Firebase modules
+// Import necessary Firebase modules
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 
-    // Get cart data from localStorage
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCo5NR_s6Pbd_ZypP_5tgp2joEHmA7RcT8",
+    authDomain: "login-form-9e415.firebaseapp.com",
+    projectId: "login-form-9e415",
+    storageBucket: "login-form-9e415.appspot.com",
+    messagingSenderId: "900436401273",
+    appId: "1:900436401273:web:d09d181852913621e048a8"
+};
 
-    // If the cart is empty, display a message
-    if (cart.length === 0) {
-        cartContainer.innerHTML = '<p>Your cart is empty!</p>';
-        cartTotal.innerHTML = '';
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app); // Initialize Firebase Authentication
+
+// Function to display the cart
+// Function to display the cart
+function displayCart(user) {
+    console.log('User:', user); // Check if user is logged in
+
+    if (!user) {
+        alert('Please log in to view your cart.');
+        window.location.href = 'login.html'; // Redirect to login if not logged in
         return;
     }
 
-    // Clear the current cart container
+    const userEmail = user.email.replace('.', '_'); // Replace '.' with '_' for the key
+    console.log("Storing and retrieving cart with key:", userEmail); // Log the key used for localStorage
+
+    // Get cart data from localStorage using the user's email as the key
+    const cart = JSON.parse(localStorage.getItem(userEmail)) || [];
+    console.log('Cart data:', cart); // Check if cart data is retrieved
+
+    // Get the cart container where you want to display cart items
+    const cartContainer = document.getElementById('cart-container');
+    if (!cartContainer) {
+        console.error("No element with id 'cart-container' found.");
+        return;
+    }
+
+    // Clear any existing cart content
     cartContainer.innerHTML = '';
 
     let totalPrice = 0;
 
-    // Loop through each item in the cart and display it
+    // Display each item in the cart
     cart.forEach((item, index) => {
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('cart-item');
 
-        // Item details
-        cartItem.innerHTML = `
+        // HTML for displaying item name, image, weight, price, and quantity
+        itemDiv.innerHTML = `
             <div>
                 <h2>${item.name}</h2>
                 <p class="weight">Weight: ${item.weight}</p>
                 <p class="price">Price: ₹${item.price}</p>
                 <p class="price">Quantity: 
-                    <button class="quantity-btn decrease" data-index="${index}" id="btn" >-</button>
+                    <button class="quantity-btn decrease" data-index="${index}">-</button>
                     <span class="quantity">${item.quantity}</span>
-                    <button class="quantity-btn increase" data-index="${index}" id="btn"   >+</button>
+                    <button class="quantity-btn increase" data-index="${index}">+</button>
                 </p>
                 <p class="total">Total: ₹${item.price * item.quantity}</p>
                 <button class="remove-btn" data-index="${index}">Remove</button>
@@ -42,66 +71,119 @@ function displayCartItems() {
             </div>
         `;
 
-        // Add the item to the cart container
-        cartContainer.appendChild(cartItem);
+        cartContainer.appendChild(itemDiv);
 
-        // Update the total price
+        // Calculate the total price
         totalPrice += item.price * item.quantity;
+    });
 
-        // Add event listeners for increasing and decreasing quantity
-        const increaseButton = cartItem.querySelector('.increase');
-        const decreaseButton = cartItem.querySelector('.decrease');
-        
-        increaseButton.addEventListener('click', () => {
-            updateQuantity(index, item.quantity + 1); // Increase the quantity
-        });
-        
-        decreaseButton.addEventListener('click', () => {
-            if (item.quantity > 1) { // Ensure quantity doesn't go below 1
-                updateQuantity(index, item.quantity - 1); // Decrease the quantity
-            }
-        });
+    // Display the total price at the bottom
+    const totalDiv = document.getElementById('cart-total');
+    if (totalDiv) {
+        totalDiv.innerHTML = `Total Price: ₹${totalPrice.toFixed(2)}`;
+    }
 
-        // Add event listener to the remove button
-        const removeButton = cartItem.querySelector('.remove-btn');
-        removeButton.addEventListener('click', () => {
-            removeItemFromCart(index);
+    // Attach event listeners for the dynamically added buttons
+    const decreaseButtons = cartContainer.querySelectorAll('.decrease');
+    const increaseButtons = cartContainer.querySelectorAll('.increase');
+    const removeButtons = cartContainer.querySelectorAll('.remove-btn');
+
+    decreaseButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const index = e.target.getAttribute('data-index');
+            updateQuantity(index, 'decrease');
         });
     });
 
-    // Display the total price
-    cartTotal.textContent = `Total Price: ₹${totalPrice.toFixed(2)}`;
+    increaseButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const index = e.target.getAttribute('data-index');
+            updateQuantity(index, 'increase');
+        });
+    });
+
+    removeButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const index = e.target.getAttribute('data-index');
+            removeFromCart(index);
+        });
+    });
 }
 
-// Function to update the quantity of an item in the cart
-function updateQuantity(index, newQuantity) {
+// Function to remove item from the cart
+function removeFromCart(index) {
+    const user = auth.currentUser; // Get the current authenticated user
+    if (!user) {
+        alert('Please log in to modify your cart.');
+        return;
+    }
+
+    const userEmail = user.email.replace('.', '_'); // Replace '.' with '_'
+
     // Get cart data from localStorage
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem(userEmail)) || [];
 
-    // Update the quantity of the item
-    cart[index].quantity = newQuantity;
-
-    // Save the updated cart to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Re-display the cart after updating the quantity
-    displayCartItems();
-}
-
-// Function to remove an item from the cart
-function removeItemFromCart(index) {
-    // Get cart data from localStorage
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // Remove the item from the cart array
+    // Remove the item from the cart by index
     cart.splice(index, 1);
 
     // Save the updated cart to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem(userEmail, JSON.stringify(cart));
 
-    // Re-display the cart after removal
-    displayCartItems();
+    // Refresh the cart page to reflect changes
+    displayCart(user);
 }
 
-// Call the displayCartItems function when the page loads
-document.addEventListener('DOMContentLoaded', displayCartItems);
+// Function to update quantity (increase or decrease)
+function updateQuantity(index, action) {
+    const user = auth.currentUser; // Get the current authenticated user
+    if (!user) {
+        alert('Please log in to modify your cart.');
+        return;
+    }
+
+    const userEmail = user.email.replace('.', '_'); // Replace '.' with '_'
+
+    // Get cart data from localStorage
+    let cart = JSON.parse(localStorage.getItem(userEmail)) || [];
+
+    // Find the item in the cart
+    const item = cart[index];
+
+    if (action === 'increase') {
+        item.quantity += 1;
+    } else if (action === 'decrease' && item.quantity > 1) {
+        item.quantity -= 1;
+    }
+
+    // Save the updated cart to localStorage
+    localStorage.setItem(userEmail, JSON.stringify(cart));
+
+    // Refresh the cart page to reflect changes
+    displayCart(user);
+}
+
+// Function to log out the user
+function logout() {
+    const user = auth.currentUser;
+    if (user) {
+        // Optionally, you can clear the user's cart when they log out
+        localStorage.removeItem(user.email.replace('.', '_')); // Clear the cart from localStorage
+
+        // Sign out the user
+        signOut(auth).then(() => {
+            alert('Logged out successfully!');
+            window.location.href = 'login.html'; // Redirect to login page
+        }).catch(error => {
+            console.error('Logout error: ', error);
+        });
+    }
+}
+
+// Monitor the authentication state
+onAuthStateChanged(auth, (user) => {
+    // Once the authentication state is determined, call displayCart
+    displayCart(user);
+    console.log('Auth state changed:', user); // Check if auth state changes
+});
+
+

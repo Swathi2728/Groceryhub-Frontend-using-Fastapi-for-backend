@@ -1,6 +1,7 @@
 // Import Firebase modules from Firebase SDK v9 and above
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -15,7 +16,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
+const auth = getAuth(app); // Initialize Firebase Authentication
 
 
 // Fetch the data
@@ -104,14 +105,23 @@ function displayVegetables(vegetables) {
     });
 }
 
-// Example addToCart function (using localStorage to store cart)
 function addToCart(name, price, img, weight) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const user = auth.currentUser; // Get the current authenticated user
+    if (!user) {
+        alert('Please log in to add items to your cart.');
+        return;
+    }
+
+    const userEmail = user.email.replace('.', '_'); // Use the user's email as the key for localStorage
+    const cart = JSON.parse(localStorage.getItem(userEmail)) || []; // Retrieve the user's cart from localStorage (or initialize as empty array)
+
+    // Check if the item already exists in the cart
     const existingItem = cart.find(item => item.name === name && item.weight === weight);
 
     if (existingItem) {
-        existingItem.quantity += 1;  // Increment quantity if item is already in the cart
+        existingItem.quantity += 1; // Increment quantity if item is already in the cart
     } else {
+        // Add a new item to the cart
         cart.push({
             name: name,
             price: price,
@@ -121,8 +131,8 @@ function addToCart(name, price, img, weight) {
         });
     }
 
-    // Save updated cart to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
+    // Save the updated cart to localStorage under the user's email
+    localStorage.setItem(userEmail, JSON.stringify(cart));
 
     // Optionally, show a message or redirect
     alert('Product added to cart!');

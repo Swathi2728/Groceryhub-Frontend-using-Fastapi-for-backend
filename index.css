@@ -9,6 +9,8 @@
     justify-content:flex-start;
     align-items: center;
     /* background-color: #f3f4f6; */
+    
+    
 }
 
 .ncontainer{
@@ -91,7 +93,7 @@ button a{
     height:70vh;
     width:98vw;
     margin:5px;
-    margin-top:20px;
+    margin-top:5px;
     border-radius:10px;
  }
  .parentposition{
@@ -345,3 +347,23 @@ footer{
     font-size: 38px;
     font-weight: 600;
 }
+.carticon{
+    margin-left:20px;
+    font-size:35px;
+
+}
+.signin{
+  margin-left: 20px;
+  width:70px;
+  height:30px;
+}
+/* .profileicon{
+   
+    font-size:35px;
+   
+} */
+ .fa-solid{
+    font-size:30px;
+    color:#636AE8;
+    margin-left: 20px;
+ }

@@ -14,20 +14,22 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth();
+const auth = getAuth(app); // Initialize Firebase Authentication
+
+// const auth = getAuth();
 
 
-auth.onAuthStateChanged(user => {
-    if (user) {
-        fetchGroceryData()
-        // If user is authenticated, call the fetchVegetables function
-    ;
-    } else {
-      // If user is not authenticated, show a message and redirect to login
-      alert('You must be logged in to view the products.');
-      window.location.href = 'login.html'; // Redirect to login page
-    }
-  });
+// auth.onAuthStateChanged(user => {
+//     if (user) {
+//         fetchGroceryData()
+//         // If user is authenticated, call the fetchVegetables function
+//     ;
+//     } else {
+//       // If user is not authenticated, show a message and redirect to login
+//       alert('You must be logged in to view the products.');
+//       window.location.href = 'login.html'; // Redirect to login page
+//     }
+//   });
 
 
 // Function to generate product HTML
@@ -122,7 +124,7 @@ function displayNewProducts(products, container) {
     head3.classList.add('container3');
 
     const categoryTitle = document.createElement('h2');
-    categoryTitle.textContent = "New Products";
+    categoryTitle.textContent = "Best sellers";
     categoryTitle.classList.add('head2');
     categoryDiv.appendChild(categoryTitle);
 
@@ -161,7 +163,7 @@ function displayNewProducts(products, container) {
         });
         itemHTML2 += `</select><br>`;
 
-        itemHTML2 += `<button class="shop-now" id="shop-now-${item.name}" >Add to cart</button>`;
+        itemHTML2 += `<button class="shop-now" id="shop-now-${item.name}"  >Add to cart</button> <br>`;
 
         // Add the itemHTML to the itemDiv
         div2.innerHTML = itemHTML2;
@@ -228,14 +230,24 @@ function showAddedMessage() {
 }
 
 // Assuming addToCart is defined somewhere, here is an example implementation of addToCart():
+// Example addToCart function (using localStorage to store cart)
 function addToCart(name, price, img, weight) {
-    // Use localStorage to store cart data temporarily (or Firestore if needed)
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const user = auth.currentUser; // Get the current authenticated user
+    if (!user) {
+        alert('Please log in to add items to your cart.');
+        return;
+    }
+  
+    const userEmail = user.email.replace('.', '_'); // Use the user's email as the key for localStorage
+    const cart = JSON.parse(localStorage.getItem(userEmail)) || []; // Retrieve the user's cart from localStorage (or initialize as empty array)
+  
+    // Check if the item already exists in the cart
     const existingItem = cart.find(item => item.name === name && item.weight === weight);
-
+  
     if (existingItem) {
-        existingItem.quantity += 1;  // Increment quantity
+        existingItem.quantity += 1; // Increment quantity if item is already in the cart
     } else {
+        // Add a new item to the cart
         cart.push({
             name: name,
             price: price,
@@ -244,11 +256,14 @@ function addToCart(name, price, img, weight) {
             quantity: 1
         });
     }
-
-    // Save updated cart to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-    showAddedMessage();
-}
+  
+    // Save the updated cart to localStorage under the user's email
+    localStorage.setItem(userEmail, JSON.stringify(cart));
+  
+    // Optionally, show a message or redirect
+    alert('Product added to cart!');
+    window.location.href = 'addtocart.html'; // Redirect to the cart page
+  }
 
 
 

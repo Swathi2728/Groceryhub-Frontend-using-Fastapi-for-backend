@@ -40,7 +40,7 @@ const uploadSnacksFromJSON = async () => {
       }
     }
 
-    alert('All snacks have been successfully uploaded to Firestore!');
+    // alert('All snacks have been successfully uploaded to Firestore!');
   } catch (error) {
     console.error('Error uploading snacks:', error);
     alert('Error uploading snacks!');

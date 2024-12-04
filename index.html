@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
+
+
 <body>
     <header>
         <div class="hcontainer">
@@ -22,7 +24,7 @@
             </div>
             <div class="ncontainer">
                 <div class="home">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                 </div>
                 <div class="home">
                     <li><a href="#about">About us</a></li>
@@ -32,7 +34,7 @@
                 </div>
             </div>
             <div>
-                <input type="text" placeholder="Search for product" class="search">
+                <input type="text" placeholder="Search for product" class="search" id="searchBar">
                 <select name="category" id="category">
                     <option>Shop by category</option>
                     <option value="fruits.html">Fruits</option>
@@ -40,9 +42,9 @@
                     <option value="snacks.html">Snacks</option>
                     <option value="dairy.html">Dairy</option>
                 </select>
-                <button><a href="login.html">Sign In</a></button>
+                <button class="signin"><a href="login.html" >Sign In</a></button>
                 <a href="addtocart.html">
-                    <i class="fa-solid fa-bag-shopping fa-xl" style="color: #636ae8;"></i>
+                    <i class="fa-solid fa-bag-shopping fa-xl- carticon" style="color: #636ae8;"></i>
                 </a>
                 <a href="profile.html">
                     <i class="fa-solid fa-user"></i>
@@ -147,7 +149,7 @@
         </form>
     </div>
     <section>
-        <h2 class="head3">Product details and Quick contact links</h2>
+        <!-- <h2 class="head3">Product details and Quick contact links</h2> -->
         <div class="footercontainer">
         <div class="flexitem">
         <h3 class="h3">Groceryhub</h3>
@@ -181,7 +183,7 @@
     </section>
     <footer> Copyright&copy; 2023-2025 Supermarket Grocery Supplies PVT LTD</footer>
     
-    <script>
+     <script>
         // For direct redirection when category is selected
         document.getElementById('category').addEventListener('change', function () {
             var value = this.value;
@@ -189,7 +191,10 @@
                 window.location.href = value;  // Navigate to the selected category
             }
         });
-    </script>
+        
+   </script>
+      
+           
 
 
 </body>
