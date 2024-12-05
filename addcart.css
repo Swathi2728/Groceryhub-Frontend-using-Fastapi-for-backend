@@ -84,3 +84,16 @@ h1{
     margin-top:10px;
     margin-left:10px;
 }
+.checkout-btn{
+    background-color: #636AE8;
+    border-radius: 5px;
+    border-color: #636AE8;
+    border-style: solid;
+    height:30px;
+    width:150px;
+    color:white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 1300px;
+    margin-top:30px
+}

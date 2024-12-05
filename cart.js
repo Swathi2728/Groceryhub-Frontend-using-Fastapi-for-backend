@@ -18,7 +18,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app); // Initialize Firebase Authentication
 
 // Function to display the cart
-// Function to display the cart
 function displayCart(user) {
     console.log('User:', user); // Check if user is logged in
 
@@ -37,6 +36,8 @@ function displayCart(user) {
 
     // Get the cart container where you want to display cart items
     const cartContainer = document.getElementById('cart-container');
+    const emptyCartMessage = document.getElementById('empty-cart-message'); // Assuming this is the element for empty cart message
+
     if (!cartContainer) {
         console.error("No element with id 'cart-container' found.");
         return;
@@ -44,6 +45,19 @@ function displayCart(user) {
 
     // Clear any existing cart content
     cartContainer.innerHTML = '';
+
+    // Check if cart is empty and show the message
+    if (cart.length === 0) {
+        if (emptyCartMessage) {
+            emptyCartMessage.style.display = 'block'; // Show the empty cart message
+        }
+        return; // Exit the function if the cart is empty
+    }
+
+    // Hide the empty cart message if there are items
+    if (emptyCartMessage) {
+        emptyCartMessage.style.display = 'none';
+    }
 
     let totalPrice = 0;
 
@@ -110,6 +124,8 @@ function displayCart(user) {
     });
 }
 
+
+
 // Function to remove item from the cart
 function removeFromCart(index) {
     const user = auth.currentUser; // Get the current authenticated user
@@ -150,7 +166,12 @@ function updateQuantity(index, action) {
     const item = cart[index];
 
     if (action === 'increase') {
-        item.quantity += 1;
+        if (item.quantity < 10) {
+            item.quantity += 1; // Increment quantity if item is already in the cart
+        } else {
+            alert('Maximum quantity of 10 reached for this item.');
+            return;
+        }
     } else if (action === 'decrease' && item.quantity > 1) {
         item.quantity -= 1;
     }
@@ -179,11 +200,44 @@ function logout() {
     }
 }
 
+function checkout() {
+    const user = auth.currentUser; // Get the current authenticated user
+    if (!user) {
+        alert('Please log in to proceed with checkout.');
+        window.location.href = 'login.html'; // Redirect to login if not logged in
+        return;
+    }
+
+    const userEmail = user.email.replace('.', '_'); // Replace '.' with '_'
+
+    // Get cart data from localStorage
+    const cart = JSON.parse(localStorage.getItem(userEmail)) || [];
+
+    if (cart.length === 0) {
+        alert('Your cart is empty.');
+        return;
+    }
+
+    // Save the cart data to sessionStorage (or localStorage) for the order page
+    sessionStorage.setItem('orderItems', JSON.stringify(cart));
+
+    // Do not clear the cart here; wait until payment is completed
+
+    // Redirect to the order page (payment page)
+    window.location.href = 'order.html'; // Replace 'order.html' with your order page URL
+}
+
+// Add event listener to the checkout button
+const checkoutButton = document.querySelector('.checkout-btn');
+if (checkoutButton) {
+    checkoutButton.addEventListener('click', checkout);
+}
+
 // Monitor the authentication state
 onAuthStateChanged(auth, (user) => {
-    // Once the authentication state is determined, call displayCart
     displayCart(user);
-    console.log('Auth state changed:', user); // Check if auth state changes
+    console.log('Auth state changed:', user);
 });
+
 
 

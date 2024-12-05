@@ -10,9 +10,20 @@
 
    
 </head>
+<style>
+#empty-cart-message {
+    display: none; /* Hide by default */
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+</style>
 <body>
     <h1>Shopping Cart </h1>
     <button class="cbtn"><a href="index.html" >Continue shopping</a></button>
+    <div id="empty-cart-message">Your cart is empty</div>
 
     <div class="cart-container" id="cart-container">
         <!-- Cart items will be displayed here -->
@@ -22,7 +33,7 @@
     <div class="cart-total" id="cart-total">
         <!-- Total price will be injected here -->
     </div>
-    <button class="checkout-btn">Proceed to Checkout</button>
+    <button class="checkout-btn">Checkout</button>
 
     
     <!-- Include the JavaScript files -->

@@ -18,26 +18,29 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app); // Initialize Firebase Authentication
 
+let fruits = []; // Global fruits array
+
 // Fetch the data
 async function fetchFruits() {
     const fruitsRef = collection(db, 'fruits'); // Firestore collection reference
     const snapshot = await getDocs(fruitsRef); // Get documents in the 'fruits' collection
-    const fruits = snapshot.docs.map(doc => doc.data()); // Map documents to data
+    fruits = snapshot.docs.map(doc => doc.data()); // Use the global fruits array
 
-    displayFruits(fruits); // Call the function to display fruits
+    // Check if fruits array is empty and display a message or fruits
+    if (fruits.length === 0) {
+        displayNoFruits();
+    } else {
+        displayFruits(fruits); // Display all fruits after fetching
+    }
 }
+
 // Display fruits with weight selection, dynamic price change, and Add to Cart button
 function displayFruits(fruits) {
     const container = document.getElementById('fruits-container');
+    container.innerHTML = ''; // Clear any previous fruits displayed
+
     fruits.forEach(fruit => {
         const fruitElement = document.createElement('div');
-        // fruitElement.style.border = '1px solid #ccc';
-        // fruitElement.style.margin = '10px';
-        // fruitElement.style.padding = '10px';
-        // fruitElement.classList.add('maindiv')
-
-        // Create fruit name
-    
 
         // Add fruit image
         const img = document.createElement('img');
@@ -45,7 +48,7 @@ function displayFruits(fruits) {
         img.alt = fruit.name;
         img.style.width = '200px';
         img.style.height = '200px';
-        img.style.borderRadius='5px';
+        img.style.borderRadius = '5px';
         fruitElement.appendChild(img);
 
         const name = document.createElement('h2');
@@ -57,23 +60,20 @@ function displayFruits(fruits) {
         priceDisplay.innerText = 'Price: ' + fruit.price[fruit.kilogram[0]]; // Default to first weight option
         fruitElement.appendChild(priceDisplay);
 
-
         // Create dropdown for weight options
         const weightSelect = document.createElement('select');
-        weightSelect.classList.add('weight-select'); // Add a class for styling if needed
+        weightSelect.classList.add('weight-select');
         fruit.kilogram.forEach(weight => {
             const option = document.createElement('option');
             option.value = weight;
             option.innerText = weight;
-            weightSelect.appendChild(option);`br`
+            weightSelect.appendChild(option);
         });
-
         fruitElement.appendChild(weightSelect);
-        const lineBreak = document.createElement('br'); // Create <br> tag
-        fruitElement.appendChild(lineBreak); 
 
-        // Create price display (initial price will be based on the first option)
-        
+        const lineBreak = document.createElement('br');
+        fruitElement.appendChild(lineBreak);
+
         // Update the price when weight is changed
         weightSelect.addEventListener('change', function () {
             const selectedWeight = weightSelect.value;
@@ -84,27 +84,12 @@ function displayFruits(fruits) {
         // Create Add to Cart button
         const addToCartButton = document.createElement('button');
         addToCartButton.innerText = 'Add to Cart';
-        addToCartButton.classList.add('add-to-cart'); // Add class for styling if needed
+        addToCartButton.classList.add('add-to-cart');
         fruitElement.appendChild(addToCartButton);
-        // const addToCartButton1 = document.createElement('button');
-        // addToCartButton1.innerText = 'Add to Cart';
-        // addToCartButton1.classList.add('add-to-cart'); // Add class for styling if needed
-        // fruitElement.appendChild(addToCartButton1);
 
-        // Handle Add to Cart button click
         addToCartButton.addEventListener('click', function () {
-            const selectedWeight = weightSelect.value; // Get selected weight
-            const selectedPrice = fruit.price[selectedWeight]; // Get price for selected weight
-
-            // Log or perform action to add item to cart (for now we will just log the info)
-            console.log('Added to cart:', {
-                name: fruit.name,
-                price: selectedPrice,
-                weight: selectedWeight,
-                img: fruit.img
-            });
-
-            // You can also add the item to a shopping cart here, for example:
+            const selectedWeight = weightSelect.value;
+            const selectedPrice = fruit.price[selectedWeight];
             addToCart(fruit.name, selectedPrice, fruit.img, selectedWeight);
         });
 
@@ -113,6 +98,12 @@ function displayFruits(fruits) {
     });
 }
 
+function displayNoFruits() {
+    const container = document.getElementById('fruits-container');
+    container.innerHTML = '<p>No fruits available at the moment. Please check back later.</p>';
+}
+
+// Add item to cart
 function addToCart(name, price, img, weight) {
     const user = auth.currentUser; // Get the current authenticated user
     if (!user) {
@@ -123,13 +114,16 @@ function addToCart(name, price, img, weight) {
     const userEmail = user.email.replace('.', '_'); // Use the user's email as the key for localStorage
     const cart = JSON.parse(localStorage.getItem(userEmail)) || []; // Retrieve the user's cart from localStorage (or initialize as empty array)
 
-    // Check if the item already exists in the cart
     const existingItem = cart.find(item => item.name === name && item.weight === weight);
 
     if (existingItem) {
-        existingItem.quantity += 1; // Increment quantity if item is already in the cart
+        if (existingItem.quantity < 10) {
+            existingItem.quantity += 1; // Increment quantity if item is already in the cart
+        } else {
+            alert('Maximum quantity of 10 reached for this item And already in cart');
+            return;
+        }
     } else {
-        // Add a new item to the cart
         cart.push({
             name: name,
             price: price,
@@ -139,13 +133,36 @@ function addToCart(name, price, img, weight) {
         });
     }
 
-    // Save the updated cart to localStorage under the user's email
     localStorage.setItem(userEmail, JSON.stringify(cart));
 
-    // Optionally, show a message or redirect
     alert('Product added to cart!');
-    window.location.href = 'addtocart.html'; // Redirect to the cart page
+    window.location.href = 'addtocart.html'; // Redirect to cart page
 }
+
+// Search function for filtering fruits by name
+function searchFruits(searchTerm) {
+    // Check if fruits array is populated
+    if (fruits.length === 0) {
+        alert("No fruits available for search. Please wait until the data is fetched.");
+        return;
+    }
+
+    const filteredFruits = fruits.filter(fruit => {
+        return fruit.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    if (filteredFruits.length === 0) {
+        alert("No items found matching your search.");
+    } else {
+        displayFruits(filteredFruits);  // Display filtered fruits
+    }
+}
+
+// Event listener for search input
+document.getElementById('search-bar').addEventListener('input', function (event) {
+    const searchTerm = event.target.value;  // Get the search term from the input field
+    searchFruits(searchTerm); // Filter and display fruits based on search term
+});
 
 // Call the function to fetch and display fruits
 fetchFruits();

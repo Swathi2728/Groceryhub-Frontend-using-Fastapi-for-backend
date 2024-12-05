@@ -35,7 +35,7 @@
                 </div> -->
             </div>
             <div>
-                <input type="text" placeholder="Search for product" class="search" id="searchBar">
+                <input type="text" placeholder="Search for product" class="search" id="search-bar">
                 <select name="category" id="category">
                     <option>Shop by category</option>
                     <option value="fruits.html">Fruits</option>
@@ -53,8 +53,10 @@
             </div>
         </div>
     </header>
-    <h1>Fruits</h1>
+    <h1 class="h1head">Fruits</h1>
     <div id="fruits-container"></div>
+    <div id="results"></div>
+
     <script>
         // For direct redirection when category is selected
         document.getElementById('category').addEventListener('change', function () {
@@ -63,6 +65,8 @@
                 window.location.href = value;  // Navigate to the selected category
             }
         });
+
+      
         
    </script>
     

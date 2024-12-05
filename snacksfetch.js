@@ -11,11 +11,13 @@ const firebaseConfig = {
   messagingSenderId: "900436401273",
   appId: "1:900436401273:web:d09d181852913621e048a8"
 };
-// Initialize Firebase
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app); // Initialize Firebase Authentication
+
+let allSnacks = []; // Store all snacks data
 
 // Fetch the data
 async function fetchSnacks() {
@@ -25,19 +27,17 @@ async function fetchSnacks() {
     if (snapshot.empty) {
         console.log('No snacks found in Firestore');
     } else {
-        const snacks = snapshot.docs.map(doc => doc.data());
-        console.log('Snacks fetched:', snacks);
-        displaySnacks(snacks);
+        allSnacks = snapshot.docs.map(doc => doc.data()); // Store all snacks
+        console.log('Snacks fetched:', allSnacks);
+        displaySnacks(allSnacks); // Display all snacks initially
     }
 }
 
 function displaySnacks(snacks) {
     const container = document.getElementById('snacks-container');
+    container.innerHTML = ''; // Clear the container before displaying new snacks
+
     snacks.forEach(snack => {
-        console.log(snack);  // Log the snack object to check the structure
-        console.log('Snack weight:', snack.kilogram); // Log weight array
-        console.log('Snack price:', snack.price);    // Log price map
-        
         const snackElement = document.createElement('div');
         snackElement.classList.add('snack-card');
 
@@ -55,13 +55,12 @@ function displaySnacks(snacks) {
         name.innerText = snack.name;
         snackElement.appendChild(name);
 
-        // Price display (initial price will be based on the first weight option)
+        // Price display (initial price based on the first weight option)
         const priceDisplay = document.createElement('p');
         priceDisplay.classList.add('price');
         
         // Check if 'kilogram' exists and has values
         if (snack.kilogram && Array.isArray(snack.kilogram) && snack.kilogram.length > 0) {
-            // Use the first weight in the array to get the price from the price map
             const firstWeight = snack.kilogram[0];
             priceDisplay.innerText = 'Price: ₹' + snack.price[firstWeight]; // Default to first weight option
         } else {
@@ -81,13 +80,13 @@ function displaySnacks(snacks) {
             });
 
             snackElement.appendChild(weightSelect);
-            const lineBreak = document.createElement('br'); // Create <br> tag
+            const lineBreak = document.createElement('br');
             snackElement.appendChild(lineBreak);
 
             // Update the price when weight is changed
             weightSelect.addEventListener('change', function () {
                 const selectedWeight = weightSelect.value;
-                const selectedPrice = snack.price[selectedWeight]; // Get price from the map using the selected weight
+                const selectedPrice = snack.price[selectedWeight]; // Get price from the map using selected weight
                 priceDisplay.innerText = 'Price: ₹' + selectedPrice; // Update price
             });
 
@@ -99,21 +98,12 @@ function displaySnacks(snacks) {
 
             // Handle Add to Cart button click
             addToCartButton.addEventListener('click', function () {
-                const selectedWeight = weightSelect.value; // Get selected weight
-                const selectedPrice = snack.price[selectedWeight]; // Get price for selected weight
-
-                // Log or perform action to add item to cart
-                console.log('Added to cart:', {
-                    name: snack.name,
-                    price: selectedPrice,
-                    weight: selectedWeight,
-                    img: snack.img
-                });
-
+                const selectedWeight = weightSelect.value;
+                const selectedPrice = snack.price[selectedWeight];
                 addToCart(snack.name, selectedPrice, snack.img, selectedWeight);
             });
         } else {
-            // Fallback if no weight options exist
+            // If no weight options are available, show "Out of stock"
             const addToCartButton = document.createElement('button');
             addToCartButton.innerText = 'Out of stock';
             addToCartButton.disabled = true;
@@ -125,7 +115,6 @@ function displaySnacks(snacks) {
     });
 }
 
-fetchSnacks();
 // Example addToCart function (using localStorage to store cart)
 function addToCart(name, price, img, weight) {
     const user = auth.currentUser; // Get the current authenticated user
@@ -134,29 +123,46 @@ function addToCart(name, price, img, weight) {
         return;
     }
 
-    const userEmail = user.email.replace('.', '_'); // Use the user's email as the key for localStorage
-    const cart = JSON.parse(localStorage.getItem(userEmail)) || []; // Retrieve the user's cart from localStorage (or initialize as empty array)
+    const userEmail = user.email.replace('.', '_');
+    const cart = JSON.parse(localStorage.getItem(userEmail)) || []; // Retrieve user's cart from localStorage
 
-    // Check if the item already exists in the cart
     const existingItem = cart.find(item => item.name === name && item.weight === weight);
-
-    if (existingItem) {
+    if (existingItem) { 
+        if (existingItem.quantity < 10) {
         existingItem.quantity += 1; // Increment quantity if item is already in the cart
     } else {
-        // Add a new item to the cart
-        cart.push({
-            name: name,
-            price: price,
-            img: img,
-            weight: weight,
-            quantity: 1
-        });
+        alert('Maximum quantity of 10 reached for this item And already in cart');
+        return;
+    }
+    } else {
+        // Add new item to the cart
+        cart.push({ name, price, img, weight, quantity: 1 });
     }
 
-    // Save the updated cart to localStorage under the user's email
+    // Save the updated cart to localStorage
     localStorage.setItem(userEmail, JSON.stringify(cart));
 
     // Optionally, show a message or redirect
     alert('Product added to cart!');
     window.location.href = 'addtocart.html'; // Redirect to the cart page
 }
+
+// Handle search functionality
+document.getElementById('search-bar').addEventListener('input', function (e) {
+    const searchQuery = e.target.value.toLowerCase();
+    const filteredSnacks = allSnacks.filter(snack =>
+        snack.name.toLowerCase().includes(searchQuery) ||
+        snack.kilogram.some(weight => weight.toString().includes(searchQuery)) ||
+        Object.values(snack.price).some(price => price.toString().includes(searchQuery))
+    );
+
+    // Display products or show an alert if no matches found
+    if (filteredSnacks.length === 0) {
+        alert('No matches found');
+    } else {
+        displaySnacks(filteredSnacks); // Re-display products based on search query
+    }
+});
+
+// Fetch snacks when the page loads
+fetchSnacks();

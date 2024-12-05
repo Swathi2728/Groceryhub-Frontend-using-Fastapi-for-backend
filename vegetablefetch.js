@@ -18,12 +18,13 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app); // Initialize Firebase Authentication
 
+let vegetables = []; // Global variable to store vegetables
 
 // Fetch the data
 async function fetchVegetables() {
     const vegetablesRef = collection(db, 'vegetables'); // Firestore collection reference for vegetables
     const snapshot = await getDocs(vegetablesRef); // Get documents in the 'vegetables' collection
-    const vegetables = snapshot.docs.map(doc => doc.data()); // Map documents to data
+    vegetables = snapshot.docs.map(doc => doc.data()); // Store data in the global vegetables array
 
     displayVegetables(vegetables); // Call the function to display vegetables
 }
@@ -31,6 +32,8 @@ async function fetchVegetables() {
 // Display vegetables with weight selection, dynamic price change, and Add to Cart button
 function displayVegetables(vegetables) {
     const container = document.getElementById('vegetables-container');
+    container.innerHTML = ''; // Clear previous vegetables
+
     vegetables.forEach(vegetable => {
         const vegetableElement = document.createElement('div');
         vegetableElement.classList.add('vegetable-card');
@@ -75,13 +78,11 @@ function displayVegetables(vegetables) {
             const selectedPrice = vegetable.price[selectedWeight];
             priceDisplay.innerText = 'Price: ₹' + selectedPrice; // Update price
         });
-        
-        
 
         // Create Add to Cart button
         const addToCartButton = document.createElement('button');
         addToCartButton.innerText = 'Add to Cart';
-        addToCartButton.classList.add('add-to-cart')
+        addToCartButton.classList.add('add-to-cart');
         vegetableElement.appendChild(addToCartButton);
 
         // Handle Add to Cart button click
@@ -119,7 +120,12 @@ function addToCart(name, price, img, weight) {
     const existingItem = cart.find(item => item.name === name && item.weight === weight);
 
     if (existingItem) {
-        existingItem.quantity += 1; // Increment quantity if item is already in the cart
+        if (existingItem.quantity < 10) {
+            existingItem.quantity += 1; // Increment quantity if item is already in the cart
+        } else {
+            alert('Maximum quantity of 10 reached for this item And already in cart');
+            return;
+        }
     } else {
         // Add a new item to the cart
         cart.push({
@@ -138,6 +144,26 @@ function addToCart(name, price, img, weight) {
     alert('Product added to cart!');
     window.location.href = 'addtocart.html'; // Redirect to the cart page
 }
+
+// Search function for filtering vegetables by name
+function searchVegetables(searchTerm) {
+    // Filter vegetables by name
+    const filteredVegetables = vegetables.filter(vegetable => 
+        vegetable.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (filteredVegetables.length === 0) {
+        alert("No items found matching your search.");
+    } else {
+        displayVegetables(filteredVegetables); // Display filtered vegetables
+    }
+}
+
+// Event listener for search input
+document.getElementById('search-bar').addEventListener('input', function (event) {
+    const searchTerm = event.target.value; // Get the search term from the input field
+    searchVegetables(searchTerm); // Filter and display vegetables based on search term
+});
 
 // Call the function to fetch and display vegetables
 fetchVegetables();

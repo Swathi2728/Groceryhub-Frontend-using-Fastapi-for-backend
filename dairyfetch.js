@@ -19,18 +19,22 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app); // Initialize Firebase Authentication
 
+let allDairyProducts = []; // To store all the products
+
 // Fetch and display dairy products
 async function fetchDairyProducts() {
   const dairyRef = collection(db, 'dairyProducts'); // Firestore reference for dairy products
   const snapshot = await getDocs(dairyRef); // Get documents in the 'dairyProducts' collection
-  const dairyProducts = snapshot.docs.map(doc => doc.data()); // Map documents to data
+  allDairyProducts = snapshot.docs.map(doc => doc.data()); // Map documents to data
 
-  displayDairyProducts(dairyProducts); // Call the function to display dairy products
+  displayDairyProducts(allDairyProducts); // Call the function to display dairy products
 }
 
 // Display dairy products with weight selection, dynamic price change, and Add to Cart button
 function displayDairyProducts(dairyProducts) {
   const container = document.getElementById('dairy-products-container');
+  container.innerHTML = ''; // Clear previous results
+
   dairyProducts.forEach(product => {
     const productElement = document.createElement('div');
     productElement.classList.add('product-card');
@@ -118,7 +122,12 @@ function addToCart(name, price, img, weight) {
   const existingItem = cart.find(item => item.name === name && item.weight === weight);
 
   if (existingItem) {
+    if (existingItem.quantity < 10) {
       existingItem.quantity += 1; // Increment quantity if item is already in the cart
+  } else {
+      alert('Maximum quantity of 10 reached for this item And already in cart');
+      return;
+  }
   } else {
       // Add a new item to the cart
       cart.push({
@@ -137,6 +146,23 @@ function addToCart(name, price, img, weight) {
   alert('Product added to cart!');
   window.location.href = 'addtocart.html'; // Redirect to the cart page
 }
+
+// Handle search functionality
+document.getElementById('search-bar').addEventListener('input', function (e) {
+  const searchQuery = e.target.value.toLowerCase();
+  const filteredProducts = allDairyProducts.filter(product => 
+    product.name.toLowerCase().includes(searchQuery) || 
+    product.kilogram.some(weight => weight.toString().includes(searchQuery)) || 
+    Object.values(product.price).some(price => price.toString().includes(searchQuery))
+  );
+
+  // Display products or show an alert if no matches
+  if (filteredProducts.length === 0) {
+    alert('No matches found'); // Show alert if no products match the search
+  } else {
+    displayDairyProducts(filteredProducts); // Re-display products based on search query
+  }
+});
 
 // Call the function to fetch and display dairy products
 fetchDairyProducts();
