@@ -129,6 +129,17 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
 
     // Only clear the cart if the user clicks "OK"
     if (isConfirmed) {
+        const orderItems = JSON.parse(sessionStorage.getItem('orderItems')) || [];
+        const order = {
+            date: new Date().toLocaleDateString(), // Format the date as needed
+            status: 'Placed',
+            items: orderItems
+        };
+
+        const userOrders = JSON.parse(localStorage.getItem('userOrders')) || [];
+        userOrders.push(order); // Add the new order to the list of orders
+        localStorage.setItem('userOrders', JSON.stringify(userOrders));
+
         // After payment, clear sessionStorage and localStorage
         sessionStorage.removeItem('orderItems');
 
@@ -142,7 +153,7 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
         // Display success message
         alert('Thank you for your purchase!');
         // Redirect to a thank you page or any other page
-        window.location.href = 'index.html'; // Redirect to your homepage
+        window.location.href = 'ordersummary.html'; // Redirect to your homepage
     } else {
         // If the user clicked "Cancel", simply return without doing anything
         alert('Your order has been canceled');

@@ -18,7 +18,7 @@
     <header>
         <div class="hcontainer">
             <div>
-                <p class="logo">logo</p>
+                <img src="logo.png" width="100px" style="margin-left:10px;" >
             </div>
             <div>
                 <h1 class="title">Grocery <span class="hub">Hub</span></h1>
@@ -43,13 +43,20 @@
                     <option value="snacks.html">Snacks</option>
                     <option value="dairy.html">Dairy</option>
                 </select>
-                <button class="signin"><a href="login.html" >Sign In</a></button>
+                <button class="signin" id="signinButton"><a href="login.html" >Sign In</a></button>
                 <a href="addtocart.html">
                     <i class="fa-solid fa-bag-shopping fa-xl- carticon" style="color: #636ae8;"></i>
                 </a>
-                <a href="profile.html">
-                    <i class="fa-solid fa-user"></i>
-                </a>
+                <div class="profile-dropdown">
+                   
+                    <i class="fa-solid fa-user" id="profileButton"></i>
+                    <div class="dropdown-content" id="dropdownMenu">
+                        <a href="profile.html" id="myAccount">My Account</a>
+                        <a href="ordersummary.html" id="myOrders">My Orders</a>
+                    </div>
+                </div>
+
+            </div>
             </div>
         </div>
     </header>
@@ -65,7 +72,31 @@
                 window.location.href = value;  // Navigate to the selected category
             }
         });
+        const profileButton = document.getElementById('profileButton');
+        const dropdownMenu = document.getElementById('dropdownMenu');
 
+        // Toggle the visibility of the dropdown when the profile button is clicked
+        profileButton.addEventListener('click', function () {
+            dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+        });
+
+        // Event listeners for the dropdown items
+        document.getElementById('myAccount').addEventListener('click', function () {
+            // Redirect to the 'My Account' page
+            window.location.href = 'profile.html';  // Replace with your actual account page URL
+        });
+
+        document.getElementById('myOrders').addEventListener('click', function () {
+            // Redirect to the 'My Orders' page
+            window.location.href = 'ordersummary.html';  // Replace with your actual orders page URL
+        });
+
+        // Optional: Close dropdown if clicked outside
+        window.addEventListener('click', function (event) {
+            if (!profileButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
       
         
    </script>

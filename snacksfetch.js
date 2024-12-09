@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -166,3 +166,12 @@ document.getElementById('search-bar').addEventListener('input', function (e) {
 
 // Fetch snacks when the page loads
 fetchSnacks();
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is logged in
+        document.getElementById('signinButton').style.display = 'none';
+    } else {
+        // User is logged out
+        document.getElementById('signinButton').style.display = 'inline-block';
+    }
+});

@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -306,84 +306,12 @@ async function fetchGroceryData() {
         console.error('Error fetching data: ', error);
     }
 }
-// let allItems = [];
-
-//     // Fetch data from multiple JSON files (fruits, vegetables, snacks)
-//     async function fetchItems() {
-//       const fruitsData = await fetch('fruits.json').then(response => response.json());
-//       const vegetablesData = await fetch('vegetable.json').then(response => response.json());
-//       const snacksData = await fetch('snaks.json').then(response => response.json());
-
-//       // Combine all data into a single array
-//       allItems = [...fruitsData, ...vegetablesData, ...snacksData];
-//       console.log('All items:', allItems);
-
-//       // Initially don't display any items
-//       displayItems([]); // Display an empty array until the user searches
-//     }
-
-//     // Display the items in the dashboard
-//     function displayItems(items) {
-//       const container = document.getElementById('items-container');
-//       container.innerHTML = ''; // Clear existing items
-
-//       if (items.length === 0) {
-//         container.innerHTML = '<p>No items found</p>';
-//         return;
-//       }
-
-//       items.forEach(item => {
-//         const itemElement = document.createElement('div');
-//         itemElement.classList.add('item-card');
-
-//         // Add item image
-//         const img = document.createElement('img');
-//         img.src = item.img;
-//         img.alt = item.name;
-//         itemElement.appendChild(img);
-
-//         // Add item name
-//         const name = document.createElement('h2');
-//         name.innerText = item.name;
-//         itemElement.appendChild(name);
-
-//         // Add item price (assuming price is available)
-//         const priceDisplay = document.createElement('p');
-//         priceDisplay.classList.add('price');
-//         priceDisplay.innerText = item.price ? 'Price: ₹' + Object.values(item.price)[0] : 'Price: ₹0'; // Handle price
-//         itemElement.appendChild(priceDisplay);
-
-//         // Add item details (e.g., collection type or weight)
-//         const weight = document.createElement('p');
-//         weight.innerText = 'Weight options: ' + item.kilogram.join(', ');
-//         itemElement.appendChild(weight);
-
-//         // Append the item to the container
-//         container.appendChild(itemElement);
-//       });
-//     }
-
-//     // Handle search functionality
-//     document.getElementById('search-bar').addEventListener('input', function (e) {
-//       const searchQuery = e.target.value.toLowerCase();
-
-//       // Filter the items based on the search query (name, price, or weight)
-//       const filteredItems = allItems.filter(item =>
-//         item.name.toLowerCase().includes(searchQuery) ||
-//         (item.price && Object.values(item.price).some(price => price.toString().includes(searchQuery))) ||
-//         (item.kilogram && item.kilogram.some(weight => weight.toString().includes(searchQuery)))
-//       );
-
-//       // Display the filtered items
-//       displayItems(filteredItems);
-
-//       // If no matches are found, show an alert or message
-//       if (filteredItems.length === 0) {
-//         console.log('No items found for search query:', searchQuery);
-//       }
-//     });
-
-//     // Call the function to fetch and display items
-//     fetchItems();
-// Event listener for search input
-// Event listener for search input
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is logged in
+        document.getElementById('signinButton').style.display = 'none';
+    } else {
+        // User is logged out
+        document.getElementById('signinButton').style.display = 'inline-block';
+    }
+});

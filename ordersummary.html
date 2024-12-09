@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <style>
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .order-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        .order-item .details {
+            width: 70%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Previous Orders</h1>
+    <div id="orders-container">
+        <!-- Past orders will be dynamically injected here -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch past orders from localStorage
+            const userOrders = JSON.parse(localStorage.getItem('userOrders')) || [];
+
+            const ordersContainer = document.getElementById('orders-container');
+
+            if (userOrders.length === 0) {
+                ordersContainer.innerHTML = '<p>You have no past orders.</p>';
+                return;
+            }
+
+            // Loop through each order and display its details
+            userOrders.forEach((order, orderIndex) => {
+                const orderDiv = document.createElement('div');
+                orderDiv.classList.add('order-item');
+                
+                let orderDetailsHTML = `
+                    <div class="details">
+                        <h2>Order #${orderIndex + 1}</h2>
+                        <p><strong>Order Date:</strong> ${order.date}</p>
+                        <p><strong>Status:</strong> ${order.status}</p>
+                `;
+
+                // Display each item in this particular order
+                order.items.forEach(item => {
+                    orderDetailsHTML += `
+                        <div>
+                            <h3>${item.name}</h3>
+                            <p>Weight: ${item.weight}</p>
+                            <p>Price: ₹${item.price}</p>
+                            <p>Quantity: ${item.quantity}</p>
+                            <p>Total: ₹${item.price * item.quantity}</p>
+                        </div>
+                        <div>
+                            <img src="${item.img}" alt="${item.name}">
+                        </div>
+                    `;
+                });
+
+                orderDetailsHTML += `</div>`;
+
+                orderDiv.innerHTML = orderDetailsHTML;
+                ordersContainer.appendChild(orderDiv);
+            });
+        });
+    </script>
+</body>
+</html>
+

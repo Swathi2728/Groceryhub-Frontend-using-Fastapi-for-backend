@@ -1,7 +1,7 @@
 // Import Firebase modules from Firebase SDK v9 and above
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -167,3 +167,12 @@ document.getElementById('search-bar').addEventListener('input', function (event)
 
 // Call the function to fetch and display vegetables
 fetchVegetables();
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is logged in
+        document.getElementById('signinButton').style.display = 'none';
+    } else {
+        // User is logged out
+        document.getElementById('signinButton').style.display = 'inline-block';
+    }
+});
