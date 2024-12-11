@@ -219,7 +219,7 @@ function checkout() {
     }
 
     // Save the cart data to sessionStorage (or localStorage) for the order page
-    sessionStorage.setItem('orderItems', JSON.stringify(cart));
+    localStorage.setItem('orderItems', JSON.stringify(cart));
 
     // Do not clear the cart here; wait until payment is completed
 
@@ -238,6 +238,3 @@ onAuthStateChanged(auth, (user) => {
     displayCart(user);
     console.log('Auth state changed:', user);
 });
-
-
-

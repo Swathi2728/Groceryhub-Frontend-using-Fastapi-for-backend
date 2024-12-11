@@ -13,17 +13,19 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app); 
+const auth = getAuth(app);
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Fetch the cart data from sessionStorage (or localStorage)
-    const orderItems = JSON.parse(sessionStorage.getItem('orderItems')) || [];
+    // Fetch the cart data from localStorage (or sessionStorage)
+    const orderItems = JSON.parse(localStorage.getItem('orderItems')) || [];
     const orderContainer = document.getElementById('order-container');
     const totalPriceContainer = document.getElementById('total-price-container');
 
     if (orderItems.length === 0) {
-        orderContainer.innerHTML = '<p>Your cart is empty.</p>';
-        totalPriceContainer.innerHTML = ''; // No price display if cart is empty
+        alert('Your cart is empty. Please add items to your cart before proceeding.');
+        
+        // orderContainer.innerHTML = '<p>Your cart is empty.</p>';
+        // totalPriceContainer.innerHTML = ''; // No price display if cart is empty
         return;
     }
 
@@ -72,27 +74,24 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
     let expiryDate = '';
     let cvv = '';
 
-    if (paymentOption === 'credit-debit-card' ) {
+    if (paymentOption === 'credit-debit-card') {
         cardNumber = document.getElementById('card-number').value.trim();
         expiryDate = document.getElementById('expiry-date').value.trim();
         cvv = document.getElementById('cvv').value.trim();
     }
-  
 
-    // Validate Full Name (First letter uppercase, no spaces)
+    // Validation for the payment form
     const fullNameRegex = /^[A-Z][a-z]*([ ]?[A-Z][a-z]*)*$/;
     if (!fullName || !fullNameRegex.test(fullName)) {
         alert('Please enter a valid full name. The first letter should be uppercase, and no spaces in the name.');
         return;
     }
 
-    // Validate required fields (Address, State, City, Zipcode, Payment Option)
     if (!addressLine1 || !state || !city || !zipcode || !paymentOption) {
         alert('Please fill out all the required fields.');
         return;
     }
 
-    // Validate Zipcode (must be exactly 6 digits, no alphabet or spaces)
     const zipcodeRegex = /^[0-9]{6}$/;
     if (!zipcodeRegex.test(zipcode)) {
         alert('Please enter a valid ZIP code with exactly 6 digits.');
@@ -101,21 +100,18 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
 
     // Validate card details if Credit/Debit Card is selected
     if (paymentOption === 'credit-debit-card') {
-        // Credit Card Number (15 to 16 digits)
         const cardNumberRegex = /^[0-9]{15,16}$/;
         if (!cardNumber || !cardNumberRegex.test(cardNumber)) {
             alert('Please enter a valid credit/debit card number (15 to 16 digits).');
             return;
         }
 
-        // Expiry Date (MM/YY format)
         const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
         if (!expiryDate || !expiryDateRegex.test(expiryDate)) {
             alert('Please enter a valid expiry date in the format MM/YY.');
             return;
         }
 
-        // CVV (exactly 3 digits)
         const cvvRegex = /^[0-9]{3}$/;
         if (!cvv || !cvvRegex.test(cvv)) {
             alert('Please enter a valid CVV (3 digits).');
@@ -123,42 +119,50 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
         }
     }
 
-    // Ask for confirmation
+    // Get current logged-in user
+    const user = auth.currentUser;
+    if (!user) {
+        alert('Please log in to view your orders.');
+        window.location.href = 'login.html'; // Redirect if not logged in
+        return;
+    }
+
+    // Confirmation before completing the order
+    
     const isConfirmed = window.confirm('Payment successful! Your order has been placed. Do you want to continue?');
-   
 
-    // Only clear the cart if the user clicks "OK"
     if (isConfirmed) {
-        const orderItems = JSON.parse(sessionStorage.getItem('orderItems')) || [];
+        const userEmail = user.email.replace('.', '_'); // Convert email to a usable key
+        const cartItems = JSON.parse(localStorage.getItem('orderItems')) || [];
+    
         const order = {
-            date: new Date().toLocaleDateString(), // Format the date as needed
+            date: new Date().toLocaleDateString(),
             status: 'Placed',
-            items: orderItems
+            items: cartItems
         };
-
-        const userOrders = JSON.parse(localStorage.getItem('userOrders')) || [];
-        userOrders.push(order); // Add the new order to the list of orders
-        localStorage.setItem('userOrders', JSON.stringify(userOrders));
-
-        // After payment, clear sessionStorage and localStorage
-        sessionStorage.removeItem('orderItems');
-
-        // Optionally clear the localStorage if necessary
-        const user = auth.currentUser;
+    
+        let userOrders = JSON.parse(localStorage.getItem(userEmail + '_orders')) || [];
+        userOrders.push(order);
+    
+        localStorage.setItem(userEmail + '_orders', JSON.stringify(userOrders));
+    
+        // Remove cart items from localStorage after the order is placed
+        localStorage.removeItem('orderItems');  // Clear cart data
         if (user) {
             const userEmail = user.email.replace('.', '_');
             localStorage.removeItem(userEmail); // Remove cart from localStorage
         }
 
-        // Display success message
+    
         alert('Thank you for your purchase!');
-        // Redirect to a thank you page or any other page
-        window.location.href = 'ordersummary.html'; // Redirect to your homepage
+        window.location.href = 'index.html'; // Redirect to home
+
+
     } else {
-        // If the user clicked "Cancel", simply return without doing anything
-        alert('Your order has been canceled');
-        window.location.href = 'index.html';
+        alert('Your order has been canceled.');
+        window.location.href = 'index.html'; // Redirect to home
     }
+    
 });
 
 // Show/hide card details based on payment method selected
@@ -170,4 +174,3 @@ document.getElementById('payment-option').addEventListener('change', function ()
         cardDetailsDiv.style.display = 'none'; // Hide card details
     }
 });
-
