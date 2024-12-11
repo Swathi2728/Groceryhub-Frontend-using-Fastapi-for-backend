@@ -45,12 +45,12 @@
         "name": "Yogurt",
         "img": "https://www.jiomart.com/images/product/original/494303669/milky-mist-cereals-greek-yoghurt-100-g-product-images-o494303669-p609596196-0-202407292358.jpg?im=Resize=(1000,1000)",
         "price": {
-            "1kg": 90,
+            "100g": 20,
             "500g": 50,
             "250g": 25
         },
         "kilogram": [
-            "1kg",
+            "100g",
             "500g",
             "250g"
         ]
@@ -106,9 +106,9 @@
             "250g": 95
         },
         "kilogram": [
-            "1kg",
-            "500g",
-            "250g"
+            "1ltr",
+            "500ml",
+            "250ml"
         ]
     },
     {
@@ -388,9 +388,9 @@
             "250g": 20
         },
         "kilogram": [
-            "1kg",
-            "500g",
-            "250g"
+            "1ltr",
+            "500ml",
+            "250ml"
         ]
     },
     {
