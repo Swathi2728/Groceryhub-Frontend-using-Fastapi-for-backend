@@ -18,6 +18,7 @@
     list-style-type: none;
     font-size: 17px;
     font-weight: bold;
+    gap:30px;
     
 
     
@@ -43,6 +44,7 @@
 }
 .title{
     margin-right: 50px;
+    margin-left: 30px;
 }
 #category{
     background-color: #636AE8;
@@ -275,7 +277,7 @@ button a{
     font-weight: 600;
 }
 .formcontainer{
-    margin-left:100px;
+    margin-left:500px;
     margin-top: 60px;
 }
 .label{
@@ -307,6 +309,7 @@ button a{
    color:white;
    font-weight: 600;
    font-size: 18px;
+   margin-left:110px;
   
 
 }
@@ -367,3 +370,12 @@ footer{
     color:#636AE8;
     margin-left: 20px;
  }
+ .s{
+    margin-left:400px;
+
+ }
+.h{
+    color:#636AE8;
+}
+ 
+ 

@@ -310,8 +310,13 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is logged in
         document.getElementById('signinButton').style.display = 'none';
+        document.getElementById('profileButton').style.display = 'inline-block';
+
+
     } else {
         // User is logged out
         document.getElementById('signinButton').style.display = 'inline-block';
+        document.getElementById('profileButton').style.display = 'none';
+
     }
 });

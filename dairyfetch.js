@@ -144,7 +144,7 @@ function addToCart(name, price, img, weight) {
 
   // Optionally, show a message or redirect
   alert('Product added to cart!');
-  window.location.href = 'addtocart.html'; // Redirect to the cart page
+  // window.location.href = 'addtocart.html'; // Redirect to the cart page
 }
 
 // Handle search functionality

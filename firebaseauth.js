@@ -44,15 +44,15 @@ signup.addEventListener("click", (event) => {
   const spaceCheck = /\s/;  // To check for spaces
 
   // First name validation
-  if (spaceCheck.test(firstName)) {
-    alert("First name must not contain spaces!");
-    return;
-  }
+  // if (spaceCheck.test(firstName)) {
+  //   alert("First name must not contain spaces!");
+  //   return;
+  // }
 
-  if (!/^[A-Z]/.test(firstName)) {
-    alert("First name must start with an uppercase letter!");
-    return;
-  }
+  // if (!/^[A-Z]/.test(firstName)) {
+  //   alert("First name must start with an uppercase letter!");
+  //   return;
+  // }
 
   if (firstName.length < 3 || firstName.length > 30) {
     alert("First name must be between 3 and 30 characters long!");
@@ -70,10 +70,10 @@ signup.addEventListener("click", (event) => {
     return;
   }
 
-  if (!/^[A-Z]/.test(lastName)) {
-    alert("Last name must start with an uppercase letter!");
-    return;
-  }
+  // if (!/^[A-Z]/.test(lastName)) {
+  //   alert("Last name must start with an uppercase letter!");
+  //   return;
+  // }
 
   if (lastName.length < 3 || lastName.length > 30) {
     alert("Last name must be between 3 and 30 characters long!");

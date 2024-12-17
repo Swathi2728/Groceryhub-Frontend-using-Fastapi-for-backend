@@ -44,8 +44,10 @@ auth.onAuthStateChanged((user) => {
         let orderDetailsHTML = `
             <div class="details">
                 <h2>Order #${orderIndex + 1}</h2>
+                <div>
                 <p><strong>Order Date:</strong> ${order.date}</p>
-                <p><strong>Status:</strong> ${order.status}</p>
+                <p><strong>Status:</strong> <span class=status>${order.status}</span></p>
+                </div>
         `;
 
         // Display each item in this particular order

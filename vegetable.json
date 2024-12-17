@@ -1,6 +1,6 @@
 [
     {
-        "name": "carrot",
+        "name": "Carrot",
         "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOXjQ0bvHeHE5noR5ZqexEDbkq5QxORe9qAg&s",
         "price": {
             "1kg": 80,
@@ -14,7 +14,7 @@
         ]
     },
     {
-        "name": "potato",
+        "name": "Potato",
         "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI7t2YvyHFQgaI_hiHdCsZ1RNUvQnMVrpfRA&s",
         "price": {
             "1kg": 60,
@@ -28,7 +28,7 @@
         ]
     },
     {
-        "name": "onion",
+        "name": "Onion",
         "img": "https://m.economictimes.com/thumb/msid-112117490,width-1200,height-900,resizemode-4,imgsize-120226/onion.jpg",
         "price": {
             "1kg": 40,
@@ -42,7 +42,7 @@
         ]
     },
     {
-        "name": "tomato",
+        "name": "Tomato",
         "img": "https://cdn.pixabay.com/photo/2022/09/05/09/50/tomatoes-7433786_1280.jpg",
         "price": {
             "1kg": 90,
@@ -56,7 +56,7 @@
         ]
     },
     {
-        "name": "broccoli",
+        "name": "Broccoli",
         "img": "https://cdn.mos.cms.futurecdn.net/r8NK24bmcMgSib5zWKKQkW-1200-80.jpg",
         "price": {
             "1kg": 120,
@@ -70,7 +70,7 @@
         ]
     },
     {
-        "name": "spinach",
+        "name": "Spinach",
         "img": "https://www.trustbasket.com/cdn/shop/articles/Spinach.webp?v=1686909241",
         "price": {
             "1kg": 70,
@@ -84,7 +84,7 @@
         ]
     },
     {
-        "name": "cucumber",
+        "name": "Cucumber",
         "img": "https://gourmetgarden.in/cdn/shop/products/English_Cucumber_5bb80d08-0aa2-467b-a6a2-20bab53b216e_1280x.jpg?v=1709750300",
         "price": {
             "1kg": 50,
@@ -98,7 +98,7 @@
         ]
     },
     {
-        "name": "lettuce",
+        "name": "Lettuce",
         "img": "https://www.freshpoint.com/wp-content/uploads/commodity-iceberg.jpg",
         "price": {
             "1kg": 110,
@@ -112,7 +112,7 @@
         ]
     },
     {
-        "name": "green beans",
+        "name": "Green beans",
         "img": "https://media.post.rvohealth.io/wp-content/uploads/2020/06/green-beans-732x549-thumbnail.jpg",
         "price": {
             "1kg": 130,
@@ -126,7 +126,7 @@
         ]
     },
     {
-        "name": "garlic",
+        "name": "Garlic",
         "img": "https://i.guim.co.uk/img/media/43442656c722147e053264b6b914b3258642db2e/0_37_3812_2290/master/3812.jpg?width=1200&quality=85&auto=format&fit=max&s=436c942fad4edb5064c3a460516fc14a",
         "price": {
             "1kg": 250,
@@ -140,7 +140,7 @@
         ]
     },
     {
-        "name": "cauliflower",
+        "name": "Cauliflower",
         "img": "https://cdn.britannica.com/24/140624-050-A8237BB9/Cauliflower-plant-form-cauliflower-cabbage-flower-structures.jpg",
         "price": {
             "1kg": 140,
@@ -154,7 +154,7 @@
         ]
     },
     {
-        "name": "bell pepper",
+        "name": "Bell pepper",
         "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZVYa_RBlmhm9U4LPivanbeLe4aZ1PHG_JJQ&s",
         "price": {
             "1kg": 150,
@@ -168,7 +168,7 @@
         ]
     },
     {
-        "name": "zucchini",
+        "name": "Zucchini",
         "img": "https://images.pexels.com/photos/3375263/pexels-photo-3375263.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
         "price": {
             "1kg": 110,
@@ -182,7 +182,7 @@
         ]
     },
     {
-        "name": "eggplant",
+        "name": "Eggplant",
         "img": "https://www.treehugger.com/thmb/K0v7mj-MTjEpIENA1hyCoFcfCOk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__mnn__images__2018__06__eggplant-3e0f0e053ba4479d864b97d5c8a2b762.jpg",
         "price": {
             "1kg": 120,
@@ -196,7 +196,7 @@
         ]
     },
     {
-        "name": "cabbage",
+        "name": "Cabbage",
         "img": "https://assets.clevelandclinic.org/transform/871f96ae-a852-4801-8675-683191ce372d/Benefits-Of-Cabbage-589153824-770x533-1_jpg",
         "price": {
             "1kg": 80,
@@ -210,7 +210,7 @@
         ]
     },
     {
-        "name": "pumpkin",
+        "name": "Pumpkin",
         "img": "https://upload.wikimedia.org/wikipedia/commons/5/5c/FrenchMarketPumpkinsB.jpg",
         "price": {
             "1kg": 150,
@@ -224,7 +224,7 @@
         ]
     },
     {
-        "name": "sweet potato",
+        "name": "Sweet potato",
         "img": "https://cdn.pixabay.com/photo/2016/09/13/08/51/sweet-potato-1666707_640.jpg",
         "price": {
             "1kg": 100,
@@ -238,7 +238,7 @@
         ]
     },
     {
-        "name": "leek",
+        "name": "Leek",
         "img": "https://plus.unsplash.com/premium_photo-1723651321795-c659bf9f2f96?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGVla3xlbnwwfHwwfHx8MA%3D%3D",
         "price": {
             "1kg": 120,
@@ -252,7 +252,7 @@
         ]
     },
     {
-        "name": "celery",
+        "name": "Celery",
         "img": "https://freshindiaorganics.com/cdn/shop/products/IMG_7180-Edited.jpg?v=1578465746",
         "price": {
             "1kg": 90,
@@ -266,7 +266,7 @@
         ]
     },
     {
-        "name": "beetroot",
+        "name": "Beetroot",
         "img": "https://images-prod.healthline.com/hlcmsresource/images/AN_images/AN172-Beets-1296x728-Header.jpg",
         "price": {
             "1kg": 100,
@@ -280,7 +280,7 @@
         ]
     },
     {
-        "name": "peas",
+        "name": "Peas",
         "img": "https://media.istockphoto.com/id/104822169/photo/peas-and-pea-pods.jpg?s=612x612&w=0&k=20&c=z1Tl-ay2BcBpN064XqIoKd-5fm9_loIz9ot_Aa4BUYM=",
         "price": {
             "1kg": 70,
@@ -294,7 +294,7 @@
         ]
     },
     {
-        "name": "avocado",
+        "name": "Avocado",
         "img": "https://images.healthshots.com/healthshots/en/uploads/2024/04/04153309/avocado-1.jpg",
         "price": {
             "1kg": 200,
@@ -308,7 +308,7 @@
         ]
     },
     {
-        "name": "artichoke",
+        "name": "Artichoke",
         "img": "https://m.media-amazon.com/images/I/71VW6uajpRL.jpg",
         "price": {
             "1kg": 300,
@@ -322,7 +322,7 @@
         ]
     },
     {
-        "name": "chili pepper",
+        "name": "Chili pepper",
         "img": "https://media.istockphoto.com/id/1359811139/photo/wooden-plate-with-hot-chili-peppers.jpg?s=612x612&w=0&k=20&c=IqaYg2tAqC8_Zd7saQfIYYxtyWDF_ZwWTN2n8Cm9d2M=",
         "price": {
             "1kg": 180,
@@ -336,7 +336,7 @@
         ]
     },
     {
-        "name": "asparagus",
+        "name": "Asparagus",
         "img": "https://images.pexels.com/photos/539431/pexels-photo-539431.jpeg?cs=srgb&dl=pexels-foodie-factor-162291-539431.jpg&fm=jpg",
         "price": {
             "1kg": 220,
@@ -350,7 +350,7 @@
         ]
     },
     {
-        "name": "rhubarb",
+        "name": "Rhubarb",
         "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Rheum_rhabarbarum.2006-04-27.uellue.jpg/1200px-Rheum_rhabarbarum.2006-04-27.uellue.jpg",
         "price": {
             "1kg": 150,
@@ -364,7 +364,7 @@
         ]
     },
     {
-        "name": "squash",
+        "name": "Squash",
         "img": "https://cdn.britannica.com/50/125550-050-7FFF8CAC/types-squash.jpg",
         "price": {
             "1kg": 130,
@@ -378,7 +378,7 @@
         ]
     },
     {
-        "name": "ginger",
+        "name": "Ginger",
         "img": "https://assets.epicurious.com/photos/58d3fed8e2c8295cfbf4a52f/1:1/w_1333,h_1333,c_limit/ginger_root_pile_23032017.jpg",
         "price": {
             "1kg": 250,
@@ -392,7 +392,7 @@
         ]
     },
     {
-        "name": "lemon",
+        "name": "Lemon",
         "img": "https://cdn.britannica.com/84/188484-050-F27B0049/lemons-tree.jpg",
         "price": {
             "1kg": 120,
@@ -406,7 +406,7 @@
         ]
     },
     {
-        "name": "mint",
+        "name": "Mint",
         "img": "https://images.unsplash.com/photo-1715543707087-2cd9dd91d3f5?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWludCUyMHBsYW50fGVufDB8fDB8fHww",
         "price": {
             "1kg": 300,
@@ -420,7 +420,7 @@
         ]
     },
     {
-        "name": "kale",
+        "name": "Kale",
         "img": "https://media.post.rvohealth.io/wp-content/uploads/2020/09/benefits-of-kale-732x549-thumbnail-732x549.jpg",
         "price": {
             "1kg": 200,
@@ -434,7 +434,7 @@
         ]
     },
     {
-        "name": "ladies finger",
+        "name": "Ladies finger",
         "img": "https://www.netmeds.com/images/cms/wysiwyg/blog/2022/03/1647423858_Okra_big_1.jpg",
         "price": {
             "1kg": 180,
@@ -448,7 +448,7 @@
         ]
     },
     {
-        "name": "radish",
+        "name": "Radish",
         "img": "https://www.shutterstock.com/image-photo/daikon-white-radish-on-garden-260nw-2492415699.jpg",
         "price": {
             "1kg": 50,
@@ -462,7 +462,7 @@
         ]
     },
     {
-        "name": "mustard greens",
+        "name": "Mustard greens",
         "img": "https://cdn2.stylecraze.com/wp-content/uploads/2021/08/Mustard-Greens-Nutrition-Profile-And-Health-Benefits.jpg.webp",
         "price": {
             "1kg": 120,
@@ -476,7 +476,7 @@
         ]
     },
     {
-        "name": "chard",
+        "name": "Chard",
         "img": "https://cdn-prod.medicalnewstoday.com/content/images/articles/284/284103/swiss-chard.jpg",
         "price": {
             "1kg": 100,
@@ -490,7 +490,7 @@
         ]
     },
     {
-        "name": "fennel",
+        "name": "Fennel",
         "img":"https://www.greendna.in/cdn/shop/products/fennel_800x.jpg?v=1597329829",
         "price": {
             "1kg": 200,
@@ -504,7 +504,7 @@
         ]
     },
     {
-        "name": "sweet corn",
+        "name": "Sweet corn",
         "img": "https://t4.ftcdn.net/jpg/00/54/87/93/360_F_54879353_CxVLW5NCpd2FisFcVCX3vMB8hOHs2Dv4.jpg",
         "price": {
             "1kg": 120,

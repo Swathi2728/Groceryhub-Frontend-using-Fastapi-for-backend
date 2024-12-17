@@ -55,7 +55,7 @@ signIn.addEventListener("click", (event) => {
             } else if (error.code === 'auth/too-many-requests') {
                 alert('Too many login attempts. Please try again later.');
             } else if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found') {
-                alert('No account found with this email address. Please check your email or sign up.');
+                alert('No account found with this email address. Please check your email or Password.');
             } else {
                 alert('Login Failed: ' + error.message);
             }

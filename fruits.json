@@ -1,6 +1,6 @@
 [
     {
-      "name": "apple",
+      "name": "Apple",
       "img": "https://media.istockphoto.com/id/622795204/photo/red-delicious-apples.jpg?s=612x612&w=0&k=20&c=-uu4u0m62t1nz3kcOVkallOgSWoOj_KtcVTCIlyfpXY=",
       "price": {
         "1kg": 100,
@@ -10,7 +10,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "banana",
+      "name": "Banana",
       "img": "https://static.toiimg.com/thumb/msid-108270155,width-1280,height-720,imgsize-61642,resizemode-6,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
       "price": {
         "1kg": 120,
@@ -20,7 +20,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "orange",
+      "name": "Orange",
       "img": "https://www.rd.com/wp-content/uploads/2017/12/01_oranges_Finally%E2%80%94Here%E2%80%99s-Which-%E2%80%9COrange%E2%80%9D-Came-First-the-Color-or-the-Fruit_691064353_Lucky-Business.jpg",
       "price": {
         "1kg": 180,
@@ -30,7 +30,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "mango",
+      "name": "Mango",
       "img": "https://www.shutterstock.com/image-photo/healthy-fruits-orange-background-many-260nw-691064353.jpg",
       "price": {
         "1kg": 200,
@@ -40,7 +40,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "grape",
+      "name": "Grape",
       "img": "https://images.pexels.com/photos/708777/pexels-photo-708777.jpeg",
       "price": {
         "1kg": 250,
@@ -50,7 +50,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "watermelon",
+      "name": "Watermelon",
       "img": "https://media.istockphoto.com/id/478266756/photo/watermelon.jpg?s=612x612&w=0&k=20&c=U94v8i3oEAYh4lbxgDQmZAuA9kww7vlOwY-K0k_ElXE=",
       "price": {
         "1kg": 80,
@@ -60,7 +60,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "pineapple",
+      "name": "Pineapple",
       "img": "https://www.shutterstock.com/image-photo/ripe-pineapple-fruit-on-white-260nw-2493904351.jpg",
       "price": {
         "1kg": 150,
@@ -70,7 +70,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "peach",
+      "name": "Peach",
       "img": "https://thumbs.dreamstime.com/b/two-cut-peach-fruits-isolated-peaches-three-white-background-clipping-path-126878690.jpg",
       "price": {
         "1kg": 220,
@@ -80,7 +80,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "kiwi",
+      "name": "Kiwi",
       "img": "https://www.health.com/thmb/YjD1m861zN2cGF4q9bbeu6now64=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Kiwi-a2e9888bfab6474f8d12d2ae0287b356.jpg",
       "price": {
         "1kg": 300,
@@ -90,7 +90,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "strawberry",
+      "name": "Strawberry",
       "img": "https://www.allrecipes.com/thmb/1c99SWam7_FM6vUzpDDzIKffMR4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/ALR-strawberry-fruit-or-vegetable-f6dd901427714e46af2d706a57b9016f.jpg",
       "price": {
         "1kg": 350,
@@ -100,7 +100,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "cherry",
+      "name": "Cherry",
       "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxk0JFuel2XhMXPbh2ZSAO3U8hHvYZAmxF8w&s",
       "price": {
         "1kg": 400,
@@ -110,7 +110,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "pear",
+      "name": "Pear",
       "img": "https://www.bigbasket.com/media/uploads/p/xxl/30001107-2_7-fresho-pear-naspathi-indian.jpg",
       "price": {
         "1kg": 130,
@@ -120,7 +120,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "blueberry",
+      "name": "Blueberry",
       "img": "https://images.unsplash.com/photo-1498557850523-fd3d118b962e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Ymx1ZWJlcnJ5fGVufDB8fDB8fHww",
       "price": {
         "1kg": 600,
@@ -130,7 +130,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "plum",
+      "name": "Plum",
       "img": "https://images.unsplash.com/photo-1518834903818-7d1557333fda?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGx1bXxlbnwwfHwwfHx8MA%3D%3D",
       "price": {
         "1kg": 250,
@@ -140,7 +140,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "apricot",
+      "name": "Apricot",
       "img": "https://media.istockphoto.com/id/172866907/photo/apricots.jpg?s=612x612&w=0&k=20&c=mcVTie_Q0GzZm9Xw1KJ58IHGvMg1jdt9VT5kX3bVphs=",
       "price": {
         "1kg": 280,
@@ -150,7 +150,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "papaya",
+      "name": "Papaya",
       "img": "https://www.megawecare.com/_next/image?url=https%3A%2F%2Fcdn.megawecare.com%2FFeatured-Images%2FG4vDIrwfeCNSMGQC6XUG26dRbmIirn5dvZuoELpz.webp&w=1920&q=75",
       "price": {
         "1kg": 120,
@@ -160,7 +160,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "dragonfruit",
+      "name": "Dragonfruit",
       "img": "https://t3.ftcdn.net/jpg/09/82/87/34/360_F_982873430_XTOmMx9juVVYtCinro8Xgm4tVCxyv1dS.jpg",
       "price": {
         "1kg": 350,
@@ -170,7 +170,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "passionfruit",
+      "name": "Passionfruit",
       "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbk9sqTND0T-bfr1FnuaFriuQVKWC6WZe3pg&s",
       "price": {
         "1kg": 450,
@@ -180,7 +180,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "fig",
+      "name": "Fig",
       "img": "https://www.healthifyme.com/blog/wp-content/uploads/2021/12/Benefits-Uses-and-Everything-You-Want-to-Know-About-Fig-Fruit.jpeg",
       "price": {
         "1kg": 300,
@@ -190,7 +190,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "coconut",
+      "name": "Coconut",
       "img": "https://media.istockphoto.com/id/543564492/photo/coconut-with-half-and-leaves-on-white-background.jpg?s=612x612&w=0&k=20&c=5DOZf3Lu0ovT3iPSJ_sa4omWq4HfzANznfOYKAuswA8=",
       "price": {
         "1kg": 130,
@@ -200,7 +200,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "tangerine",
+      "name": "Tangerine",
       "img": "https://cdn.pixabay.com/photo/2024/07/10/20/39/tangerine-8886641_1280.jpg",
       "price": {
         "1kg": 150,
@@ -210,7 +210,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "lemon",
+      "name": "Lemon",
       "img": "https://png.pngtree.com/thumb_back/fh260/background/20230728/pngtree-lemon-fruits-on-green-leaves-on-branch-image_10190028.jpg",
       "price": {
         "1kg": 200,
@@ -220,7 +220,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "grapefruit",
+      "name": "Grapefruit",
       "img": "https://img.livestrong.com/640/cme-data/getty%2F3b7af9471e2146efa16f5efa83f72c4b.jpg",
       "price": {
         "1kg": 250,
@@ -230,7 +230,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "pomegranate",
+      "name": "Pomegranate",
       "img": "https://images.healthshots.com/healthshots/en/uploads/2021/09/27184641/pomegranate-1600x900.jpg",
       "price": {
         "1kg": 350,
@@ -240,7 +240,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "date",
+      "name": "Date",
       "img": "https://images.immediate.co.uk/production/volatile/sites/30/2020/02/dates-resized-14ee31f.jpg",
       "price": {
         "1kg": 400,
@@ -250,7 +250,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "applestone",
+      "name": "Applestone",
       "img": "https://i.pinimg.com/originals/bf/c9/c4/bfc9c42c9ea22b71a4ce4e0ec87ac0df.png",
       "price": {
         "1kg": 120,
@@ -260,7 +260,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "jackfruit",
+      "name": "Jackfruit",
       "img": "https://www.huahintoday.com/wp-content/uploads/2019/03/jackfruit.jpg",
       "price": {
         "1kg": 180,
@@ -270,7 +270,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "nectarine",
+      "name": "Nectarine",
       "img": "https://media.istockphoto.com/id/872676594/photo/whole-and-half-of-nectarine-fruit-isolated-on-whitie-background.jpg?s=612x612&w=0&k=20&c=drNbMKvD0hIHIh2tbJULXaIvsgAUEMUe8K0MNqSfsII=",
       "price": {
         "1kg": 250,
@@ -280,7 +280,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "lychee",
+      "name": "Lychee",
       "img": "https://cdn.britannica.com/27/218927-050-E99E1D46/Lychee-fruit-tree-plant.jpg",
       "price": {
         "1kg": 350,
@@ -290,7 +290,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "starfruit",
+      "name": "Starfruit",
       "img": "https://plantskingdom.in/cdn/shop/products/iY340ukDF0.jpg?v=1657427394",
       "price": {
         "1kg": 400,
@@ -300,7 +300,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "quince",
+      "name": "Quince",
       "img": "https://www.shutterstock.com/image-photo/quince-clipping-path-ripe-fruit-260nw-1888075921.jpg",
       "price": {
         "1kg": 150,
@@ -310,7 +310,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "soursop",
+      "name": "Soursop",
       "img": "https://5.imimg.com/data5/ANDROID/Default/2021/1/EP/KW/MJ/110424049/product-jpeg.jpg",
       "price": {
         "1kg": 250,
@@ -320,7 +320,7 @@
       "kilogram": ["1kg", "500g", "250g"]
     },
     {
-      "name": "custard-apple",
+      "name": "Custard-apple",
       "img": "https://cdn.britannica.com/95/126995-050-101B8B8D/Sweetsop.jpg",
       "price": {
         "1kg": 200,

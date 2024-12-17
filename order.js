@@ -81,11 +81,17 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
     }
 
     // Validation for the payment form
-    const fullNameRegex = /^[A-Z][a-z]*([ ]?[A-Z][a-z]*)*$/;
-    if (!fullName || !fullNameRegex.test(fullName)) {
-        alert('Please enter a valid full name. The first letter should be uppercase, and no spaces in the name.');
+    // const fullNameRegex = /^[A-Z][a-z]*([ ]?[A-Z][a-z]*)*$/;
+    // if (!fullName || !fullNameRegex.test(fullName)) {
+    //     alert('Please enter a valid full name. The first letter should be uppercase, and no spaces in the name.');
+    //     return;
+    // }\
+    const nameRegex = /^[A-Za-z]+$/; 
+    if (!nameRegex.test(fullName)) {
+        alert("First name must contain only letters!");
         return;
-    }
+      }
+    
 
     if (!addressLine1 || !state || !city || !zipcode || !paymentOption) {
         alert('Please fill out all the required fields.');
