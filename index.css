@@ -8,7 +8,10 @@
     height:7vh;
     justify-content:flex-start;
     align-items: center;
-    /* background-color: #f3f4f6; */
+    background-color:white;
+    position: fixed;
+    z-index: 2;
+    width:2000px;
     
     
 }
@@ -122,8 +125,6 @@ button a{
     width:200px;
  }
  .ncontainer li a{
-    text-decoration: none;
-    color:#000;
  }
  .category{
     /* text-align: center; */
@@ -331,8 +332,14 @@ section{
 }
 a{
     list-style-type: none;
-    text-decoration: none;
     color:#000;
+    text-decoration: none;
+}
+a:hover{
+    color:#636AE8;
+    text-decoration:underline;
+ text-decoration-thickness: 3px;
+
 }
 .flexitem{
     color:#000;
@@ -376,6 +383,11 @@ footer{
  }
 .h{
     color:#636AE8;
+}
+ li a.active {
+    text-decoration: underline;
+    text-decoration-color:#636AE8; 
+    color:#636AE8;/* Yellow underline for active link */
 }
  
  

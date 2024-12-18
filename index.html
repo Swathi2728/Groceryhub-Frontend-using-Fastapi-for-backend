@@ -61,7 +61,7 @@
             <div id="items-container"></div>
 
             <div>
-              <img src="logo.png" width="100px" style="margin-left:10px;" >
+              <img src="logo.png" width="100px" height="48px" style="margin-left:10px;" >
             </div>
             <div>
                 <h1 class="title">Grocery <span class="hub">Hub</span></h1>
@@ -105,7 +105,7 @@
         </div>
     </header>
     <div class="parentposition">
-        <img src="front page.jpg" class="fruits">
+        <img src="https://media.istockphoto.com/id/861188910/photo/different-types-of-food-on-rustic-wooden-table.jpg?s=612x612&w=0&k=20&c=15wnishfgfmfC4nFeKtI8NXVh5sm57BVVnOlAv31ttY=" class="fruits">
     </div>
     <div class="childposition">
         <h1 class="center">Welcome To Our Grocery <span class="h">Hub</span></h1>
@@ -273,6 +273,19 @@
                 dropdownMenu.style.display = 'none';
             }
         });
+        window.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('li a');
+            const currentPath = window.location.hash;
+        
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+        
 
         
     </script>
