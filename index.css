@@ -335,7 +335,7 @@ a{
     color:#000;
     text-decoration: none;
 }
-a:hover{
+li a:hover{
     color:#636AE8;
     text-decoration:underline;
  text-decoration-thickness: 3px;
@@ -387,7 +387,9 @@ footer{
  li a.active {
     text-decoration: underline;
     text-decoration-color:#636AE8; 
-    color:#636AE8;/* Yellow underline for active link */
+    color:#636AE8;
+    text-decoration-thickness: 3px;
+    /* Yellow underline for active link */
 }
  
  

@@ -4,9 +4,11 @@
     box-sizing:border-box;
 }
 html{
-    background-color:#636AE8;
-}
+    background-image: url(https://media.post.rvohealth.io/wp-content/uploads/2020/12/food-rainbow-vegetable-fruit-variety-group-healthy-732x549-thumbnail.jpg);
+    background-repeat: no-repeat;
+    background-size: 2000px 1000px;
 
+}
 .container{
    
    margin-top:200px;

@@ -4,7 +4,10 @@
     box-sizing: border-box;
 }
 html{
-    background-color: #636AE8;
+    background-image: url(https://c1.wallpaperflare.com/preview/178/200/53/healthy-food-fruit-vegetables-dairy-thumbnail.jpg);
+    background-repeat: no-repeat;
+    background-size: 2000px 1000px;
+
 }
 .formcontainer{
     width:500px;
