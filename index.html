@@ -42,82 +42,80 @@
 
     .button {
         padding: 10px 20px;
-       
+
         color: white;
         border: none;
         cursor: pointer;
     }
-
-  
 </style>
 
 
 
 <body>
-    
-        <header>
-            <div class="hcontainer">
-                <div id="items-container"></div>
 
-                <div>
-                    <img src="logo.png" width="100px" height="48px" style="margin-left:10px;">
+    <header>
+        <div class="hcontainer">
+            <div id="items-container"></div>
+
+            <div>
+                <img src="logo.png" width="100px" height="48px" style="margin-left:10px;">
+            </div>
+            <div>
+                <h1 class="title">Grocery <span class="hub">Hub</span></h1>
+            </div>
+            <div class="ncontainer">
+                <div class="home">
+                    <li><a href="index.html">Home</a></li>
                 </div>
-                <div>
-                    <h1 class="title">Grocery <span class="hub">Hub</span></h1>
+                <div class="home">
+                    <li><a href="#about">About us</a></li>
                 </div>
-                <div class="ncontainer">
-                    <div class="home">
-                        <li><a href="index.html">Home</a></li>
-                    </div>
-                    <div class="home">
-                        <li><a href="#about">About us</a></li>
-                    </div>
-                    <div class="home">
-                        <li><a href="#contactus">Contact us</a></li>
-                    </div>
-                </div>
-               
-                <div class="s">
-                    <!-- <input type="text" placeholder="Search for product" class="search" id="search-bar"> -->
-
-                    <select name="category" id="category">
-                        <option>Shop by category</option>
-                        <option value="fruits.html">Fruits</option>
-                        <option value="vegetable.html">Vegetables</option>
-                        <option value="snacks.html">Snacks</option>
-                        <option value="dairy.html">Dairy</option>
-                    </select>
-                    <button class="signin" id="signinButton"><a href="login.html">Sign In</a></button>
-                    <a href="addtocart.html">
-                        <i class="fa-solid fa-bag-shopping fa-xl- carticon" style="color: #636ae8;"></i>
-                    </a>
-
-                    <div class="profile-dropdown">
-
-                        <i class="fa-solid fa-user" id="profileButton"></i>
-                        <div class="dropdown-content" id="dropdownMenu">
-                            <a href="profile.html" id="myAccount">My Account</a>
-                            <a href="ordersummary.html" id="myOrders">My Orders</a>
-                        </div>
-                    </div>
-
+                <div class="home">
+                    <li><a href="#contactus">Contact us</a></li>
                 </div>
             </div>
-        </header>
-        <div class="parentposition">
-            <img src="https://media.istockphoto.com/id/861188910/photo/different-types-of-food-on-rustic-wooden-table.jpg?s=612x612&w=0&k=20&c=15wnishfgfmfC4nFeKtI8NXVh5sm57BVVnOlAv31ttY="
-                class="fruits">
+
+            <div class="s">
+                <!-- <input type="text" placeholder="Search for product" class="search" id="search-bar"> -->
+
+                <select name="category" id="category">
+                    <option>Shop by category</option>
+                    <option value="fruits.html">Fruits</option>
+                    <option value="vegetable.html">Vegetables</option>
+                    <option value="snacks.html">Snacks</option>
+                    <option value="dairy.html">Dairy</option>
+                </select>
+                <button class="signin" id="signinButton"><a href="login.html">Sign In</a></button>
+                <a href="addtocart.html">
+                    <i class="fa-solid fa-bag-shopping fa-xl- carticon" style="color: #636ae8;"></i>
+                </a>
+
+                <div class="profile-dropdown">
+
+                    <i class="fa-solid fa-user" id="profileButton"></i>
+                    <div class="dropdown-content" id="dropdownMenu">
+                        <a href="profile.html" id="myAccount">My Account</a>
+                        <a href="ordersummary.html" id="myOrders">My Orders</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="childposition">
-            <h1 class="center">Welcome To Our Grocery <span class="h">Hub</span></h1>
-            <h3>Discover Fresh produce Product and quality prices at unbeatable prices. Enjoy a seamless shopping with
-                us
-            </h3>
-            <!-- <button class="sbtn">Shop now</button> -->
-        </div>
-        <!-- Main content area for products -->
-        <div id="products"></div>
-  
+    </header>
+    <div class="parentposition">
+        <img src="https://media.istockphoto.com/id/861188910/photo/different-types-of-food-on-rustic-wooden-table.jpg?s=612x612&w=0&k=20&c=15wnishfgfmfC4nFeKtI8NXVh5sm57BVVnOlAv31ttY="
+            class="fruits">
+    </div>
+    <div class="childposition">
+        <h1 class="center">Welcome To Our Grocery <span class="h">Hub</span></h1>
+        <h3>Discover Fresh produce Product and quality prices at unbeatable prices. Enjoy a seamless shopping with
+            us
+        </h3>
+        <!-- <button class="sbtn">Shop now</button> -->
+    </div>
+    <!-- Main content area for products -->
+    <div id="products"></div>
+
     <div id="about">
         <h2 class="aboutus">About <span class="h">us</span></h2>
         <div class="ascontainer">
@@ -209,12 +207,18 @@
             <div class="footercontainer">
                 <div class="flexitem">
                     <h3 class="h3">Grocery <span class="h">Hub</span></h3>
-                    <div> The E-commerce Grocery Hub website aims to provide<br> an online platform for users to easily
+                    <div>
+                        <!-- The E-commerce Grocery Hub website aims to provide<br> an online platform for users to easily
                         browse and<br>
                         purchase a wide range of grocery items, with a focus on <br>fresh produce and organic products.
                         The
                         site will<br>
-                        feature a user-friendly interface and modern design to<br> enhance the shopping experience.<br>
+                        feature a user-friendly interface and modern design to<br> enhance the shopping experience.<br> -->
+                        Grocery Hub is an innovative e-commerce platform <br>designed to provide a seamless and convenient
+                        online shopping experience<br> for customers seeking high-quality groceries. Whether <br>you're looking
+                        for fresh produce, organic products, <br>or everyday household essentials, Grocery Hub has<br>
+                        everything you need, all in one place. <br>Our goal is to make grocery shopping easier,<br> faster, and
+                        more enjoyable for everyone.
                     </div>
                 </div>
                 <div>
