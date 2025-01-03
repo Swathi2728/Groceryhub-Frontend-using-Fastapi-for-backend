@@ -57,7 +57,7 @@ function displayFruits(fruits) {
 
         const priceDisplay = document.createElement('p');
         priceDisplay.classList.add('price');
-        priceDisplay.innerText = 'Price: ' + fruit.price[fruit.kilogram[0]]; // Default to first weight option
+        priceDisplay.innerText = 'Price: ₹' + fruit.price[fruit.kilogram[0]]; // Default to first weight option
         fruitElement.appendChild(priceDisplay);
 
         // Create dropdown for weight options
@@ -78,7 +78,7 @@ function displayFruits(fruits) {
         weightSelect.addEventListener('change', function () {
             const selectedWeight = weightSelect.value;
             const selectedPrice = fruit.price[selectedWeight];
-            priceDisplay.innerText = 'Price: ' + selectedPrice; // Update price
+            priceDisplay.innerText = 'Price: ₹' + selectedPrice; // Update price
         });
 
         // Create Add to Cart button

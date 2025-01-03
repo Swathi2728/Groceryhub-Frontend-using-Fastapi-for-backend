@@ -86,9 +86,9 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
     //     alert('Please enter a valid full name. The first letter should be uppercase, and no spaces in the name.');
     //     return;
     // }\
-    const nameRegex = /^[A-Za-z]+$/; 
+    const nameRegex = /^[A-Za-z]{3,15}$/; 
     if (!nameRegex.test(fullName)) {
-        alert("First name must contain only letters!");
+        alert("Name must contain only letters and be between 3 to 15 characters long!");
         return;
       }
     

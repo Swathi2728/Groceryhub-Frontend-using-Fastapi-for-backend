@@ -154,7 +154,7 @@ function displayNewProducts(products, container) {
         // HTML for displaying each New Product item
         let itemHTML = `<div><img src="${item.img}" alt="${item.name}" style="max-width: 150px; margin-top: 10px;"><br></div>`;
         let itemHTML2 = `<div>${item.name}</div>`;
-        itemHTML2 += `Price: <span id="price-${item.name}">${item.price["1kg"]}</span><br>`; // Default to 1kg price
+        itemHTML2 += `Price:₹<span id="price-${item.name}">${item.price["1kg"]}</span><br>`; // Default to 1kg price
 
         // Weight dropdown
         itemHTML2 += `Weight: <select id="weight-${item.name}" class="select">`;

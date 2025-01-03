@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Basket</title>
+    <title>Grocery Hub</title>
     <script type="module" src="pushdata.js"></script> <!-- Ensure correct path -->
     <script type="module" src="fetchdata.js" defer></script> <!-- Ensure correct path -->
     <link rel="stylesheet" href="index.css">
@@ -187,20 +187,23 @@
     <div id="contactus">
         <div class="contactcontainer">
             <h2 class="h2c" id="contactus">Contact <span class="h">us </span></h2>
-            <form action="https://api.web3forms.com/submit" method="POST">
+            <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
                 <input type="hidden" name="access_key" value="2b86ad2d-5090-41fb-bdf3-fa95158717bc">
-
+            
                 <div class="formcontainer">
-
                     <label for="name" class="label">Name:</label><br>
                     <input type="text" id="name" class="input" name="name"><br>
+            
                     <label for="email" class="label">Email:</label><br>
                     <input type="email" id="email" class="input" name="email"><br>
+            
                     <label for="msg" class="label">Message:</label><br>
-                    <textarea id="msg " rows="10" cols="47" class="msgtxt" name="Message"></textarea><br>
+                    <textarea id="msg" rows="10" cols="47" class="msgtxt" name="Message"></textarea><br>
+            
                     <button type="submit" class="cbtn">Submit</button>
                 </div>
             </form>
+            
         </div>
         <section>
             <!-- <h2 class="head3">Product details and Quick contact links</h2> -->
@@ -215,9 +218,9 @@
                         site will<br>
                         feature a user-friendly interface and modern design to<br> enhance the shopping experience.<br> -->
                         Grocery Hub is an innovative e-commerce platform <br>designed to provide a seamless and convenient
-                        online shopping experience<br> for customers seeking high-quality groceries. Whether <br>you're looking
-                        for fresh produce, organic products, <br>or everyday household essentials, Grocery Hub has<br>
-                        everything you need, all in one place. <br>Our goal is to make grocery shopping easier,<br> faster, and
+                        online <br>shopping experienc for customers seeking high-quality <br>groceries. Whether you're looking
+                        for fresh produce, <br>organic products, or everyday household essentials,<br> Grocery Hub has
+                        everything you need, all in one place. <br>Our goal is to make grocery shopping easier, faster, <br>and
                         more enjoyable for everyone.
                     </div>
                 </div>
@@ -311,6 +314,36 @@
         sections.forEach(section => {
             observer.observe(section);
         });
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var msg = document.getElementById("msg").value;
+        
+            // Check if all fields are filled
+            if (name === "" || email === "" || msg === "") {
+                alert("Please fill all the fields.");
+                event.preventDefault();  // Prevent form submission
+                return; // Exit the function
+            }
+        
+            // Validate name: must be between 3 to 15 characters and contain only letters
+            var namePattern = /^[A-Za-z]{3,15}$/; // Only letters, 3-15 characters
+            if (!namePattern.test(name)) {
+                alert("Name must be between 3 to 15 letters.");
+                event.preventDefault(); // Prevent form submission
+                return; // Exit the function
+            }
+        
+            // Validate email: must be a Gmail address
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid Gmail address.");
+                event.preventDefault(); // Prevent form submission
+                return; // Exit the function
+            }
+        });
+        
+        
 
 
 
