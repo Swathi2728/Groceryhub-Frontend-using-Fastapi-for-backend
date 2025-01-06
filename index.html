@@ -121,7 +121,7 @@
         <div class="ascontainer">
 
             <div>
-                <img src="deliveryboy.jpg" class="imgdelivery">
+                <a href="index.html"><img src="deliveryboy.jpg" class="imgdelivery"></a>
             </div>
             <div>
                 <div class="welcome">Welcome to E-commerce Grocery <span class="h">Hub!</span>
@@ -335,12 +335,13 @@
             }
         
             // Validate email: must be a Gmail address
-            var emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailPattern.test(email)) {
-                alert("Please enter a valid Gmail address.");
+                alert("Please enter a valid email address.");
                 event.preventDefault(); // Prevent form submission
                 return; // Exit the function
             }
+            
         });
         
         

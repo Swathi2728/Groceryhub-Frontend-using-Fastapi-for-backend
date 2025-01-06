@@ -17,7 +17,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app); // Firebase Auth instance
-const db = getFirestore(app); // Firestore instance
+const db =  getFirestore(app); // Firestore instance
 
 // Event listener for the signup button
 const signup = document.getElementById("signupbtn");
@@ -47,15 +47,15 @@ signup.addEventListener("click", (event) => {
   // if (spaceCheck.test(firstName)) {
   //   alert("First name must not contain spaces!");
   //   return;
-  // }
+  // }7
 
   // if (!/^[A-Z]/.test(firstName)) {
   //   alert("First name must start with an uppercase letter!");
   //   return;
   // }
 
-  if (firstName.length < 3 || firstName.length > 30) {
-    alert("First name must be between 3 and 30 characters long!");
+  if (firstName.length < 3 || firstName.length > 15) {
+    alert("First name must be between 3 and 15 characters long!");
     return;
   }
 
@@ -75,8 +75,8 @@ signup.addEventListener("click", (event) => {
   //   return;
   // }
 
-  if (lastName.length < 3 || lastName.length > 30) {
-    alert("Last name must be between 3 and 30 characters long!");
+  if (lastName.length < 1|| lastName.length > 30) {
+    alert("Last name must be between 1 and 30 characters long!");
     return;
   }
 
@@ -88,8 +88,7 @@ signup.addEventListener("click", (event) => {
   // Validate the email format
   if (!/\S+@\S+\.\S+/.test(email)) {
     alert("Please enter a valid email address!");
-    return;
-  }
+   }
 
   // Validate the password with the custom regex
   if (!validatePassword(password)) {
