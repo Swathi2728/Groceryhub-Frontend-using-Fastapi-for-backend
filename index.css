@@ -391,5 +391,40 @@ footer{
     text-decoration-thickness: 3px;
     /* Yellow underline for active link */
 }
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #636ae8;
+    width: 150px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-right: 100px;
+    right: -80px
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.button {
+    padding: 10px 20px;
+
+    color: white;
+    border: none;
+    cursor: pointer;
+}
  
  

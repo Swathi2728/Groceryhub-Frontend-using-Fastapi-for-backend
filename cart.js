@@ -51,7 +51,13 @@ function displayCart(user) {
         if (emptyCartMessage) {
             emptyCartMessage.style.display = 'block'; // Show the empty cart message
         }
-        return; // Exit the function if the cart is empty
+    // Exit the function if the cart is empty
+        const totalDiv = document.getElementById('cart-total');
+        if (totalDiv) {
+            totalDiv.innerHTML = 'Total Price: ₹0.00';
+        }
+
+        return; //
     }
 
     // Hide the empty cart message if there are items
