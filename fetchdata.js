@@ -80,7 +80,7 @@ function displayFeaturedProducts(products, container) {
     const headdiv = document.createElement('div');
     headdiv.classList.add('head');
     const categoryTitle = document.createElement('h2');
-    categoryTitle.textContent = "Featured Products";
+    categoryTitle.textContent = "Explore Our Categories";
     categoryTitle.classList.add('subhead');
     headdiv.appendChild(categoryTitle);
 
@@ -124,7 +124,7 @@ function displayNewProducts(products, container) {
     head3.classList.add('container3');
 
     const categoryTitle = document.createElement('h2');
-    categoryTitle.textContent = "Best sellers";
+    categoryTitle.textContent = "Best Sellers";
     categoryTitle.classList.add('head2');
     categoryDiv.appendChild(categoryTitle);
 
