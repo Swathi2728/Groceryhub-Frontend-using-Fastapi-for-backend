@@ -43,7 +43,7 @@ function createProductHTML(item) {
         redirectURL = "/Groceryhub/html/snacks.html";
     }
     else {
-        redirectURL = "/index.html"; // Default product page
+        redirectURL = "/Groceryhub/index.html"; // Default product page
     }
 
     itemHTML += `<button class="shop-now" id="shop-now-${item.name}" onclick="window.location.href='${redirectURL}'">Shop Now</button>`;

@@ -170,7 +170,7 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     await setDoc(cartRef, { items: [] });
 
     alert('Thank you for your purchase!');
-    window.location.href = '/index.html'; // Redirect to home
+    window.location.href = '/Groceryhub/index.html'; // Redirect to home
 });
 
 // Show/hide card details based on payment method selected
