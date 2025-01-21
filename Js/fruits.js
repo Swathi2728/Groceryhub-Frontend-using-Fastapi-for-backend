@@ -1,9 +1,7 @@
 // Import Firebase modules from Firebase SDK v9 and above
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-// import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 import { getFirestore, doc, collection, getDocs, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -20,64 +18,66 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app); // Initialize Firebase Authentication
 
-let vegetables = []; // Global variable to store vegetables
+let fruits = []; // Global fruits array
 
 // Fetch the data
-async function fetchVegetables() {
-    const vegetablesRef = collection(db, 'vegetables'); // Firestore collection reference for vegetables
-    const snapshot = await getDocs(vegetablesRef); // Get documents in the 'vegetables' collection
-    vegetables = snapshot.docs.map(doc => doc.data()); // Store data in the global vegetables array
+async function fetchFruits() {
+    const fruitsRef = collection(db, 'fruits'); // Firestore collection reference
+    const snapshot = await getDocs(fruitsRef); // Get documents in the 'fruits' collection
+    fruits = snapshot.docs.map(doc => doc.data()); // Use the global fruits array
 
-    displayVegetables(vegetables); // Call the function to display vegetables
+    // Check if fruits array is empty and display a message or fruits
+    if (fruits.length === 0) {
+        displayNoFruits();
+    } else {
+        displayFruits(fruits); // Display all fruits after fetching
+    }
 }
 
-// Display vegetables with weight selection, dynamic price change, and Add to Cart button
-function displayVegetables(vegetables) {
-    const container = document.getElementById('vegetables-container');
-    container.innerHTML = ''; // Clear previous vegetables
+// Display fruits with weight selection, dynamic price change, and Add to Cart button
+function displayFruits(fruits) {
+    const container = document.getElementById('fruits-container');
+    container.innerHTML = ''; // Clear any previous fruits displayed
 
-    vegetables.forEach(vegetable => {
-        const vegetableElement = document.createElement('div');
-        vegetableElement.classList.add('vegetable-card');
+    fruits.forEach(fruit => {
+        const fruitElement = document.createElement('div');
 
-        // Add vegetable image
+        // Add fruit image
         const img = document.createElement('img');
-        img.src = vegetable.img;
-        img.alt = vegetable.name;
-        img.style.height='200px';
-        img.style.width='200px';
-        img.style.borderRadius='5px';
-        vegetableElement.appendChild(img);
+        img.src = fruit.img;
+        img.alt = fruit.name;
+        img.style.width = '200px';
+        img.style.height = '200px';
+        img.style.borderRadius = '5px';
+        fruitElement.appendChild(img);
 
-        // Add vegetable name
         const name = document.createElement('h2');
-        name.innerText = vegetable.name;
-        vegetableElement.appendChild(name);
+        name.innerText = fruit.name;
+        fruitElement.appendChild(name);
 
-        // Price display (initial price will be based on the first weight option)
         const priceDisplay = document.createElement('p');
         priceDisplay.classList.add('price');
-        priceDisplay.innerText = 'Price: ₹' + vegetable.price[vegetable.kilogram[0]]; // Default to first weight option
-        vegetableElement.appendChild(priceDisplay);
+        priceDisplay.innerText = 'Price: ₹' + fruit.price[fruit.kilogram[0]]; // Default to first weight option
+        fruitElement.appendChild(priceDisplay);
 
         // Create dropdown for weight options
         const weightSelect = document.createElement('select');
         weightSelect.classList.add('weight-select');
-        vegetable.kilogram.forEach(weight => {
+        fruit.kilogram.forEach(weight => {
             const option = document.createElement('option');
             option.value = weight;
             option.innerText = weight;
             weightSelect.appendChild(option);
         });
+        fruitElement.appendChild(weightSelect);
 
-        vegetableElement.appendChild(weightSelect);
-        const lineBreak = document.createElement('br'); // Create <br> tag
-        vegetableElement.appendChild(lineBreak);
+        const lineBreak = document.createElement('br');
+        fruitElement.appendChild(lineBreak);
 
         // Update the price when weight is changed
         weightSelect.addEventListener('change', function () {
             const selectedWeight = weightSelect.value;
-            const selectedPrice = vegetable.price[selectedWeight];
+            const selectedPrice = fruit.price[selectedWeight];
             priceDisplay.innerText = 'Price: ₹' + selectedPrice; // Update price
         });
 
@@ -85,28 +85,25 @@ function displayVegetables(vegetables) {
         const addToCartButton = document.createElement('button');
         addToCartButton.innerText = 'Add to Cart';
         addToCartButton.classList.add('add-to-cart');
-        vegetableElement.appendChild(addToCartButton);
+        fruitElement.appendChild(addToCartButton);
 
-        // Handle Add to Cart button click
         addToCartButton.addEventListener('click', function () {
-            const selectedWeight = weightSelect.value; // Get selected weight
-            const selectedPrice = vegetable.price[selectedWeight]; // Get price for selected weight
-
-            // Log or perform action to add item to cart
-            console.log('Added to cart:', {
-                name: vegetable.name,
-                price: selectedPrice,
-                weight: selectedWeight,
-                img: vegetable.img
-            });
-
-            addToCart(vegetable.name, selectedPrice, vegetable.img, selectedWeight);
+            const selectedWeight = weightSelect.value;
+            const selectedPrice = fruit.price[selectedWeight];
+            addToCart(fruit.name, selectedPrice, fruit.img, selectedWeight);
         });
 
-        // Append vegetable element to the container
-        container.appendChild(vegetableElement);
+        // Append fruit element to the container
+        container.appendChild(fruitElement);
     });
 }
+
+function displayNoFruits() {
+    const container = document.getElementById('fruits-container');
+    container.innerHTML = '<p>No fruits available at the moment. Please check back later.</p>';
+}
+
+// Add item to cart using Firestore
 async function addToCart(name, price, img, weight) {
     const user = auth.currentUser; // Get the current authenticated user
     if (!user) {
@@ -144,42 +141,44 @@ async function addToCart(name, price, img, weight) {
     await setDoc(cartRef, { items: cart });
 
     alert('Product added to cart!');
-    window.location.href = 'addtocart.html'; // Redirect to cart page
+    window.location.href = '/Groceryhub/html/addtocart.html'; // Redirect to cart page
 }
 
-// Search function for filtering vegetables by name
-function searchVegetables(searchTerm) {
-    // Filter vegetables by name
-    const filteredVegetables = vegetables.filter(vegetable => 
-        vegetable.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+// Search function for filtering fruits by name
+function searchFruits(searchTerm) {
+    // Check if fruits array is populated
+    if (fruits.length === 0) {
+        alert("No fruits available for search. Please wait until the data is fetched.");
+        return;
+    }
 
-    if (filteredVegetables.length === 0) {
+    const filteredFruits = fruits.filter(fruit => {
+        return fruit.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    if (filteredFruits.length === 0) {
         alert("No items found matching your search.");
     } else {
-        displayVegetables(filteredVegetables); // Display filtered vegetables
+        displayFruits(filteredFruits);  // Display filtered fruits
     }
 }
 
 // Event listener for search input
 document.getElementById('search-bar').addEventListener('input', function (event) {
-    const searchTerm = event.target.value; // Get the search term from the input field
-    searchVegetables(searchTerm); // Filter and display vegetables based on search term
+    const searchTerm = event.target.value;  // Get the search term from the input field
+    searchFruits(searchTerm); // Filter and display fruits based on search term
 });
 
-// Call the function to fetch and display vegetables
-fetchVegetables();
+// Call the function to fetch and display fruits
+fetchFruits();
 onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is logged in
         document.getElementById('signinButton').style.display = 'none';
         document.getElementById('profileButton').style.display = 'inline-block';
-
-
     } else {
         // User is logged out
         document.getElementById('signinButton').style.display = 'inline-block';
         document.getElementById('profileButton').style.display = 'none';
-
     }
 });

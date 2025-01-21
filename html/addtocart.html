@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <!-- <script type="module" src="fetchdata.js"></script> -->
+    <!-- Add your cart CSS here -->
+     <link rel="stylesheet" href="/Groceryhub/css/addcart.css">
+
+   
+</head>
+<style>
+#empty-cart-message {
+    display: none; /* Hide by default */
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+</style>
+<body>
+    <h1>Shopping Cart </h1>
+    <button class="cbtn"><a href="/index.html" >Continue shopping</a></button>
+    <div id="empty-cart-message">Your cart is empty</div>
+
+    <div class="cart-container" id="cart-container">
+        <!-- Cart items will be displayed here -->
+    </div>
+
+    <!-- Cart total will be displayed here -->
+    <div class="cart-total" id="cart-total">
+        <!-- Total price will be injected here -->
+    </div>
+    <button class="checkout-btn">Checkout</button>
+
+    
+    <!-- Include the JavaScript files -->
+    <!-- <script type="module" src="addtocart.js"></script> -->
+    <script type="module" src="/Groceryhub/Js/cart.js"></script>
+</body>
+</html>
+
+
+
+
+

@@ -19,7 +19,7 @@ const db = getFirestore(app); // Initialize Firestore
 const uploadVegetablesFromJSON = async () => {
   try {
     // Fetch the JSON data (Make sure the path is correct)
-    const response = await fetch('vegetable.json');
+    const response = await fetch('/Groceryhub/Json/vegetable.json');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

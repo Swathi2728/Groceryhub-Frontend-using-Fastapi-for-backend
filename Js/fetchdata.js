@@ -33,17 +33,17 @@ function createProductHTML(item) {
     // Generate dynamic link based on item name (or category)
     let redirectURL = "";
     if (item.name === 'Fruits') {
-        redirectURL = "fruits.html"; // Redirect to fruits page
+        redirectURL = "/Groceryhub/html/fruits.html"; // Redirect to fruits page
     } else if (item.name=== 'Vegetable') {
-        redirectURL = "vegetable.html"; // Redirect to vegetables page
+        redirectURL = "/Groceryhub/html/vegetable.html"; // Redirect to vegetables page
     }else if(item.name=='Dairy'){
-        redirectURL = "dairy.html";
+        redirectURL = "/Groceryhub/html/dairy.html";
     }
     else if(item.name=='Snacks'){
-        redirectURL = "snacks.html";
+        redirectURL = "/Groceryhub/html/snacks.html";
     }
     else {
-        redirectURL = "index.html"; // Default product page
+        redirectURL = "/index.html"; // Default product page
     }
 
     itemHTML += `<button class="shop-now" id="shop-now-${item.name}" onclick="window.location.href='${redirectURL}'">Shop Now</button>`;
@@ -211,7 +211,7 @@ function showAddedMessage() {
     alert('Product added to cart!');
     
     // After the alert closes, redirect to the cart page
-    window.location.href = 'addtocart.html'; // Redirect to the cart page
+    window.location.href = '/Groceryhub/html/addtocart.html'; // Redirect to the cart page
 }
 
 // Assuming addToCart is defined somewhere, here is an example implementation of addToCart():
@@ -253,7 +253,7 @@ async function addToCart(name, price, img, weight) {
     await setDoc(cartRef, { items: cart });
 
     alert('Product added to cart!');
-    window.location.href = 'addtocart.html'; // Redirect to cart page
+    window.location.href = '/Groceryhub/html/addtocart.html'; // Redirect to cart page
 }
 
 
@@ -268,7 +268,7 @@ async function fetchGroceryData() {
 
     try {
         // Fetch the JSON file (adjust the path if needed)
-        const response = await fetch('dashboard.json');
+        const response = await fetch('/Groceryhub/Json/dashboard.json');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }

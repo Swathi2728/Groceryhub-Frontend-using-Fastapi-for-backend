@@ -41,7 +41,7 @@ signIn.addEventListener("click", (event) => {
             
             // No check for email verification, just proceed to index.html
             localStorage.setItem("loggedInUserId", user.uid);
-            window.location.href = 'index.html';
+            window.location.href = '/index.html';
         })
         .catch((error) => {
             console.log('Firebase Error Code:', error.code);  // Log the error code

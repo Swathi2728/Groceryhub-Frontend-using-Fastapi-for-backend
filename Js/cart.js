@@ -23,7 +23,7 @@ async function displayCart(user) {
 
     if (!user) {
         alert('Please log in to view your cart.');
-        window.location.href = 'login.html'; // Redirect to login if not logged in
+        window.location.href = '/Groceryhub/html/login.html'; // Redirect to login if not logged in
         return;
     }
 
@@ -188,7 +188,7 @@ function logout() {
         // Sign out the user
         signOut(auth).then(() => {
             alert('Logged out successfully!');
-            window.location.href = 'login.html'; // Redirect to login page
+            window.location.href = '/Groceryhub/html/login.html'; // Redirect to login page
         }).catch(error => {
             console.error('Logout error: ', error);
         });
@@ -200,7 +200,7 @@ async function checkout() {
     const user = auth.currentUser; // Get the current authenticated user
     if (!user) {
         alert('Please log in to proceed with checkout.');
-        window.location.href = 'login.html'; // Redirect to login if not logged in
+        window.location.href = '/Groceryhub/html/login.html'; // Redirect to login if not logged in
         return;
     }
 

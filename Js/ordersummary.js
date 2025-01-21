@@ -21,7 +21,7 @@ const db = getFirestore(app);
 auth.onAuthStateChanged(async (user) => {
     if (!user) {
         alert('Please log in to view your orders.');
-        window.location.href = 'login.html'; // Redirect if not logged in
+        window.location.href = '/Groceryhub/html/login.html'; // Redirect if not logged in
         return;
     }
 

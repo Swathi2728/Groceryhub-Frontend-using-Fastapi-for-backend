@@ -18,7 +18,7 @@ const db = getFirestore(app); // Initialize Firestore
 const uploadSnacksFromJSON = async () => {
   try {
     // Fetch the snack JSON data (Make sure the path is correct)
-    const response = await fetch('snaks.json'); // Adjust path to the actual location of snack.json
+    const response = await fetch('/Groceryhub/Json/snaks.json'); // Adjust path to the actual location of snack.json
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

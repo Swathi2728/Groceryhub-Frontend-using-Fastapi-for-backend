@@ -11,8 +11,6 @@ const firebaseConfig = {
     appId: "1:900436401273:web:d09d181852913621e048a8"
 };
 
-
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -21,22 +19,22 @@ const db = getFirestore(app);
 async function loadJSONAndPushData() {
     try {
         // Fetch the JSON file (ensure the path is correct)
-        const response = await fetch('fruits.json'); 
+        const response = await fetch('/Groceryhub/Json/dashboard.json'); 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const groceryData = await response.json(); // Parse JSON data
 
-        // Loop over each fruit in the groceryData (now under 'fruits' category)
-        for (const fruitId in groceryData) {
-            // Get a reference to the fruit document (create a unique document for each fruit)
-            const fruitRef = doc(db, "fruits", fruitId); 
+        // Loop over each category in the groceryData
+        for (const category in groceryData) {
+            // Get a reference to the category document (create a unique document for each category)
+            const categoryRef = doc(db, "groceryData", category); 
 
-            // Set the data for that fruit (overwrite document if it exists)
-            await setDoc(fruitRef, groceryData[fruitId]);
+            // Set the data for that category (overwrite document if it exists)
+            await setDoc(categoryRef, { items: groceryData[category] });
 
-            console.log(`Data for ${fruitId} pushed successfully!`);
+            console.log(`Data for ${category} pushed successfully!`);
         }
     } catch (error) {
         console.error("Error pushing data: ", error);
