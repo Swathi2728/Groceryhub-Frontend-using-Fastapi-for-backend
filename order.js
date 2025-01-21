@@ -1,5 +1,6 @@
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js"; // Make sure to import onAuthStateChanged
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js"; 
 
 // Firebase configuration
 const firebaseConfig = {
@@ -14,51 +15,67 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
+// Wait for the DOM content to be loaded before accessing user authentication state
 document.addEventListener('DOMContentLoaded', () => {
-    // Fetch the cart data from localStorage (or sessionStorage)
-    const orderItems = JSON.parse(localStorage.getItem('orderItems')) || [];
-    const orderContainer = document.getElementById('order-container');
-    const totalPriceContainer = document.getElementById('total-price-container');
+    // Add the onAuthStateChanged listener to ensure that the user is authenticated
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            // User is authenticated
+            const userEmail = user.email.replace('.', '_'); // Format email for Firestore
 
-    if (orderItems.length === 0) {
-        alert('Your cart is empty. Please add items to your cart before proceeding.');
-        
-        // orderContainer.innerHTML = '<p>Your cart is empty.</p>';
-        // totalPriceContainer.innerHTML = ''; // No price display if cart is empty
-        return;
-    }
+            // Fetch cart data from Firestore
+            const cartRef = doc(db, 'carts', userEmail);
+            const cartSnap = await getDoc(cartRef);
 
-    let totalPrice = 0;
+            let orderItems = [];
+            if (cartSnap.exists()) {
+                orderItems = cartSnap.data().items;
+            } else {
+                alert('Your cart is empty. Please add items to your cart before proceeding.');
+                return;
+            }
 
-    // Display each item in the order
-    orderItems.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('order-item');
+            const orderContainer = document.getElementById('order-container');
+            const totalPriceContainer = document.getElementById('total-price-container');
 
-        itemDiv.innerHTML = `
-            <div>
-                <h2>${item.name}</h2>
-                <p class="weight">Weight: ${item.weight}</p>
-                <p class="price">Price: ₹${item.price}</p>
-                <p class="price">Quantity: ${item.quantity}</p>
-                <p class="total">Total: ₹${item.price * item.quantity}</p>
-            </div>
-            <div>
-                <img src="${item.img}" alt="${item.name}">
-            </div>
-        `;
+            let totalPrice = 0;
 
-        orderContainer.appendChild(itemDiv);
-        totalPrice += item.price * item.quantity;
+            // Display each item in the order
+            orderItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('order-item');
+
+                itemDiv.innerHTML = `
+                    <div>
+                        <h2>${item.name}</h2>
+                        <p class="weight">Weight: ${item.weight}</p>
+                        <p class="price">Price: ₹${item.price}</p>
+                        <p class="price">Quantity: ${item.quantity}</p>
+                        <p class="total">Total: ₹${item.price * item.quantity}</p>
+                    </div>
+                    <div>
+                        <img src="${item.img}" alt="${item.name}">
+                    </div>
+                `;
+
+                orderContainer.appendChild(itemDiv);
+                totalPrice += item.price * item.quantity;
+            });
+
+            // Display the total price
+            totalPriceContainer.innerHTML = `Total Price: ₹${totalPrice.toFixed(2)}`;
+        } else {
+            // User is not authenticated
+            alert('Please log in to view your cart and orders.');
+            window.location.href = 'login.html'; // Redirect to login page if not logged in
+        }
     });
-
-    // Display the total price
-    totalPriceContainer.innerHTML = `Total Price: ₹${totalPrice.toFixed(2)}`;
 });
 
 // Submit event for the payment form
-document.getElementById('payment-form').addEventListener('submit', function (e) {
+document.getElementById('payment-form').addEventListener('submit', async function (e) {
     e.preventDefault(); // Prevent default form submission
 
     // Get form data
@@ -80,20 +97,8 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
         cvv = document.getElementById('cvv').value.trim();
     }
 
-    // Validation for the payment form
-    // const fullNameRegex = /^[A-Z][a-z]*([ ]?[A-Z][a-z]*)*$/;
-    // if (!fullName || !fullNameRegex.test(fullName)) {
-    //     alert('Please enter a valid full name. The first letter should be uppercase, and no spaces in the name.');
-    //     return;
-    // }\
-    const nameRegex = /^[A-Za-z]{3,15}$/; 
-    if (!nameRegex.test(fullName)) {
-        alert("Name must contain only letters and be between 3 to 15 characters long!");
-        return;
-      }
-    
-
-    if (!addressLine1 || !state || !city || !zipcode || !paymentOption) {
+    // Validate the payment form (simplified version)
+    if (!fullName || !addressLine1 || !state || !city || !zipcode || !paymentOption) {
         alert('Please fill out all the required fields.');
         return;
     }
@@ -133,42 +138,39 @@ document.getElementById('payment-form').addEventListener('submit', function (e) 
         return;
     }
 
-    // Confirmation before completing the order
-    
-    const isConfirmed = window.confirm('Payment successful! Your order has been placed. Do you want to continue?');
+    const userEmail = user.email.replace('.', '_'); // Convert email to a usable key
+    const cartRef = doc(db, 'carts', userEmail);
+    const cartSnap = await getDoc(cartRef);
 
-    if (isConfirmed) {
-        const userEmail = user.email.replace('.', '_'); // Convert email to a usable key
-        const cartItems = JSON.parse(localStorage.getItem('orderItems')) || [];
-    
-        const order = {
-            date: new Date().toLocaleDateString(),
-            status: 'Placed',
-            items: cartItems
-        };
-    
-        let userOrders = JSON.parse(localStorage.getItem(userEmail + '_orders')) || [];
-        userOrders.push(order);
-    
-        localStorage.setItem(userEmail + '_orders', JSON.stringify(userOrders));
-    
-        // Remove cart items from localStorage after the order is placed
-        localStorage.removeItem('orderItems');  // Clear cart data
-        if (user) {
-            const userEmail = user.email.replace('.', '_');
-            localStorage.removeItem(userEmail); // Remove cart from localStorage
-        }
-
-    
-        alert('Thank you for your purchase!');
-        window.location.href = 'index.html'; // Redirect to home
-
-
+    let cartItems = [];
+    if (cartSnap.exists()) {
+        cartItems = cartSnap.data().items;
     } else {
-        alert('Your order has been canceled.');
-        window.location.href = 'index.html'; // Redirect to home
+        alert('Your cart is empty. Please add items to your cart before proceeding.');
+        return;
     }
-    
+
+    // Create a new order
+    const order = {
+        date: new Date().toLocaleDateString(),
+        status: 'Placed',
+        items: cartItems
+    };
+
+    // Store order in Firestore
+    const ordersRef = collection(db, 'orders');
+    await addDoc(ordersRef, {
+        userEmail: userEmail,
+        orderDate: order.date,
+        status: order.status,
+        items: order.items,
+    });
+
+    // Clear cart from Firestore after placing the order
+    await setDoc(cartRef, { items: [] });
+
+    alert('Thank you for your purchase!');
+    window.location.href = 'index.html'; // Redirect to home
 });
 
 // Show/hide card details based on payment method selected

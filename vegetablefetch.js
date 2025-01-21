@@ -1,7 +1,9 @@
 // Import Firebase modules from Firebase SDK v9 and above
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+// import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, doc, collection, getDocs, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -105,29 +107,30 @@ function displayVegetables(vegetables) {
         container.appendChild(vegetableElement);
     });
 }
-
-function addToCart(name, price, img, weight) {
+async function addToCart(name, price, img, weight) {
     const user = auth.currentUser; // Get the current authenticated user
     if (!user) {
         alert('Please log in to add items to your cart.');
         return;
     }
 
-    const userEmail = user.email.replace('.', '_'); // Use the user's email as the key for localStorage
-    const cart = JSON.parse(localStorage.getItem(userEmail)) || []; // Retrieve the user's cart from localStorage (or initialize as empty array)
+    const userEmail = user.email.replace('.', '_'); // Use the user's email as the document ID in Firestore
+    const cartRef = doc(db, 'carts', userEmail); // Reference to the user's cart document in Firestore
 
-    // Check if the item already exists in the cart
+    // Fetch the user's current cart from Firestore
+    const cartDoc = await getDoc(cartRef);
+    let cart = cartDoc.exists() ? cartDoc.data().items : []; // Retrieve cart items or initialize as an empty array
+
     const existingItem = cart.find(item => item.name === name && item.weight === weight);
 
     if (existingItem) {
         if (existingItem.quantity < 10) {
             existingItem.quantity += 1; // Increment quantity if item is already in the cart
         } else {
-            alert('Maximum quantity of 10 reached for this item And already in cart');
+            alert('Maximum quantity of 10 reached for this item');
             return;
         }
     } else {
-        // Add a new item to the cart
         cart.push({
             name: name,
             price: price,
@@ -137,12 +140,11 @@ function addToCart(name, price, img, weight) {
         });
     }
 
-    // Save the updated cart to localStorage under the user's email
-    localStorage.setItem(userEmail, JSON.stringify(cart));
+    // Update the cart in Firestore
+    await setDoc(cartRef, { items: cart });
 
-    // Optionally, show a message or redirect
     alert('Product added to cart!');
-    window.location.href = 'addtocart.html'; // Redirect to the cart page
+    window.location.href = 'addtocart.html'; // Redirect to cart page
 }
 
 // Search function for filtering vegetables by name

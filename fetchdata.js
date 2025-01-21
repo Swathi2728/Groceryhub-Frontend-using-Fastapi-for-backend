@@ -16,21 +16,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app); // Initialize Firebase Authentication
 
-// const auth = getAuth();
-
-
-// auth.onAuthStateChanged(user => {
-//     if (user) {
-//         fetchGroceryData()
-//         // If user is authenticated, call the fetchVegetables function
-//     ;
-//     } else {
-//       // If user is not authenticated, show a message and redirect to login
-//       alert('You must be logged in to view the products.');
-//       window.location.href = 'login.html'; // Redirect to login page
-//     }
-//   });
-
 
 // Function to generate product HTML
 function createProductHTML(item) {
@@ -231,27 +216,30 @@ function showAddedMessage() {
 
 // Assuming addToCart is defined somewhere, here is an example implementation of addToCart():
 // Example addToCart function (using localStorage to store cart)
-function addToCart(name, price, img, weight) {
+async function addToCart(name, price, img, weight) {
     const user = auth.currentUser; // Get the current authenticated user
     if (!user) {
         alert('Please log in to add items to your cart.');
         return;
     }
-  
-    const userEmail = user.email.replace('.', '_'); // Use the user's email as the key for localStorage
-    const cart = JSON.parse(localStorage.getItem(userEmail)) || []; // Retrieve the user's cart from localStorage (or initialize as empty array)
-  
-    // Check if the item already exists in the cart
+
+    const userEmail = user.email.replace('.', '_'); // Use the user's email as the document ID in Firestore
+    const cartRef = doc(db, 'carts', userEmail); // Reference to the user's cart document in Firestore
+
+    // Fetch the user's current cart from Firestore
+    const cartDoc = await getDoc(cartRef);
+    let cart = cartDoc.exists() ? cartDoc.data().items : []; // Retrieve cart items or initialize as an empty array
+
     const existingItem = cart.find(item => item.name === name && item.weight === weight);
-  
+
     if (existingItem) {
         if (existingItem.quantity < 10) {
             existingItem.quantity += 1; // Increment quantity if item is already in the cart
         } else {
-            alert('Maximum quantity of 10 reached for this item And already in cart');
+            alert('Maximum quantity of 10 reached for this item');
             return;
-        }    } else {
-        // Add a new item to the cart
+        }
+    } else {
         cart.push({
             name: name,
             price: price,
@@ -260,14 +248,13 @@ function addToCart(name, price, img, weight) {
             quantity: 1
         });
     }
-  
-    // Save the updated cart to localStorage under the user's email
-    localStorage.setItem(userEmail, JSON.stringify(cart));
-  
-    // Optionally, show a message or redirect
+
+    // Update the cart in Firestore
+    await setDoc(cartRef, { items: cart });
+
     alert('Product added to cart!');
-    window.location.href = 'addtocart.html'; // Redirect to the cart page
-  }
+    window.location.href = 'addtocart.html'; // Redirect to cart page
+}
 
 
 

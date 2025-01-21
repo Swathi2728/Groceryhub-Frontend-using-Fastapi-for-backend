@@ -1,7 +1,6 @@
-// Import necessary Firebase modules
-// Import necessary Firebase modules
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayRemove, arrayUnion } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -15,10 +14,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app); // Initialize Firebase Authentication
+const auth = getAuth(app); // Firebase Authentication
+const db = getFirestore(app); // Firestore database
 
 // Function to display the cart
-function displayCart(user) {
+async function displayCart(user) {
     console.log('User:', user); // Check if user is logged in
 
     if (!user) {
@@ -27,12 +27,18 @@ function displayCart(user) {
         return;
     }
 
-    const userEmail = user.email.replace('.', '_'); // Replace '.' with '_' for the key
-    console.log("Storing and retrieving cart with key:", userEmail); // Log the key used for localStorage
+    const userEmail = user.email.replace('.', '_'); // Use email as Firestore document ID
+    console.log("Fetching cart data for:", userEmail);
 
-    // Get cart data from localStorage using the user's email as the key
-    const cart = JSON.parse(localStorage.getItem(userEmail)) || [];
-    console.log('Cart data:', cart); // Check if cart data is retrieved
+    // Get cart data from Firestore
+    const cartDocRef = doc(db, 'carts', userEmail);
+    const cartDoc = await getDoc(cartDocRef);
+
+    let cart = [];
+    if (cartDoc.exists()) {
+        cart = cartDoc.data().items || [];
+        console.log('Cart data:', cart); // Check if cart data is retrieved
+    }
 
     // Get the cart container where you want to display cart items
     const cartContainer = document.getElementById('cart-container');
@@ -51,13 +57,11 @@ function displayCart(user) {
         if (emptyCartMessage) {
             emptyCartMessage.style.display = 'block'; // Show the empty cart message
         }
-    // Exit the function if the cart is empty
         const totalDiv = document.getElementById('cart-total');
         if (totalDiv) {
             totalDiv.innerHTML = 'Total Price: ₹0.00';
         }
-
-        return; //
+        return;
     }
 
     // Hide the empty cart message if there are items
@@ -111,64 +115,47 @@ function displayCart(user) {
     decreaseButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             const index = e.target.getAttribute('data-index');
-            updateQuantity(index, 'decrease');
+            updateQuantity(userEmail, index, 'decrease');
         });
     });
 
     increaseButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             const index = e.target.getAttribute('data-index');
-            updateQuantity(index, 'increase');
+            updateQuantity(userEmail, index, 'increase');
         });
     });
 
     removeButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             const index = e.target.getAttribute('data-index');
-            removeFromCart(index);
+            removeFromCart(userEmail, index);
         });
     });
 }
 
-
-
 // Function to remove item from the cart
-function removeFromCart(index) {
-    const user = auth.currentUser; // Get the current authenticated user
-    if (!user) {
-        alert('Please log in to modify your cart.');
-        return;
-    }
-
-    const userEmail = user.email.replace('.', '_'); // Replace '.' with '_'
-
-    // Get cart data from localStorage
-    let cart = JSON.parse(localStorage.getItem(userEmail)) || [];
+async function removeFromCart(userEmail, index) {
+    const cartDocRef = doc(db, 'carts', userEmail);
+    const cartDoc = await getDoc(cartDocRef);
+    let cart = cartDoc.exists() ? cartDoc.data().items : [];
 
     // Remove the item from the cart by index
     cart.splice(index, 1);
 
-    // Save the updated cart to localStorage
-    localStorage.setItem(userEmail, JSON.stringify(cart));
+    // Update the cart in Firestore
+    await setDoc(cartDocRef, { items: cart });
 
     // Refresh the cart page to reflect changes
-    displayCart(user);
+    displayCart(auth.currentUser);
 }
 
 // Function to update quantity (increase or decrease)
-function updateQuantity(index, action) {
-    const user = auth.currentUser; // Get the current authenticated user
-    if (!user) {
-        alert('Please log in to modify your cart.');
-        return;
-    }
+async function updateQuantity(userEmail, index, action) {
+    const cartDocRef = doc(db, 'carts', userEmail);
+    const cartDoc = await getDoc(cartDocRef);
+    let cart = cartDoc.exists() ? cartDoc.data().items : [];
 
-    const userEmail = user.email.replace('.', '_'); // Replace '.' with '_'
-
-    // Get cart data from localStorage
-    let cart = JSON.parse(localStorage.getItem(userEmail)) || [];
-
-    // Find the item in the cart
     const item = cart[index];
 
     if (action === 'increase') {
@@ -182,11 +169,11 @@ function updateQuantity(index, action) {
         item.quantity -= 1;
     }
 
-    // Save the updated cart to localStorage
-    localStorage.setItem(userEmail, JSON.stringify(cart));
+    // Update the cart in Firestore
+    await setDoc(cartDocRef, { items: cart });
 
     // Refresh the cart page to reflect changes
-    displayCart(user);
+    displayCart(auth.currentUser);
 }
 
 // Function to log out the user
@@ -194,7 +181,9 @@ function logout() {
     const user = auth.currentUser;
     if (user) {
         // Optionally, you can clear the user's cart when they log out
-        localStorage.removeItem(user.email.replace('.', '_')); // Clear the cart from localStorage
+        const userEmail = user.email.replace('.', '_');
+        const cartDocRef = doc(db, 'carts', userEmail);
+        setDoc(cartDocRef, { items: [] }); // Clear the cart from Firestore
 
         // Sign out the user
         signOut(auth).then(() => {
@@ -206,7 +195,8 @@ function logout() {
     }
 }
 
-function checkout() {
+// Function to checkout
+async function checkout() {
     const user = auth.currentUser; // Get the current authenticated user
     if (!user) {
         alert('Please log in to proceed with checkout.');
@@ -214,10 +204,12 @@ function checkout() {
         return;
     }
 
-    const userEmail = user.email.replace('.', '_'); // Replace '.' with '_'
+    const userEmail = user.email.replace('.', '_'); // Use email as Firestore document ID
 
-    // Get cart data from localStorage
-    const cart = JSON.parse(localStorage.getItem(userEmail)) || [];
+    // Get cart data from Firestore
+    const cartDocRef = doc(db, 'carts', userEmail);
+    const cartDoc = await getDoc(cartDocRef);
+    const cart = cartDoc.exists() ? cartDoc.data().items : [];
 
     if (cart.length === 0) {
         alert('Your cart is empty.');

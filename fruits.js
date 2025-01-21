@@ -1,7 +1,7 @@
 // Import Firebase modules from Firebase SDK v9 and above
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-import { getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, doc, collection, getDocs, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -103,16 +103,20 @@ function displayNoFruits() {
     container.innerHTML = '<p>No fruits available at the moment. Please check back later.</p>';
 }
 
-// Add item to cart
-function addToCart(name, price, img, weight) {
+// Add item to cart using Firestore
+async function addToCart(name, price, img, weight) {
     const user = auth.currentUser; // Get the current authenticated user
     if (!user) {
         alert('Please log in to add items to your cart.');
         return;
     }
 
-    const userEmail = user.email.replace('.', '_'); // Use the user's email as the key for localStorage
-    const cart = JSON.parse(localStorage.getItem(userEmail)) || []; // Retrieve the user's cart from localStorage (or initialize as empty array)
+    const userEmail = user.email.replace('.', '_'); // Use the user's email as the document ID in Firestore
+    const cartRef = doc(db, 'carts', userEmail); // Reference to the user's cart document in Firestore
+
+    // Fetch the user's current cart from Firestore
+    const cartDoc = await getDoc(cartRef);
+    let cart = cartDoc.exists() ? cartDoc.data().items : []; // Retrieve cart items or initialize as an empty array
 
     const existingItem = cart.find(item => item.name === name && item.weight === weight);
 
@@ -120,7 +124,7 @@ function addToCart(name, price, img, weight) {
         if (existingItem.quantity < 10) {
             existingItem.quantity += 1; // Increment quantity if item is already in the cart
         } else {
-            alert('Maximum quantity of 10 reached for this item And already in cart');
+            alert('Maximum quantity of 10 reached for this item');
             return;
         }
     } else {
@@ -133,7 +137,8 @@ function addToCart(name, price, img, weight) {
         });
     }
 
-    localStorage.setItem(userEmail, JSON.stringify(cart));
+    // Update the cart in Firestore
+    await setDoc(cartRef, { items: cart });
 
     alert('Product added to cart!');
     window.location.href = 'addtocart.html'; // Redirect to cart page
@@ -171,12 +176,9 @@ onAuthStateChanged(auth, (user) => {
         // User is logged in
         document.getElementById('signinButton').style.display = 'none';
         document.getElementById('profileButton').style.display = 'inline-block';
-
-
     } else {
         // User is logged out
         document.getElementById('signinButton').style.display = 'inline-block';
         document.getElementById('profileButton').style.display = 'none';
-
     }
 });
