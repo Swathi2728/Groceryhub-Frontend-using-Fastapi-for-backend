@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snacks</title>
-    <script type="module" src="/Groceryhub/Js/snackspush.js"></script>
-    <script type="module" src="/Groceryhub/Js/snacksfetch.js"></script>
-    <link rel="stylesheet" href="/Groceryhub/css/snacks.css"> 
+    <script type="module" src="../Js/snackspush.js"></script>
+    <script type="module" src="../Js/snacksfetch.js"></script>
+    <link rel="stylesheet" href="../css/snacks.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 </head>
 <body><header>
     <div class="hcontainer">
         <div>
-            <a href="/Groceryhub/index.html"><img src="/Groceryhub/img/logo.png" width="100px" style="margin-left:10px;" ></a>
+            <a href="../index.html"><img src="../img/logo.png" width="100px" style="margin-left:10px;" ></a>
         </div>
         <div>
             <h1 class="title">Grocery <span class="hub">Hub</span></h1>
         </div>
         <div class="ncontainer">
             <div class="home">
-                <li><a href="/Groceryhub/index.html">Home</a></li>
+                <li><a href="../index.html">Home</a></li>
             </div>
             <!-- <div class="home">
                 <li><a href="#about">About us</a></li>
@@ -38,16 +38,16 @@
                 <option value="snacks.html">Snacks</option>
                 <option value="dairy.html">Dairy</option>
             </select>
-            <button class="signin" id="signinButton"><a href="/Groceryhub/html/login.html" >Sign In</a></button>
-            <a href="/Groceryhub/html/addtocart.html">
+            <button class="signin" id="signinButton"><a href="../html/login.html" >Sign In</a></button>
+            <a href="../html/addtocart.html">
                 <i class="fa-solid fa-bag-shopping fa-xl- carticon" style="color: #636ae8;"></i>
             </a>
             <div class="profile-dropdown">
                    
                 <i class="fa-solid fa-user" id="profileButton"></i>
                 <div class="dropdown-content" id="dropdownMenu">
-                    <a href="/Groceryhub/html/profile.html" id="myAccount">My Account</a>
-                    <a href="/Groceryhub/html/ordersummary.html" id="myOrders">My Orders</a>
+                    <a href="../html/profile.html" id="myAccount">My Account</a>
+                    <a href="../html/ordersummary.html" id="myOrders">My Orders</a>
                 </div>
             </div>
         </div>
@@ -75,12 +75,12 @@
         // Event listeners for the dropdown items
         document.getElementById('myAccount').addEventListener('click', function () {
             // Redirect to the 'My Account' page
-            window.location.href = '/Groceryhub/html/profile.html';  // Replace with your actual account page URL
+            window.location.href = '../html/profile.html';  // Replace with your actual account page URL
         });
 
         document.getElementById('myOrders').addEventListener('click', function () {
             // Redirect to the 'My Orders' page
-            window.location.href = '/Groceryhub/html/ordersummary.html';  // Replace with your actual orders page URL
+            window.location.href = '../html/ordersummary.html';  // Replace with your actual orders page URL
         });
 
         // Optional: Close dropdown if clicked outside

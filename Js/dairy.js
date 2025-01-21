@@ -20,7 +20,7 @@ const db = getFirestore(app);
 const loadData = async () => {
     try {
       // Adjust the path to 'dairy.json' depending on where it's located
-      const response = await fetch('/Groceryhub/Json/dairy.json');
+      const response = await fetch('../Json/dairy.json');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
