@@ -211,7 +211,7 @@ function showAddedMessage() {
     alert('Product added to cart!');
     
     // After the alert closes, redirect to the cart page
-    window.location.href = '/Groceryhub/html/addtocart.html'; // Redirect to the cart page
+    window.location.href = '../html/addtocart.html'; // Redirect to the cart page
 }
 
 // Assuming addToCart is defined somewhere, here is an example implementation of addToCart():

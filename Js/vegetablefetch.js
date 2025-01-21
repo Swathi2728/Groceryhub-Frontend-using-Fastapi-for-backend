@@ -144,7 +144,7 @@ async function addToCart(name, price, img, weight) {
     await setDoc(cartRef, { items: cart });
 
     alert('Product added to cart!');
-    window.location.href = '/Groceryhub/html/addtocart.html'; // Redirect to cart page
+    window.location.href = '../html/addtocart.html'; // Redirect to cart page
 }
 
 // Search function for filtering vegetables by name

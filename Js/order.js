@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // User is not authenticated
             alert('Please log in to view your cart and orders.');
-            window.location.href = '/Groceryhub/html/login.html'; // Redirect to login page if not logged in
+            window.location.href = '../html/login.html'; // Redirect to login page if not logged in
         }
     });
 });
@@ -134,7 +134,7 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     const user = auth.currentUser;
     if (!user) {
         alert('Please log in to view your orders.');
-        window.location.href = '/Groceryhub/html/login.html'; // Redirect if not logged in
+        window.location.href = '../html/login.html'; // Redirect if not logged in
         return;
     }
 
@@ -170,7 +170,7 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     await setDoc(cartRef, { items: [] });
 
     alert('Thank you for your purchase!');
-    window.location.href = '/Groceryhub/index.html'; // Redirect to home
+    window.location.href = '../index.html'; // Redirect to home
 });
 
 // Show/hide card details based on payment method selected

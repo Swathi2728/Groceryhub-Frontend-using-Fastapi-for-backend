@@ -222,7 +222,7 @@ async function checkout() {
     // Do not clear the cart here; wait until payment is completed
 
     // Redirect to the order page (payment page)
-    window.location.href = 'order.html'; // Replace 'order.html' with your order page URL
+    window.location.href = '../html/order.html'; // Replace 'order.html' with your order page URL
 }
 
 // Add event listener to the checkout button

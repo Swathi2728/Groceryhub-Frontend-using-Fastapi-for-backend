@@ -75,7 +75,7 @@ onAuthStateChanged(auth, (user) => {
         const uid = user.uid; // Get the user UID
         loadUserProfile(uid);
     } else {
-        window.location.href = '/Groceryhub/html/login.html'; // Redirect to login page if user is not logged in
+        window.location.href = '../html/login.html'; // Redirect to login page if user is not logged in
     }
 });
 
@@ -84,7 +84,7 @@ document.getElementById('logout-btn').addEventListener('click', () => {
     signOut(auth)
         .then(() => {
             console.log("User logged out");
-            window.location.href = '/Groceryhub/html/login.html'; // Redirect to login page after logout
+            window.location.href = '../html/login.html'; // Redirect to login page after logout
         })
         .catch((error) => {
             console.error("Error logging out:", error);
