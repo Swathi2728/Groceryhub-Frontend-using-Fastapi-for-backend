@@ -270,7 +270,7 @@ async function fetchGroceryData() {
 
     try {
         // Fetch the JSON file (adjust the path if needed)
-        const response = await fetch('../Json/dashboard.json');
+        const response = await fetch('Json/dashboard.json');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
