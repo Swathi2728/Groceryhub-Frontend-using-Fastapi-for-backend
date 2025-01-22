@@ -25,17 +25,31 @@ async function loadJSONAndPushData() {
         }
 
         const groceryData = await response.json(); // Parse JSON data
+        const categories = Object.keys(groceryData);//categories=[featuredproduct,bestseller]
 
-        // Loop over each category in the groceryData
-        for (const category in groceryData) {
-            // Get a reference to the category document (create a unique document for each category)
-            const categoryRef = doc(db, "groceryData", category); 
+// Use a standard for loop to iterate through categories
+for (let i = 0; i < categories.length; i++) {
+    const category = categories[i];
 
-            // Set the data for that category (overwrite document if it exists)
-            await setDoc(categoryRef, { items: groceryData[category] });
+    // Get a reference to the category document (create a unique document for each category)
+    const categoryRef = doc(db, "groceryData", category); 
 
-            console.log(`Data for ${category} pushed successfully!`);
-        }
+    // Set the data for that category (overwrite document if it exists)
+    await setDoc(categoryRef, { items: groceryData[category] });
+
+    console.log(`Data for ${category} pushed successfully!`);
+}
+
+        // // Loop over each category in the groceryData
+        // for (const category in groceryData) {
+        //     // Get a reference to the category document (create a unique document for each category)
+        //     const categoryRef = doc(db, "groceryData", category); 
+
+        //     // Set the data for that category (overwrite document if it exists)
+        //     await setDoc(categoryRef, { items: groceryData[category] });
+
+        //     console.log(`Data for ${category} pushed successfully!`);
+        // }
     } catch (error) {
         console.error("Error pushing data: ", error);
     }
