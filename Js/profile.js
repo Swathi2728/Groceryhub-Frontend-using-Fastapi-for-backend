@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebas
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-// Firebase Configuration
+
 const firebaseConfig = {
     apiKey: "AIzaSyCo5NR_s6Pbd_ZypP_5tgp2joEHmA7RcT8",
     authDomain: "login-form-9e415.firebaseapp.com",
@@ -12,14 +12,13 @@ const firebaseConfig = {
     appId: "1:900436401273:web:d09d181852913621e048a8"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app); // Initialize Firebase Auth
-const db = getFirestore(app); // Initialize Firestore
 
-// Load user profile data from Firestore
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app); 
+const db = getFirestore(app); 
+
 const loadUserProfile = async (uid) => {
-    const userRef = doc(db, 'users', uid); // Reference to the user's document in Firestore
+    const userRef = doc(db, 'users', uid); 
 
     try {
         const docSnap = await getDoc(userRef);
@@ -34,14 +33,14 @@ const loadUserProfile = async (uid) => {
     }
 };
 
-// Display the profile data on the page
+
 const displayProfile = (userData) => {
     document.getElementById('first-name').value = userData.firstName || '';
     document.getElementById('last-name').value = userData.lastName || '';
     document.getElementById('email').value = userData.email || '';
 };
 
-// Update profile data
+
 const updateUserProfile = async () => {
     const firstName = document.getElementById('first-name').value;
     const lastName = document.getElementById('last-name').value;
@@ -56,7 +55,7 @@ const updateUserProfile = async () => {
                     firstName: firstName,
                     lastName: lastName,
                     email: email
-                }, { merge: true }); // Merge updates without overwriting entire document
+                }, { merge: true }); 
                 console.log('Profile updated successfully');
                 alert('Profile updated successfully');
             } catch (error) {
@@ -69,27 +68,26 @@ const updateUserProfile = async () => {
     }
 };
 
-// Check if the user is logged in and load the profile
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        const uid = user.uid; // Get the user UID
+        const uid = user.uid; 
         loadUserProfile(uid);
     } else {
-        window.location.href = '../html/login.html'; // Redirect to login page if user is not logged in
+        window.location.href = '../html/login.html'; 
     }
 });
 
-// Logout function
+
 document.getElementById('logout-btn').addEventListener('click', () => {
     signOut(auth)
         .then(() => {
             console.log("User logged out");
-            window.location.href = '../html/login.html'; // Redirect to login page after logout
+            window.location.href = '../html/login.html'; 
         })
         .catch((error) => {
             console.error("Error logging out:", error);
         });
 });
 
-// Add an event listener to handle profile updates
+
 document.getElementById('update-profile-btn').addEventListener('click', updateUserProfile);

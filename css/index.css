@@ -124,8 +124,7 @@ button a{
     margin-top:20px;
     width:200px;
  }
- .ncontainer li a{
- }
+
  .category{
     /* text-align: center; */
      display:flex;
@@ -144,9 +143,7 @@ button a{
     display:flex;
     gap:40px;
  }
- #products {
-
-}
+ 
  /* #fruits{
    display:grid;
    grid-template-columns: 1fr 1fr;

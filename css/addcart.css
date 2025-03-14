@@ -97,3 +97,10 @@ h1{
     margin-left: 1300px;
     margin-top:30px
 }
+.quantity-btn{
+ width:40px;
+ height:20px;
+ border-color: #636AE8;
+ border-style: solid;
+ border-radius: 5px;
+}

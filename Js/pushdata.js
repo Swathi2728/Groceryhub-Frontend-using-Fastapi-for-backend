@@ -11,49 +11,38 @@ const firebaseConfig = {
     appId: "1:900436401273:web:d09d181852913621e048a8"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Function to load JSON and push data to Firestore
 async function loadJSONAndPushData() {
     try {
-        // Fetch the JSON file (ensure the path is correct)
         const response = await fetch('Json/dashboard.json'); 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const groceryData = await response.json(); // Parse JSON data
-        const categories = Object.keys(groceryData);//categories=[featuredproduct,bestseller]
+        const groceryData = await response.json();
+        const categories = Object.keys(groceryData);
 
-// Use a standard for loop to iterate through categories
+
 for (let i = 0; i < categories.length; i++) {
     const category = categories[i];
 
-    // Get a reference to the category document (create a unique document for each category)
+
     const categoryRef = doc(db, "groceryData", category); 
 
-    // Set the data for that category (overwrite document if it exists)
+    
     await setDoc(categoryRef, { items: groceryData[category] });
 
     console.log(`Data for ${category} pushed successfully!`);
 }
 
-        // // Loop over each category in the groceryData
-        // for (const category in groceryData) {
-        //     // Get a reference to the category document (create a unique document for each category)
-        //     const categoryRef = doc(db, "groceryData", category); 
-
-        //     // Set the data for that category (overwrite document if it exists)
-        //     await setDoc(categoryRef, { items: groceryData[category] });
-
-        //     console.log(`Data for ${category} pushed successfully!`);
-        // }
+      
     } catch (error) {
         console.error("Error pushing data: ", error);
     }
 }
 
-// Call the function to push data to Firestore
+
 loadJSONAndPushData();
