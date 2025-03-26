@@ -54,7 +54,7 @@ function displayProducts(products, containerId) {
 
         const img = document.createElement('img');
         img.src = product.img;
-        n  
+    
         img.alt = product.name;
         img.style.height = '200px';
         img.style.width = '200px';
