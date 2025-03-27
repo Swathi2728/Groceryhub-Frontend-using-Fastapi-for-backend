@@ -160,23 +160,23 @@ async function addToCart(name, price, img, weight) {
     }
 }
 
-function searchProducts(searchTerm, products, displayFunction) {
-    if (!products || products.length === 0) {
-        alert("No products to search yet.");
-        return;
-    }
+// function searchProducts(searchTerm, products, displayFunction) {
+//     if (!products || products.length === 0) {
+//         alert("No products to search yet.");
+//         return;
+//     }
 
-    const filteredProducts = products.filter(product => {
-        const nameMatch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-        return nameMatch; e
-    });
+//     const filteredProducts = products.filter(product => {
+//         const nameMatch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+//         return nameMatch; e
+//     });
 
-    if (filteredProducts.length === 0) {
-        alert("No matches found.");
-    } else {
-        displayFunction(filteredProducts);
-    }
-}
+//     if (filteredProducts.length === 0) {
+//         alert("No matches found.");
+//     } else {
+//         displayFunction(filteredProducts);
+//     }
+// }
 
 onAuthStateChanged(auth, (user) => {
     const signinButton = document.getElementById('signinButton');

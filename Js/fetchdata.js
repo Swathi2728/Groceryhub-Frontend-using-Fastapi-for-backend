@@ -34,17 +34,17 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebas
      // Generate dynamic link based on item name (or category)
      let redirectURL = "";
      if (item.name === 'Fruits') {
-         redirectURL = "../html/fruits.html"; // Redirect to fruits page
+         redirectURL = "html/fruits.html"; // Redirect to fruits page
      } else if (item.name=== 'Vegetable') {
-         redirectURL = "../html/vegetable.html"; // Redirect to vegetables page
+         redirectURL = "html/vegetable.html"; // Redirect to vegetables page
      }else if(item.name=='Dairy'){
-         redirectURL = "../html/dairy.html";
+         redirectURL = "html/dairy.html";
      }
      else if(item.name=='Snacks'){
-         redirectURL = "../html/snacks.html";
+         redirectURL = "html/snacks.html";
      }
      else {
-         redirectURL = "../index.html"; // Default product page
+         redirectURL = "index.html"; // Default product page
      }
  
      itemHTML += `<button class="shop-now" id="shop-now-${item.name}" onclick="window.location.href='${redirectURL}'">Shop Now</button>`;
