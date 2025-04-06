@@ -14,7 +14,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 
-//const app = initializeApp(firebaseConfig);
 const signIn = document.getElementById("loginbtn");
 signIn.addEventListener("click", (event) => {
     event.preventDefault();
@@ -22,7 +21,6 @@ signIn.addEventListener("click", (event) => {
     const email = document.getElementById("email1").value.trim();
     const password = document.getElementById("pwd1").value.trim();
 
-    // Basic Validation
     if (!email || !password) {
         alert('Please fill in both email and password.');
         return;
@@ -34,12 +32,10 @@ signIn.addEventListener("click", (event) => {
         return;
     }
 
-    // Firebase sign-in
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
             
-            // No check for email verification, just proceed to index.html
             localStorage.setItem("loggedInUserId", user.uid);
             window.location.href = '../index.html';
         })

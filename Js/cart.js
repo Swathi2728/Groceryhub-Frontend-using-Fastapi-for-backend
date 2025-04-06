@@ -53,7 +53,7 @@ async function displayCart(cart) {
         const itemDiv = document.createElement('div');
         itemDiv.classList.add('cart-item');
         itemDiv.innerHTML = `
-            <div>
+            <div class="new">
                 <h2>${item.name}</h2>
                 <p class="weight">Weight: ${item.weight}</p>
                 <p class="price">Price: ₹${item.price}</p>
@@ -141,20 +141,6 @@ async function updateCartInFirestore(userEmail) {
     await setDoc(cartDocRef, { items: cart });
 }
 
-function logout() {
-    const user = auth.currentUser;
-    if (user) {
-        const userEmail = user.email.replace('.', '_');
-        const cartDocRef = doc(db, 'carts', userEmail);
-        setDoc(cartDocRef, { items: [] });
-        signOut(auth).then(() => {
-            alert('Logged out successfully!');
-            window.location.href = '../html/login.html';
-        }).catch(error => {
-            console.error('Logout error: ', error);
-        });
-    }
-}
 
 async function checkout() {
     const user = auth.currentUser;

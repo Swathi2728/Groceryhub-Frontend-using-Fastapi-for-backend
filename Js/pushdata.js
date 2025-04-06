@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getFirestore, collection, setDoc, doc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-// Your Firebase configuration (Replace with your actual config)
 const firebaseConfig = {
     apiKey: "AIzaSyCo5NR_s6Pbd_ZypP_5tgp2joEHmA7RcT8",
     authDomain: "login-form-9e415.firebaseapp.com",
@@ -15,7 +14,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-async function loadJSONAndPushData() {
+async function pushdashbordjsondata() {
     try {
         const response = await fetch('Json/dashboard.json'); 
         if (!response.ok) {
@@ -45,4 +44,4 @@ for (let i = 0; i < categories.length; i++) {
 }
 
 
-loadJSONAndPushData();
+pushdashbordjsondata()

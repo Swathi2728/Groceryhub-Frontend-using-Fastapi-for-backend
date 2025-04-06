@@ -16,31 +16,26 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 function forgot() {
-    const email3 = document.getElementById("email3").value.trim();  // Get the email input value
-
-    // Check if the email field is empty
+    const email3 = document.getElementById("email3").value.trim();  
     if (!email3) {
         alert("Please enter your email address.");
         return;
     }
 
-    // Email validation using basic regex pattern
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(email3)) {
         alert("Please enter a valid email address.");
         return;
     }
 
-    // If email is valid, attempt to send the password reset email
     sendPasswordResetEmail(auth, email3)
         .then(() => {
             alert("Password reset email has been sent.");
         })
         .catch((error) => {
             const errorMessage = error.message;
-            alert("Error: " + errorMessage);  // Show the error message in an alert box
+            alert("Error: " + errorMessage);  
         });
 }
 
-// Attach event listener to the reset button
 document.getElementById("resetBtn").addEventListener("click", forgot);

@@ -19,7 +19,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app); // Firebase Auth instance
 const db =  getFirestore(app); // Firestore instance
 
-// Event listener for the signup button
 const signup = document.getElementById("signupbtn");
 signup.addEventListener("click", (event) => {
   event.preventDefault();
@@ -31,29 +30,16 @@ signup.addEventListener("click", (event) => {
   console.log('Email:', email, 'Password:', password, 'First Name:', firstName, 'Last Name:', lastName);
 
 
-  // Validation for empty fields
   if (!email || !password || !firstName || !lastName) {
     alert("All fields must be filled out!");
     return;
   }
 
-  // Check that first name and last name start with an uppercase letter,
-  // are between 3 and 30 characters long, contain only alphabetic characters (no spaces),
-  // and do not contain any spaces
-  const nameRegex = /^[A-Za-z]+$/; // Only alphabetic characters
-  const spaceCheck = /\s/;  // To check for spaces
+ 
+  const nameRegex = /^[A-Za-z]+$/; 
+  const spaceCheck = /\s/;  
 
-  // First name validation
-  // if (spaceCheck.test(firstName)) {
-  //   alert("First name must not contain spaces!");
-  //   return;
-  // }7
-
-  // if (!/^[A-Z]/.test(firstName)) {
-  //   alert("First name must start with an uppercase letter!");
-  //   return;
-  // }
-
+ 
   if (firstName.length < 3 || firstName.length > 15) {
     alert("First name must be between 3 and 15 characters long!");
     return;
@@ -70,10 +56,7 @@ signup.addEventListener("click", (event) => {
     return;
   }
 
-  // if (!/^[A-Z]/.test(lastName)) {
-  //   alert("Last name must start with an uppercase letter!");
-  //   return;
-  // }
+ 
 
   if (lastName.length < 1|| lastName.length > 30) {
     alert("Last name must be between 1 and 30 characters long!");
@@ -85,18 +68,15 @@ signup.addEventListener("click", (event) => {
     return;
   }
 
-  // Validate the email format
   if (!/\S+@\S+\.\S+/.test(email)) {
     alert("Please enter a valid email address!");
    }
 
-  // Validate the password with the custom regex
   if (!validatePassword(password)) {
     alert("Password must be at least 8 characters long, contain at least one uppercase letter, one special character, and one number!");
     return;
   }
 
-  // Create a user with email and password
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
@@ -108,11 +88,10 @@ signup.addEventListener("click", (event) => {
 
       alert('Account Created Successfully');
       
-      // Store user data in Firestore
       const docRef = doc(db, "users", user.uid);
       setDoc(docRef, userData)
         .then(() => {
-          window.location.href = '../index.html'; // Redirect to home page
+          window.location.href = '../index.html'; 
         })
         .catch((error) => {
           console.log("Error writing document", error);
@@ -130,7 +109,6 @@ signup.addEventListener("click", (event) => {
     });
 });
 
-// Password validation function
 function validatePassword(password) {
   const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return regex.test(password);

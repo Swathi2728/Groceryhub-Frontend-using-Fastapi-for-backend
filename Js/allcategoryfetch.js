@@ -20,17 +20,7 @@ let fruits = [];
 let allDairyProducts = [];
 let allSnacks = [];
 
-function debounce(func, delay) {
-    let timeout;
-    return function() {
-        const context = this;
-        const args = arguments;
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            func.apply(context, args);
-        }, delay);
-    };
-}
+
 
 async function fetchAndDisplayProducts(collectionName, containerId) {
     const productRef = collection(db, collectionName);
@@ -46,71 +36,83 @@ function displayProducts(products, containerId) {
         console.error("Container element not found:", containerId);
         return;
     }
-    container.innerHTML = '';
+    container.innerHTML = ''; // Clear any existing content
 
-    products.forEach(product => {
-        const productElement = document.createElement('div');
-        productElement.classList.add('product-card');
-
-        const img = document.createElement('img');
-        img.src = product.img;
-    
-        img.alt = product.name;
-        img.style.height = '200px';
-        img.style.width = '200px';
-        img.style.borderRadius = '5px';
-        productElement.appendChild(img);
-
-        const name = document.createElement('h2');
-        name.innerText = product.name;
-        productElement.appendChild(name);
-       
-        const priceDisplay = document.createElement('p');
-        priceDisplay.classList.add('price');
-        productElement.appendChild(priceDisplay);
+    // Loop through the products and create sets of 4 products
+    for (let i = 0; i < products.length; i += 4) {
+        // Create a parent div to hold 4 product cards
+        const parentDiv = document.createElement('div');
+        parentDiv.classList.add('product-row'); // Style for the row of products
         
+        // Loop through 4 products (or the remaining products if less than 4)
+        for (let j = i; j < i + 4 && j < products.length; j++) {
+            const product = products[j];
+            const productElement = document.createElement('div');
+            productElement.classList.add('product-card');
 
-        if (product.kilogram && Array.isArray(product.kilogram) && product.kilogram.length > 0) {
-            priceDisplay.innerText = 'Price: ₹' + product.price[product.kilogram[0]];
-            const weightSelect = document.createElement('select');
-            weightSelect.classList.add('weight-select');
-            product.kilogram.forEach(weight => {
-                const option = document.createElement('option');
-                option.value = weight;
-                option.innerText = weight;
-                weightSelect.appendChild(option);
-            });
-            productElement.appendChild(weightSelect);
-            const lineBreak = document.createElement('br');
-            productElement.appendChild(lineBreak);
+            const img = document.createElement('img');
+            img.src = product.img;
+            img.alt = product.name;
+            img.style.height = '200px';
+            img.style.width = '200px';
+            img.style.borderRadius = '5px';
+            productElement.appendChild(img);
 
-            weightSelect.addEventListener('change', function () {
-                const selectedWeight = weightSelect.value;
-                const selectedPrice = product.price[selectedWeight];
-                priceDisplay.innerText = 'Price: ₹' + selectedPrice;
-            });
+            const name = document.createElement('h2');
+            name.innerText = product.name;
+            productElement.appendChild(name);
 
-            const addToCartButton = document.createElement('button');
-            addToCartButton.innerText = 'Add to Cart';
-            addToCartButton.classList.add('add-to-cart');
-            productElement.appendChild(addToCartButton);
+            const priceDisplay = document.createElement('p');
+            priceDisplay.classList.add('price');
+            productElement.appendChild(priceDisplay);
 
-            addToCartButton.addEventListener('click', function () {
-                const selectedWeight = weightSelect.value;
-                const selectedPrice = product.price[selectedWeight];
-                addToCart(product.name, selectedPrice, product.img, selectedWeight);
-            });
-        } else {
-            priceDisplay.innerText = 'Price: ₹0';
-            const addToCartButton = document.createElement('button');
-            addToCartButton.innerText = 'Out of stock';
-            addToCartButton.disabled = true;
-            productElement.appendChild(addToCartButton);
+            if (product.kilogram && Array.isArray(product.kilogram) && product.kilogram.length > 0) {
+                priceDisplay.innerText = 'Price: ₹' + product.price[product.kilogram[0]];
+                const weightSelect = document.createElement('select');
+                weightSelect.classList.add('weight-select');
+                product.kilogram.forEach(weight => {
+                    const option = document.createElement('option');
+                    option.value = weight;
+                    option.innerText = weight;
+                    weightSelect.appendChild(option);
+                });
+                productElement.appendChild(weightSelect);
+                const lineBreak = document.createElement('br');
+                productElement.appendChild(lineBreak);
+
+                weightSelect.addEventListener('change', function () {
+                    const selectedWeight = weightSelect.value;
+                    const selectedPrice = product.price[selectedWeight];
+                    priceDisplay.innerText = 'Price: ₹' + selectedPrice;
+                });
+
+                const addToCartButton = document.createElement('button');
+                addToCartButton.innerText = 'Add to Cart';
+                addToCartButton.classList.add('add-to-cart');
+                productElement.appendChild(addToCartButton);
+
+                addToCartButton.addEventListener('click', function () {
+                    const selectedWeight = weightSelect.value;
+                    const selectedPrice = product.price[selectedWeight];
+                    addToCart(product.name, selectedPrice, product.img, selectedWeight);
+                });
+            } else {
+                priceDisplay.innerText = 'Price: ₹0';
+                const addToCartButton = document.createElement('button');
+                addToCartButton.innerText = 'Out of stock';
+                addToCartButton.disabled = true;
+                productElement.appendChild(addToCartButton);
+            }
+
+            // Append the product card to the parent div
+            parentDiv.appendChild(productElement);
         }
 
-        container.appendChild(productElement);
-    });
+        // Append the parent div (with 4 product cards) to the main container
+        container.appendChild(parentDiv);
+    }
 }
+
 
 async function addToCart(name, price, img, weight) {
     const user = auth.currentUser; 
@@ -160,23 +162,7 @@ async function addToCart(name, price, img, weight) {
     }
 }
 
-// function searchProducts(searchTerm, products, displayFunction) {
-//     if (!products || products.length === 0) {
-//         alert("No products to search yet.");
-//         return;
-//     }
 
-//     const filteredProducts = products.filter(product => {
-//         const nameMatch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-//         return nameMatch; e
-//     });
-
-//     if (filteredProducts.length === 0) {
-//         alert("No matches found.");
-//     } else {
-//         displayFunction(filteredProducts);
-//     }
-// }
 
 onAuthStateChanged(auth, (user) => {
     const signinButton = document.getElementById('signinButton');
@@ -191,37 +177,39 @@ onAuthStateChanged(auth, (user) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    // Fetch all the product data as before
     fetchAndDisplayProducts('vegetables', 'vegetables-container').then(products => vegetables = products).catch(error => console.error("Error fetching vegetables:", error));
     fetchAndDisplayProducts('fruits', 'fruits-container').then(products => fruits = products).catch(error => console.error("Error fetching fruits:", error));
     fetchAndDisplayProducts('dairyProducts', 'dairy-products-container').then(products => allDairyProducts = products).catch(error => console.error("Error fetching dairy:", error));
     fetchAndDisplayProducts('snacks', 'snacks-container').then(products => allSnacks = products).catch(error => console.error("Error fetching snacks:", error));
 
-
-   
-    document.getElementById('search-bar').addEventListener('input', debounce(function (event) {
+    // Search listener (without debounce)
+    document.getElementById('search-bar').addEventListener('input', function (event) {
         const searchTerm = event.target.value;
+        
+        // Combine all products into one list
+        const allProducts = [...vegetables, ...fruits, ...allDairyProducts, ...allSnacks];
 
-      
-        const allProducts = [...vegetables, ...fruits, ...allDairyProducts, ...allSnacks];  
+        // Filter products based on the search term
         const allFilteredProducts = allProducts.filter(product => {
-            const nameMatch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-            return nameMatch; 
+            return product.name.toLowerCase().includes(searchTerm.toLowerCase());
         });
 
+        // If no matches found, show an alert
         if (allFilteredProducts.length === 0) {
-            alert("No matches found."); 
+            alert("No matches found.");
         } else {
-            
+            // Separate the filtered results into categories again
             const filteredVegetables = allFilteredProducts.filter(product => vegetables.includes(product));
             const filteredFruits = allFilteredProducts.filter(product => fruits.includes(product));
             const filteredDairy = allFilteredProducts.filter(product => allDairyProducts.includes(product));
             const filteredSnacks = allFilteredProducts.filter(product => allSnacks.includes(product));
+
+            // Display filtered products in their respective categories
             displayProducts(filteredVegetables, 'vegetables-container');
             displayProducts(filteredFruits, 'fruits-container');
             displayProducts(filteredDairy, 'dairy-products-container');
             displayProducts(filteredSnacks, 'snacks-container');
         }
-
-    }, 300));
+    });
 });

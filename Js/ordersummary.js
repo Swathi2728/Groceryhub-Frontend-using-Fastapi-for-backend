@@ -2,7 +2,7 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-// Firebase configuration
+
 const firebaseConfig = {
     apiKey: "AIzaSyCo5NR_s6Pbd_ZypP_5tgp2joEHmA7RcT8",
     authDomain: "login-form-9e415.firebaseapp.com",
@@ -12,25 +12,23 @@ const firebaseConfig = {
     appId: "1:900436401273:web:d09d181852913621e048a8"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Use `onAuthStateChanged` to check if user is logged in
 auth.onAuthStateChanged(async (user) => {
     if (!user) {
         alert('Please log in to view your orders.');
-        window.location.href = '../html/login.html'; // Redirect if not logged in
+        window.location.href = '../html/login.html'; 
         return;
     }
 
-    const userEmail = user.email.replace('.', '_'); // Convert email to a usable key
-
+    const userEmail = user.email.replace('.', '_'); 
     try {
-        // Fetch the user's order history from Firestore
+        
         const ordersRef = collection(db, 'orders');
-        const q = query(ordersRef, where('userEmail', '==', userEmail)); // Query for orders based on userEmail
+        const q = query(ordersRef, where('userEmail', '==', userEmail));
 
         const querySnapshot = await getDocs(q);
 
@@ -42,18 +40,16 @@ auth.onAuthStateChanged(async (user) => {
 
         const ordersContainer = document.getElementById('orders-container');
         
-        // Convert querySnapshot to array to use indexes
         const ordersArray = Array.from(querySnapshot.docs);
 
         ordersArray.forEach((doc, index) => {
             const order = doc.data();
-            console.log('Order:', order);  // Check the structure of the order data in Firestore
-            console.log('Order Index:', index);  // Log index to verify it's correct
+            console.log('Order:', order);  
+            console.log('Order Index:', index);  
 
             const orderDiv = document.createElement('div');
             orderDiv.classList.add('order-item');
             
-            // Use the correct index value here
             const orderNumber = index + 1;
 
             let orderDetailsHTML = `
@@ -65,7 +61,6 @@ auth.onAuthStateChanged(async (user) => {
                     </div>
             `;
 
-            // Display each item in this particular order
             if (order.items && Array.isArray(order.items)) {
                 order.items.forEach(item => {
                     orderDetailsHTML += `
@@ -85,8 +80,7 @@ auth.onAuthStateChanged(async (user) => {
                 orderDetailsHTML += `<p>No items found in this order.</p>`;
             }
 
-            orderDetailsHTML += `</div>`; // Close the details div
-
+            orderDetailsHTML += `</div>`; 
             orderDiv.innerHTML = orderDetailsHTML;
             ordersContainer.appendChild(orderDiv);
         });

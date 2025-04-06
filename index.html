@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Hub</title>
-    <script type="module" src="Js/pushdata.js"></script> <!-- Ensure correct path -->
-    <script type="module" src="Js/fetchdata.js" defer></script> <!-- Ensure correct path -->
+    <script type="module" src="Js/pushdata.js"></script>
+    <script type="module" src="Js/fetchdata.js" defer></script>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -83,7 +83,7 @@
         <div class="ascontainer">
 
             <div>
-                <a href="index.html"><img src="img/deliveryboy.jpg" class="imgdelivery"></a>
+               <img src="img/deliveryboy.jpg" class="imgdelivery"></a>
             </div>
             <div>
                 <div class="welcome">Welcome to E-commerce Grocery <span class="h">Hub!</span>
@@ -161,7 +161,7 @@
             <div class="footercontainer">
                 <div class="flexitem">
                     <h3 class="h3">Grocery <span class="h">Hub</span></h3>
-                    <div>
+                    <div class="gd">
                         <!-- The E-commerce Grocery Hub website aims to provide<br> an online platform for users to easily
                         browse and<br>
                         purchase a wide range of grocery items, with a focus on <br>fresh produce and organic products.
@@ -201,72 +201,58 @@
     
 
     </section>
-    <!-- <footer> Copyright&copy; 2023-2025 Supermarket Grocery Supplies PVT LTD</footer> -->
 
     <script>
-        // For direct redirection when category is selected
         document.getElementById('category').addEventListener('change', function () {
             var value = this.value;
             if (value) {
-                window.location.href = value;  // Navigate to the selected category
+                window.location.href = value;  
             }
         });
 
-        // Get the dropdown menu and profile button
         const profileButton = document.getElementById('profileButton');
         const dropdownMenu = document.getElementById('dropdownMenu');
 
-        // Toggle the visibility of the dropdown when the profile button is clicked
         profileButton.addEventListener('click', function () {
             if (dropdownMenu.style.display === 'block') {
-                dropdownMenu.style.display = 'none'; // Hide the dropdown
+                dropdownMenu.style.display = 'none';
             } else {
-                dropdownMenu.style.display = 'block'; // Show the dropdown
+                dropdownMenu.style.display = 'block'; 
             }
         });
 
-        // Event listeners for the dropdown items
         document.getElementById('myAccount').addEventListener('click', function () {
-            // Redirect to the 'My Account' page
-            window.location.href = 'html/profile.html';  // Replace with your actual account page URL
+            window.location.href = 'html/profile.html';  
         });
 
         document.getElementById('myOrders').addEventListener('click', function () {
-            // Redirect to the 'My Orders' page
-            window.location.href = 'html/ordersummary.html';  // Replace with your actual orders page URL
+            window.location.href = 'html/ordersummary.html'; 
         });
 
-        // Optional: Close dropdown if clicked outside
         window.addEventListener('click', function (event) {
             if (!profileButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
                 dropdownMenu.style.display = 'none';
             }
         });
-        // Select all the sections you want to observe for visibility
         const sections = document.querySelectorAll('div[id]');
 
-        // Select all the navigation links
         const navLinks = document.querySelectorAll(' li a');
 
-        // Create an intersection observer to detect when sections come into view
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 const sectionId = entry.target.id;
                 const link = document.querySelector(`a[href="#${sectionId}"]`);
 
                 if (entry.isIntersecting) {
-                    // Add the 'active' class to the link when the section is in view
                     link.classList.add('active');
                 } else {
-                    // Remove the 'active' class when the section is out of view
                     link.classList.remove('active');
                 }
             });
         }, {
-            threshold: 0.5 // Trigger when 50% of the section is visible in the viewport
+            threshold: 0.5
         });
 
-        // Start observing each section
         sections.forEach(section => {
             observer.observe(section);
         });
@@ -275,27 +261,25 @@
             var email = document.getElementById("email").value;
             var msg = document.getElementById("msg").value;
 
-            // Check if all fields are filled
             if (name === "" || email === "" || msg === "") {
                 alert("Please fill all the fields.");
-                event.preventDefault();  // Prevent form submission
-                return; // Exit the function
+                event.preventDefault(); 
+                return; 
             }
 
-            // Validate name: must be between 3 to 15 characters and contain only letters
-            var namePattern = /^[A-Za-z]{3,15}$/; // Only letters, 3-15 characters
+            var namePattern = /^[A-Za-z]{3,15}$/; 
             if (!namePattern.test(name)) {
                 alert("Name must be between 3 to 15 letters.");
-                event.preventDefault(); // Prevent form submission
-                return; // Exit the function
+                event.preventDefault(); 
+                return;
             }
 
             // Validate email: must be a Gmail address
             var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailPattern.test(email)) {
                 alert("Please enter a valid email address.");
-                event.preventDefault(); // Prevent form submission
-                return; // Exit the function
+                event.preventDefault(); 
+                return;
             }
 
         });
