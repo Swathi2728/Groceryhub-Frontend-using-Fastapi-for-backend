@@ -1,2 +1,3 @@
-# Groceryhub
- an ecommerce platform
+
+# Groceryhub-Frontend-using-Fastapi-for-backend
+
