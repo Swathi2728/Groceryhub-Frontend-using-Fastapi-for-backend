@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orders History</title>
     <script type="module"   src="../Js/ordersummary.js"></script>
+    <link rel="stylesheet" href="../css/ordersummary.css">
+
     <style>
         .order-item {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
             padding: 10px;
-            border: 2px solid  #636AE8;
+            border: 2px solid  #005000;
             margin-left:70px;
             margin-right: 200px;
             border-radius: 10px;
@@ -32,7 +34,7 @@
             
         }
         .status{
-            color:green;
+            color:#005000;
             font-size: 18px;
             font-weight: bold;
         }
@@ -41,12 +43,13 @@
         }
         .color{
 
-        color:#636AE8;
+        color:#005000;
         }
     </style>
 </head>
 <body>
     <h1>Your Previ<span class="color">ous Orders</span></h1>
+    <a href="../index.html" class="cbtn">Continue shopping</a>
     <div id="orders-container">
         <!-- Orders will be dynamically injected here -->
     </div>

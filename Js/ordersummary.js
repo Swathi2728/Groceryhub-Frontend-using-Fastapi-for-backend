@@ -1,62 +1,48 @@
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+document.addEventListener('DOMContentLoaded', async () => {
+    const token = localStorage.getItem('authToken');
 
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCo5NR_s6Pbd_ZypP_5tgp2joEHmA7RcT8",
-    authDomain: "login-form-9e415.firebaseapp.com",
-    projectId: "login-form-9e415",
-    storageBucket: "login-form-9e415.appspot.com",
-    messagingSenderId: "900436401273",
-    appId: "1:900436401273:web:d09d181852913621e048a8"
-};
-
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-auth.onAuthStateChanged(async (user) => {
-    if (!user) {
+    if (!token) {
         alert('Please log in to view your orders.');
-        window.location.href = '../html/login.html'; 
+        window.location.href = '../html/login.html';
         return;
     }
 
-    const userEmail = user.email.replace('.', '_'); 
     try {
+        const response = await fetch("http://127.0.0.1:8000/Order/vieworder/history", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch order history");
+        }
+
+        const data = await response.json();
         
-        const ordersRef = collection(db, 'orders');
-        const q = query(ordersRef, where('userEmail', '==', userEmail));
+        console.log("Order history response:", data); // ✅ Log the full response
 
-        const querySnapshot = await getDocs(q);
+        const orders = data // ✅ Safe fallback to empty array
 
-        if (querySnapshot.empty) {
-            const ordersContainer = document.getElementById('orders-container');
+
+        const ordersContainer = document.getElementById('orders-container');
+
+        if (!orders.length) {
             ordersContainer.innerHTML = '<h3>You have no past orders.</h3>';
             return;
         }
 
-        const ordersContainer = document.getElementById('orders-container');
-        
-        const ordersArray = Array.from(querySnapshot.docs);
-
-        ordersArray.forEach((doc, index) => {
-            const order = doc.data();
-            console.log('Order:', order);  
-            console.log('Order Index:', index);  
-
+        orders.forEach((order, index) => {
             const orderDiv = document.createElement('div');
             orderDiv.classList.add('order-item');
-            
-            const orderNumber = index + 1;
 
             let orderDetailsHTML = `
                 <div class="details">
-                    <h2>Order Id:${orderNumber}</h2>
+                    <h2>Order #${index + 1}</h2>
                     <div>
-                        <p><strong>Order Date:</strong> ${order.orderDate}</p>
+                        <p><strong>Order Date:</strong> ${new Date(order.order_date).toLocaleString()}</p>
                         <p><strong>Status:</strong> <span class="status">${order.status}</span></p>
                     </div>
             `;
@@ -65,27 +51,27 @@ auth.onAuthStateChanged(async (user) => {
                 order.items.forEach(item => {
                     orderDetailsHTML += `
                         <div>
-                            <h3>${item.name}</h3>
+                        <img src=${item.product_img}>
+                            <h3>${item.product_name || 'Unnamed Product'}</h3>
                             <p>Weight: ${item.weight}</p>
-                            <p>Price: ₹${item.price}</p>
+                            <p>Price: ₹${item.price_per_unit}</p>
                             <p>Quantity: ${item.quantity}</p>
-                            <p>Total: ₹${item.price * item.quantity}</p>
+                            <p>Total: ₹${item.price_per_unit * item.quantity}</p>
                         </div>
-                        <div>
-                            <img src="${item.img}" alt="${item.name}">
-                        </div>
+                        ${item.img ? `<div><img src="${item.img}" alt="${item.name}"></div>` : ""}
                     `;
                 });
             } else {
                 orderDetailsHTML += `<p>No items found in this order.</p>`;
             }
 
-            orderDetailsHTML += `</div>`; 
+            orderDetailsHTML += `</div>`;
             orderDiv.innerHTML = orderDetailsHTML;
             ordersContainer.appendChild(orderDiv);
         });
+
     } catch (error) {
-        console.error('Error fetching orders from Firestore:', error);
-        alert('There was an error fetching your orders. Please try again later.');
+        console.error("Error fetching orders from API:", error);
+        alert("There was an error fetching your orders. Please try again later.");
     }
 });

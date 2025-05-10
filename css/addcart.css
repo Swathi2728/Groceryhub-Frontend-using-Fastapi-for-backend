@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
 *{
     margin: 0;
     padding: 0;
@@ -17,37 +20,47 @@ img{
 #btn{
   width:40px;
   border-radius: 5px;
-  border-color: #636AE8;
+  border-color: #005000;
   border-style: solid;
   background-color: white;
+  font-family: 'Poppins',sans-serif;
+
 }
 .remove-btn{
-    background-color: #636AE8;
+    background-color: #005000;
     color:white;
     font-weight: bold;
     width:130px;
     border-style:solid;
     border-radius: 5px;
-    border-color: #636AE8;
+    border-color: #005000;
     height:25px;
     margin-top: 17px;
+    font-family: 'Poppins',sans-serif;
+
     
 }
+
 .cbtn{
-    background-color: #636AE8;
-    border-color: #636AE8;
+    background-color: #005000;
+    border-color: #005000;
     border-radius: 5px;
     height:33px;
     margin-left:1300px;
     margin-top:30px;
     font-weight: bold;
     width:160px;
+    height:80px;
     font-size: 16px;
     border-style:solid;
+    font-family: 'Poppins',sans-serif;
+
 }
 a{
     text-decoration: none;
     color:white;
+    font-family: 'Poppins',sans-serif;
+
     
 }
 .weight{
@@ -55,6 +68,8 @@ a{
     font-weight: 500;
     margin-top:4px;
     margin-bottom:5px;
+    font-family: 'Poppins',sans-serif;
+
 
 }
 .price{
@@ -62,32 +77,42 @@ a{
     font-weight: 500;
    
     margin-bottom:4px;
+    font-family: 'Poppins',sans-serif;
+
 
 }
 .quantity{
     font-size: 18px;
     font-weight: 500;
     margin-bottom:4px;
+    font-family: 'Poppins',sans-serif;
+
 }
 .total{
     font-size: 18px;
     font-weight: 600;
     margin-bottom:4px; 
+    font-family: 'Poppins',sans-serif;
+
 }
 #cart-total{
     font-size: 30px;
     font-weight: bold;
     margin-left:1200px;
     margin-top:30px;
+    font-family: 'Poppins',sans-serif;
+
 }
 h1{
     margin-top:10px;
     margin-left:10px;
+    font-family: 'Poppins',sans-serif;
+
 }
 .checkout-btn{
-    background-color: #636AE8;
+    background-color: #005000;
     border-radius: 5px;
-    border-color: #636AE8;
+    border-color: #005000;
     border-style: solid;
     height:30px;
     width:150px;
@@ -95,15 +120,24 @@ h1{
     font-size: 16px;
     font-weight: bold;
     margin-left: 1300px;
-    margin-top:30px
+    margin-top:30px;
+    font-family: 'Poppins',sans-serif;
+
 }
 .quantity-btn{
  width:40px;
  height:20px;
- border-color: #636AE8;
+ border-color: #005000;
  border-style: solid;
  border-radius: 5px;
+ font-family: 'Poppins',sans-serif;
+
 }
+.new{
+    font-family: 'Poppins',sans-serif;
+
+}
+
 
 @media all and (max-width: 768px){
 
@@ -121,14 +155,14 @@ h1{
 .quantity-btn {
     width: 10px;
     height: 20px;
-    border-color: #636AE8;
+    border-color: #005000;
     border-style: solid;
     border-radius: 5px;
 }
 .checkout-btn {
-    background-color: #636AE8;
+    background-color: #005000;
     border-radius: 5px;
-    border-color: #636AE8;
+    border-color: #005000;
     border-style: solid;
     height: 30px;
     width: 150px;

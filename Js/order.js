@@ -1,73 +1,94 @@
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js"; // Make sure to import onAuthStateChanged
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js"; 
+let cartItems = []; // Global variable for cart items
 
 
-const firebaseConfig = {
-    apiKey: "AIzaSyCo5NR_s6Pbd_ZypP_5tgp2joEHmA7RcT8",
-    authDomain: "login-form-9e415.firebaseapp.com",
-    projectId: "login-form-9e415",
-    storageBucket: "login-form-9e415.appspot.com",
-    messagingSenderId: "900436401273",
-    appId: "1:900436401273:web:d09d181852913621e048a8"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
 
 document.addEventListener('DOMContentLoaded', () => {
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const userEmail = user.email.replace('.', '_'); 
 
-            const cartRef = doc(db, 'carts', userEmail);
-            const cartSnap = await getDoc(cartRef);
+    // Get token from local storage
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        alert('Please log in to view your cart.');
+        window.location.href = '../html/login.html'; // Redirect to login page
+        return;
+    }
 
-            let orderItems = [];
-            if (cartSnap.exists()) {
-                orderItems = cartSnap.data().items;
-            } else {
-                alert('Your cart is empty. Please add items to your cart before proceeding.');
-                return;
-            }
-
-            const orderContainer = document.getElementById('order-container');
-            const totalPriceContainer = document.getElementById('total-price-container');
-
-            let totalPrice = 0;
-
-            orderItems.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.classList.add('order-item');
-
-                itemDiv.innerHTML = `
-                    <div>
-                        <h2>${item.name}</h2>
-                        <p class="weight">Weight: ${item.weight}</p>
-                        <p class="price">Price: ₹${item.price}</p>
-                        <p class="price">Quantity: ${item.quantity}</p>
-                        <p class="total">Total: ₹${item.price * item.quantity}</p>
-                    </div>
-                    <div>
-                        <img src="${item.img}" alt="${item.name}">
-                    </div>
-                `;
-
-                orderContainer.appendChild(itemDiv);
-                totalPrice += item.price * item.quantity;
+    // Fetch user cart data from your backend API
+    async function fetchCartItems() {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/Cart/getallproducts', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,  // Include token for authentication
+                },
             });
 
-            totalPriceContainer.innerHTML = `Total Price: ₹${totalPrice.toFixed(2)}`;
-        } else {
-            alert('Please log in to view your cart and orders.');
-            window.location.href = '../html/login.html'; // Redirect to login page if not logged in
+            if (!response.ok) {
+                throw new Error('Failed to fetch cart items');
+            }
+            const data = await response.json();   // ✅ Don't forget this line
+
+            cartItems = data; // ✅ Store in global variable
+            displayCart(cartItems); // Display cart items if fetched successfully
+        } catch (error) {
+            console.error('Error fetching cart:', error);
+            alert('There was an issue fetching your cart. Please try again later.');
         }
-    });
+    }
+
+    // Display cart items
+    function displayCart(cartItems) {
+        const orderContainer = document.getElementById('order-container');
+        const totalPriceContainer = document.getElementById('total-price-container');
+        let totalPrice = 0;
+
+        // Clear existing items before rendering new ones
+        orderContainer.innerHTML = '';
+
+        if (cartItems.length === 0) {
+            orderContainer.innerHTML = '<p>Your cart is empty.</p>';
+            totalPriceContainer.innerHTML = 'Total Price: ₹0.00';
+            return;
+        }
+
+        // Loop through cart items and display them
+        cartItems.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('order-item');
+
+            itemDiv.innerHTML = `
+                <div>
+                    <h2>${item.product_name}</h2>
+                    <p class="weight">Weight: ${item.selected_weight}</p>
+                    <p class="price">Price: ₹${item.price_per_unit}</p>
+                    <p class="price">Quantity: ${item.quantity_in_cart}</p>
+                    <p class="total">Total: ₹${item.quantity_in_cart * item.price_per_unit * parseInt(item.selected_weight)}</p>
+                </div>
+                <div>
+                    <img src="${item.product_image}" alt="${item.product_name}" width="80">
+                </div>
+            `;
+            orderContainer.appendChild(itemDiv);
+            totalPrice += item.quantity_in_cart * item.price_per_unit * parseInt(item.selected_weight);
+        });
+
+        // Display the total price
+        totalPriceContainer.innerHTML = `Total Price: ₹${totalPrice.toFixed(2)}`;
+    }
+
+    // Call the fetchCartItems function to load cart data when page is ready
+    fetchCartItems();
 });
 
+// Handle payment form submission
 document.getElementById('payment-form').addEventListener('submit', async function (e) {
-    e.preventDefault(); 
+    e.preventDefault();
+
+    // Ensure cartItems is populated before proceeding
+    if (cartItems.length === 0) {
+        alert('Your cart is empty. Please add items before proceeding.');
+        return;
+    }
+
     const fullName = document.getElementById('full-name').value.trim();
     const addressLine1 = document.getElementById('address-line1').value.trim();
     const addressLine2 = document.getElementById('address-line2').value.trim();
@@ -75,87 +96,85 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     const city = document.getElementById('city').value.trim();
     const zipcode = document.getElementById('zipcode').value.trim();
     const paymentOption = document.getElementById('payment-option').value;
+    const totalPriceContainer = document.getElementById('total-price-container');
 
-    let cardNumber = '';
-    let expiryDate = '';
-    let cvv = '';
-
-    if (paymentOption === 'credit-debit-card') {
-        cardNumber = document.getElementById('card-number').value.trim();
-        expiryDate = document.getElementById('expiry-date').value.trim();
-        cvv = document.getElementById('cvv').value.trim();
-    }
-
+    // Validate basic address fields
     if (!fullName || !addressLine1 || !state || !city || !zipcode || !paymentOption) {
-        alert('Please fill out all the required fields.');
+        alert('Please fill all required address and payment fields.');
         return;
     }
 
-    const zipcodeRegex = /^[0-9]{6}$/;
-    if (!zipcodeRegex.test(zipcode)) {
-        alert('Please enter a valid ZIP code with exactly 6 digits.');
+    if (!/^\d{6}$/.test(zipcode)) {
+        alert('ZIP code must be 6 digits.');
         return;
     }
 
+    // Validate card fields if payment method is card
     if (paymentOption === 'credit-debit-card') {
-        const cardNumberRegex = /^[0-9]{15,16}$/;
-        if (!cardNumber || !cardNumberRegex.test(cardNumber)) {
-            alert('Please enter a valid credit/debit card number (15 to 16 digits).');
+        const cardNumber = document.getElementById('card-number').value.trim();
+        const expiryDate = document.getElementById('expiry-date').value.trim();
+        const cvv = document.getElementById('cvv').value.trim();
+
+        if (!/^\d{15,16}$/.test(cardNumber)) {
+            alert('Card number must be 15–16 digits.');
             return;
         }
 
-        const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
-        if (!expiryDate || !expiryDateRegex.test(expiryDate)) {
-            alert('Please enter a valid expiry date in the format MM/YY.');
+        if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) {
+            alert('Expiry date must be in MM/YY format.');
             return;
         }
 
-        const cvvRegex = /^[0-9]{3}$/;
-        if (!cvv || !cvvRegex.test(cvv)) {
-            alert('Please enter a valid CVV (3 digits).');
+        if (!/^\d{3}$/.test(cvv)) {
+            alert('CVV must be 3 digits.');
             return;
         }
     }
 
-    const user = auth.currentUser;
-    if (!user) {
-        alert('Please log in to view your orders.');
-        window.location.href = '../html/login.html'; 
-        return;
-    }
+    // Make sure the total price is calculated correctly
+    const total = parseFloat(totalPriceContainer.innerText.replace(/[^\d.]/g, ''));
 
-    const userEmail = user.email.replace('.', '_'); 
-    const cartRef = doc(db, 'carts', userEmail);
-    const cartSnap = await getDoc(cartRef);
+    const fullAddress = `${fullName}, ${addressLine1}, ${addressLine2}, ${city}, ${state} - ${zipcode}`;
 
-    let cartItems = [];
-    if (cartSnap.exists()) {
-        cartItems = cartSnap.data().items;
-    } else {
-        alert('Your cart is empty. Please add items to your cart before proceeding.');
-        return;
-    }
+    // Prepare items for order
+    const items = cartItems.map(item => ({
+        product_id: item.product_id,
+        quantity: item.quantity_in_cart,
+        weight: item.selected_weight,
+        price_per_unit: item.price_per_unit
+    }));
 
-    const order = {
-        date: new Date().toLocaleDateString(),
-        status: 'Placed',
-        items: cartItems
+    const orderData = {
+        address: fullAddress,
+        total: total,
+        items: items
     };
 
-    const ordersRef = collection(db, 'orders');
-    await addDoc(ordersRef, {
-        userEmail: userEmail,
-        orderDate: order.date,
-        status: order.status,
-        items: order.items,
-    });
+    try {
+        const response = await fetch("http://127.0.0.1:8000/Order/placeorder", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('authToken')}`
+            },
+            body: JSON.stringify(orderData)
+        });
 
-    await setDoc(cartRef, { items: [] });
-
-    alert('Thank you for your purchase!');
-    window.location.href = '../index.html'; // Redirect to home
+        const result = await response.json();
+        if (response.ok) {
+            alert(`Order placed successfully!`);
+            window.location.href = "../html/ordersummary.html";
+            console.log(result.order_id) // Redirect to success page
+        } else {
+            alert(` Failed to place order: ${result.message || result.detail}`);
+        }
+    } catch (error) {
+        console.error("Order error:", error);
+        alert("An unexpected error occurred while placing the order.");
+    }
 });
 
+// Handle payment option change (show card details if required)
 document.getElementById('payment-option').addEventListener('change', function () {
     const cardDetailsDiv = document.getElementById('card-details');
     if (this.value === 'credit-debit-card') {
@@ -164,3 +183,4 @@ document.getElementById('payment-option').addEventListener('change', function ()
         cardDetailsDiv.style.display = 'none'; // Hide card details
     }
 });
+

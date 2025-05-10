@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
     <link rel="stylesheet" href="../css/signup.css">
-    <script type="module" src="../Js/firebaseauth.js" defer></script>
+    <script type="module" src="../Js/firebaseauth.js"></script>
+
 </head>
 
 <body>
@@ -50,15 +52,6 @@
         </div>
     </form>
 </body>
-<script>
-    const passwordInput = document.getElementById("pwd1");
-    const eyeIcon = document.getElementById("eye-icon");
-  
-    eyeIcon.addEventListener("click", () => {
-      const isPassword = passwordInput.type === "password";
-      passwordInput.type = isPassword ? "text" : "password";
-      eyeIcon.textContent = isPassword ? "🙈" : "👁️";
-    });
-  </script>
+
 
 </html>

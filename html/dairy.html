@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dairy</title>
     <script type="module" src="../Js/allcategorypush.js"></script>
-    <script type="module" src="../Js/allcategoryfetch.js"></script>
-    <link rel="stylesheet" href="../css/dairy.css">
+    <script type="module" src="../Js/dairy.js"></script>
+    <link rel="stylesheet" href="../css/fruit.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 </head>
+
 <body>
     <header>
         <div class="hcontainer">
             <div>
-                <a href="../index.html"><img src="../img/logo.png" width="100px" height="80px" style="margin-left:10px;" ></a>
+                <a href="../index.html"><img src="../img/logo1.png" width="50px" height="40px"
+                        style="margin-left:10px;"></a>
             </div>
             <div>
                 <h1 class="title">Grocery <span class="hub">Hub</span></h1>
@@ -30,21 +33,26 @@
                     <li><a href="#contactus">Contact us</a></li>
                 </div> -->
             </div>
-            <div>
-                <input type="text" placeholder="Search for product" class="search" id="search-bar">
-                <select name="category" id="category">
-                    <option>Shop by category</option>
-                    <option value="fruits.html">Fruits</option>
-                    <option value="vegetable.html">Vegetables</option>
-                    <option value="snacks.html">Snacks</option>
-                    <option value="dairy.html">Dairy</option>
-                </select>
-                <button class="signin" id="signinButton"><a href="../html/login.html" >Sign In</a></button>
-                <a href="../html/addtocart.html">
-                    <i class="fa-solid fa-bag-shopping fa-xl- carticon" style="color: #636ae8;"></i>
-                </a>
-                <div class="profile-dropdown">
-                   
+            <div class="s">
+                <div><input type="text" placeholder="Search for product" class="search" id="search-bar">
+                </div>
+                <div>
+                    <select name="category" id="category">
+                        <option>Shop by category</option>
+                        <option value="fruits.html">Fruits</option>
+                        <option value="vegetable.html">Vegetables</option>
+                        <option value="snacks.html">Snacks</option>
+                        <option value="dairy.html">Dairy</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="signin" id="signinButton"><a href="../html/login.html">Sign In</a></button>
+                    <a href="../html/addtocart.html">
+                        <i class="fa-solid fa-bag-shopping fa-xl- carticon" style="color: #005000;"></i>
+                    </a>
+                </div>
+                <div class="profile-dropdown" id="profileDropdown">
+
                     <i class="fa-solid fa-user" id="profileButton"></i>
                     <div class="dropdown-content" id="dropdownMenu">
                         <a href="../html/profile.html" id="myAccount">My Account</a>
@@ -53,9 +61,10 @@
                 </div>
             </div>
         </div>
+
     </header>
     <h1 class="h1head">Dairy</h1>
-    <div id="dairy-products-container"></div>
+    <div id="products-container"></div>
     <script>
         // For direct redirection when category is selected
         document.getElementById('category').addEventListener('change', function () {
@@ -89,7 +98,25 @@
                 dropdownMenu.style.display = 'none';
             }
         });
-        
-   </script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const token = localStorage.getItem('authToken');
+            const signinButton = document.getElementById('signinButton');
+            const profileDropdown = document.getElementById("profileDropdown");
+
+
+            if (token && signinButton) {
+                signinButton.style.display = 'none'; // ✅ Hides the button
+                profileDropdown.style.display = "block";
+
+            }
+            else {
+                profileDropdown.style.display = "none";
+                signinButton.style.display = 'block';
+
+            }
+        });
+
+    </script>
 </body>
+
 </html>
