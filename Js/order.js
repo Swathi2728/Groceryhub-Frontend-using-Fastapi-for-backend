@@ -1,5 +1,5 @@
 let cartItems = []; // Global variable for cart items
-
+const BASE_URL = 'https://groceryhub-backend-2.onrender.com';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch user cart data from your backend API
     async function fetchCartItems() {
         try {
-            const response = await fetch('http://127.0.0.1:8000/Cart/getallproducts', {
+            const response = await fetch(`${BASE_URL}/Cart/getallproducts`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,  // Include token for authentication
@@ -151,7 +151,7 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     };
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/Order/placeorder", {
+        const response = await fetch(`${BASE_URL}/Order/placeorder`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

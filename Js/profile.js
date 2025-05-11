@@ -28,6 +28,8 @@
 
 
 const token = localStorage.getItem("authToken");
+const BASE_URL = 'https://groceryhub-backend-2.onrender.com';
+
 
 async function loadUserProfile() {
     // ✅ Check if token exists first
@@ -38,7 +40,7 @@ async function loadUserProfile() {
     }
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/users/auth/profile", {
+        const response = await fetch(`${BASE_URL}/users/auth/profile`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

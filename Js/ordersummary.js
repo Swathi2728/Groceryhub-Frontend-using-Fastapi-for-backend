@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    const BASE_URL = 'https://groceryhub-backend-2.onrender.com';
+
     const token = localStorage.getItem('authToken');
 
     if (!token) {
@@ -8,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/Order/vieworder/history", {
+        const response = await fetch(`${BASE_URL}/Order/vieworder/history`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,

@@ -36,7 +36,7 @@ const passwordInput = document.getElementById("pwd1");
       };
 
       try {
-        const response = await fetch("http://127.0.0.1:8000/users/auth/register", {
+        const response = await fetch("https://groceryhub-backend-2.onrender.com/users/auth/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

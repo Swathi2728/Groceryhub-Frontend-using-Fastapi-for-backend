@@ -1,4 +1,6 @@
 let category = ''; // global
+const BASE_URL = 'https://groceryhub-backend-2.onrender.com';
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -27,9 +29,9 @@ let latestRequestId = 0;
 async function fetchAndDisplayProducts(query = '', category = '') {
     const currentRequestId = ++latestRequestId; 
     try {
-        let url = `http://127.0.0.1:8000/products/get/${category}`;
+        let url = `${BASE_URL}/products/get/${category}`;
         if (query.trim() !== '') {
-            url = `http://127.0.0.1:8000/products/search?name=${encodeURIComponent(query)}&category=${encodeURIComponent(category)}`;
+            url = `${BASE_URL}/products/search?name=${encodeURIComponent(query)}&category=${encodeURIComponent(category)}`;
         }
 
         console.log("Fetching:", url);
@@ -145,7 +147,7 @@ async function addToCart(product, selectedWeight, updatedPrice) {
             product_image: product.p_img
         };
 
-        const response = await fetch('http://127.0.0.1:8000/Cart/addproduct', {
+        const response = await fetch(`${BASE_URL}/Cart/addproduct`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

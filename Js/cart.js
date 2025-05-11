@@ -1,4 +1,6 @@
-let cart = [];  // Global cart variable
+let cart = []; 
+const BASE_URL = 'https://groceryhub-backend-2.onrender.com';
+ // Global cart variable
 
 // Function to load the cart data
 async function loadCart() {
@@ -17,7 +19,7 @@ async function loadCart() {
     // If token exists, try to fetch cart data from backend
     try {
         console.log('Fetching cart...');
-        const response = await fetch('http://127.0.0.1:8000/Cart/getallproducts', {
+        const response = await fetch(`${BASE_URL}/Cart/getallproducts`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,  // Send token in Authorization header
@@ -121,7 +123,7 @@ async function updateQuantity(cartId, action) {
     console.log("Action being sent:", action);
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/Cart/cart/updatequantity', {
+        const response = await fetch(`${BASE_URL}/Cart/cart/updatequantity`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -165,7 +167,7 @@ async function removeFromCart(productId) {
     }
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/Cart/deleteproducts?product_id=${productId}`, {
+        const response = await fetch(`${BASE_URL}/Cart/deleteproducts?product_id=${productId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
