@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const data = await response.json();
         
-        console.log("Order history response:", data); // ✅ Log the full response
+        console.log("Order history response:", data);
 
-        const orders = data // ✅ Safe fallback to empty array
+        const orders = data 
 
 
         const ordersContainer = document.getElementById('orders-container');

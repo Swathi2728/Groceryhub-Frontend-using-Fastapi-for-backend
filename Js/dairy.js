@@ -1,10 +1,10 @@
-let category = ''; // global
+let category = '';
 
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    category = urlParams.get('category') || 'Dairy'; // ✅ assign to global variable
+    category = urlParams.get('category') || 'Dairy'; 
 
-    fetchAndDisplayProducts('', category); // load all products in category on page load
+    fetchAndDisplayProducts('', category); 
 
     const searchBar = document.getElementById('search-bar');
     if (searchBar) {
@@ -23,13 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Fetch products based on query and category
-let latestRequestId = 0; // global tracker
+
+let latestRequestId = 0; 
 const BASE_URL = 'https://groceryhub-backend-2.onrender.com';
 
 
 async function fetchAndDisplayProducts(query = '', category = '') {
-    const currentRequestId = ++latestRequestId; // increment for each call
+    const currentRequestId = ++latestRequestId; 
     try {
         let url = `${BASE_URL}/products/get/${category}`;
         if (query.trim() !== '') {
@@ -54,7 +54,6 @@ async function fetchAndDisplayProducts(query = '', category = '') {
         console.log(products)
 
 
-        // Only render if this is the latest request
         if (currentRequestId === latestRequestId) {
             console.log('Products received:', products);
             displayProducts(products, 'products-container');
@@ -66,7 +65,6 @@ async function fetchAndDisplayProducts(query = '', category = '') {
     }
 }
 
-// Render products to DOM
 function displayProducts(products, containerId) {
     const container = document.getElementById(containerId);
     if (!container) {
@@ -74,7 +72,7 @@ function displayProducts(products, containerId) {
         return;
     }
 
-    container.innerHTML = ''; // Clear previous items
+    container.innerHTML = ''; 
 
     if (!products || products.length === 0) {
         container.innerHTML = '<p>No products found.</p>';
@@ -138,7 +136,7 @@ function displayProducts(products, containerId) {
     });
 }
 
-// Send selected product to cart
+
 async function addToCart(product, selectedWeight, updatedPrice) {
     try {
         const payload = {

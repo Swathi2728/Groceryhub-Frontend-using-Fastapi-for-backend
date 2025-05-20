@@ -1,4 +1,4 @@
-let category = ''; // global
+let category = ''; 
 const BASE_URL = 'https://groceryhub-backend-2.onrender.com';
 
 
@@ -100,7 +100,7 @@ function displayProducts(products, containerId) {
 
         const weightSelect = document.createElement('select');
         weightSelect.classList.add('weight-select');
-        const quantityOptions = ['1lt', '500ml', '250ml'];
+        const quantityOptions = ['1kg', '500g', '250g'];
         quantityOptions.forEach(weight => {
             const option = document.createElement('option');
             option.value = weight;
@@ -118,8 +118,8 @@ function displayProducts(products, containerId) {
         weightSelect.addEventListener('change', function () {
             selectedWeight = weightSelect.value;
             updatedPrice = product.p_price;
-            if (selectedWeight === '500ml') updatedPrice /= 2;
-            if (selectedWeight === '250ml') updatedPrice /= 4;
+            if (selectedWeight === '500g') updatedPrice /= 2;
+            if (selectedWeight === '250g') updatedPrice /= 4;
             priceDisplay.innerText = `Price: ₹${updatedPrice}`;
         });
 

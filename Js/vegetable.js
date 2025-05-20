@@ -1,19 +1,19 @@
-let category = ''; // global
+let category = ''; 
 const BASE_URL = 'https://groceryhub-backend-2.onrender.com';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    category = urlParams.get('category') || 'Vegetables'; // ✅ assign to global variable
+   
+    category ='Vegetables'; 
 
-    fetchAndDisplayProducts('', category); // load all products in category on page load
+    fetchAndDisplayProducts('', category);
 
     const searchBar = document.getElementById('search-bar');
     if (searchBar) {
         searchBar.addEventListener('input', function (event) {
             const searchQuery = event.target.value;
 
-            // ✅ If input is empty, show all products again
+            
             if (searchQuery.trim() === '') {
                 console.log(fetchAndDisplayProducts('', category));
                 
@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Fetch products based on query and category
-let latestRequestId = 0; // global tracker
+
+let latestRequestId = 0; 
 
 async function fetchAndDisplayProducts(query = '', category = '') {
-    const currentRequestId = ++latestRequestId; // increment for each call
+    const currentRequestId = ++latestRequestId; 
     try {
         let url = `${BASE_URL}/products/get/${category}`;
         if (query.trim() !== '') {
@@ -66,7 +66,7 @@ async function fetchAndDisplayProducts(query = '', category = '') {
     }
 }
 
-// Render products to DOM
+
 function displayProducts(products, containerId) {
     const container = document.getElementById(containerId);
     if (!container) {
@@ -74,7 +74,7 @@ function displayProducts(products, containerId) {
         return;
     }
 
-    container.innerHTML = ''; // Clear previous items
+    container.innerHTML = ''; 
 
     if (!products || products.length === 0) {
         container.innerHTML = '<p>No products found.</p>';
@@ -103,7 +103,7 @@ function displayProducts(products, containerId) {
 
         const weightSelect = document.createElement('select');
         weightSelect.classList.add('weight-select');
-        const quantityOptions = ['1lt', '500ml', '250ml'];
+        const quantityOptions = ['1kg', '500g', '250g'];
         quantityOptions.forEach(weight => {
             const option = document.createElement('option');
             option.value = weight;
@@ -121,8 +121,8 @@ function displayProducts(products, containerId) {
         weightSelect.addEventListener('change', function () {
             selectedWeight = weightSelect.value;
             updatedPrice = product.p_price;
-            if (selectedWeight === '500ml') updatedPrice /= 2;
-            if (selectedWeight === '250ml') updatedPrice /= 4;
+            if (selectedWeight === '500g') updatedPrice /= 2;
+            if (selectedWeight === '250g') updatedPrice /= 4;
             priceDisplay.innerText = `Price: ₹${updatedPrice}`;
         });
 

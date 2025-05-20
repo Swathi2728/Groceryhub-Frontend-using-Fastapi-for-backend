@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snacks</title>
-    <script type="module" src="../Js/allcategorypush.js"></script>
+    
     <script type="module" src="../Js/snacks.js"></script>
     <link rel="stylesheet" href="../css/fruit.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -26,12 +26,7 @@
                 <div class="home">
                     <li><a href="../index.html">Home</a></li>
                 </div>
-                <!-- <div class="home">
-                <li><a href="#about">About us</a></li>
-            </div>
-            <div class="home">
-                <li><a href="#contactus">Contact us</a></li>
-            </div> -->
+                
             </div>
             <div class="s">
                 <div><input type="text" placeholder="Search for product" class="search" id="search-bar">
@@ -68,33 +63,33 @@
     <div id="products-container"></div>
 
     <script>
-        // For direct redirection when category is selected
+     
         document.getElementById('category').addEventListener('change', function () {
             var value = this.value;
             if (value) {
-                window.location.href = value;  // Navigate to the selected category
+                window.location.href = value;
             }
         });
         const profileButton = document.getElementById('profileButton');
         const dropdownMenu = document.getElementById('dropdownMenu');
 
-        // Toggle the visibility of the dropdown when the profile button is clicked
+        
         profileButton.addEventListener('click', function () {
             dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
         });
 
-        // Event listeners for the dropdown items
+
         document.getElementById('myAccount').addEventListener('click', function () {
-            // Redirect to the 'My Account' page
-            window.location.href = '../html/profile.html';  // Replace with your actual account page URL
+          
+            window.location.href = '../html/profile.html';
         });
 
         document.getElementById('myOrders').addEventListener('click', function () {
-            // Redirect to the 'My Orders' page
-            window.location.href = '../html/ordersummary.html';  // Replace with your actual orders page URL
+            
+            window.location.href = '../html/ordersummary.html';
         });
 
-        // Optional: Close dropdown if clicked outside
+
         window.addEventListener('click', function (event) {
             if (!profileButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
                 dropdownMenu.style.display = 'none';
@@ -107,7 +102,7 @@
 
 
             if (token && signinButton) {
-                signinButton.style.display = 'none'; // ✅ Hides the button
+                signinButton.style.display = 'none'; 
                 profileDropdown.style.display = "block";
 
             }

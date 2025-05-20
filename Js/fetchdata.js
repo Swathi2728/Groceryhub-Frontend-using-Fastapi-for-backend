@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', fetchGroceryData);
 
-// Function to create HTML for each product item
 function createProductHTML(item) {
     const itemDiv = document.createElement('div');
     itemDiv.classList.add('item');
@@ -14,15 +13,15 @@ function createProductHTML(item) {
 
     let redirectURL = "";
     if (item.name === 'Fruits') {
-        redirectURL = "html/fruits.html"; // Redirect to fruits page
+        redirectURL = "html/fruits.html"; 
     } else if (item.name === 'Vegetable') {
-        redirectURL = "html/vegetable.html"; // Redirect to vegetables page
+        redirectURL = "html/vegetable.html"; 
     } else if (item.name === 'Dairy') {
         redirectURL = "html/dairy.html";
     } else if (item.name === 'Snacks') {
         redirectURL = "html/snacks.html";
     } else {
-        redirectURL = "index.html"; // Default product page
+        redirectURL = "index.html"; 
     }
 
     itemHTML += `<button class="shop-now" id="shop-now-${item.name}" onclick="window.location.href='${redirectURL}'">Shop Now</button>`;
@@ -38,7 +37,7 @@ function createProductHTML(item) {
 }
 
 
-// Function to display featured products
+
 function displayFeaturedProducts(products, container) {
     const headdiv = document.createElement('div');
     headdiv.classList.add('head');
@@ -72,7 +71,6 @@ function displayFeaturedProducts(products, container) {
 }
 
 
-// Function to fetch grocery data from a local JSON file
 async function fetchGroceryData() {
     const productsDiv = document.getElementById('products');
     if (!productsDiv) {
@@ -81,12 +79,12 @@ async function fetchGroceryData() {
     }
 
     try {
-        const response = await fetch('Json/dashboard.json'); // Path to your local JSON file
+        const response = await fetch('Json/dashboard.json'); 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json();  // Parse the JSON data
+        const data = await response.json();
 
         if (data['Featured product']) {
             displayFeaturedProducts(data['Featured product'], productsDiv);

@@ -15,40 +15,34 @@
     <div class="container">
         <h1>Order Summary</h1>
         <div id="order-container">
-            <!-- Order details will be displayed here -->
+          
         </div>
 
-        <!-- Total price display -->
+        
         <div id="total-price-container" class="total-price">
-            <!-- Total price will be injected here -->
+            
         </div>
 
-        <!-- Payment Form -->
         <div class="payment-form">
             <h3>Enter Delivery and Payment Details</h3>
             <form id="payment-form">
-                <!-- Full Name -->
                 <input type="text" id="full-name" name="full-name" placeholder="Full Name" >
     
-                <!-- Address Line 1 -->
                 <input type="text" id="address-line1" name="address-line1" placeholder="Address Line 1" >
     
-                <!-- Address Line 2 -->
                 <input type="text" id="address-line2" name="address-line2" placeholder="Address Line 2">
     
-                <!-- State -->
+        
                 <input type="text" id="state" name="state" placeholder="State">
     
-                <!-- City -->
+               
                 <input type="text" id="city" name="city" placeholder="City" >
     
-                <!-- District -->
-                <!-- <input type="text" id="district" name="district" placeholder="District" required> -->
-    
-                <!-- Zipcode -->
+                
+              
                 <input type="text" id="zipcode" name="zipcode" placeholder="Zipcode" >
     
-                <!-- Payment Option -->
+                
                 <select id="payment-option" name="payment-option" >
                     <option value="" disabled selected>Select Payment Option</option>
                     <option value="credit-debit-card">Credit/Debit Card</option>
@@ -56,14 +50,13 @@
                     
                 </select>
     
-                <!-- Card Details (Only visible if Credit/Debit Card is selected) -->
-                <div id="card-details" style="display: none;">
+                 <div id="card-details" style="display: none;">
                     <input type="text" id="card-number" name="card-number" placeholder="Card Number" >
                     <input type="text" id="expiry-date" name="expiry-date" placeholder="Expiry Date (MM/YY)">
                     <input type="text" id="cvv" name="cvv" placeholder="CVV" >
                 </div>
     
-                <!-- Submit Button -->
+               
                 <button type="submit">Complete Payment</button>
             </form>
         </div>

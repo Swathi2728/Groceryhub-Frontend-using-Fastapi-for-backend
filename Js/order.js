@@ -1,47 +1,46 @@
-let cartItems = []; // Global variable for cart items
+let cartItems = []; 
 const BASE_URL = 'https://groceryhub-backend-2.onrender.com';
 
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Get token from local storage
+    
     const token = localStorage.getItem('authToken');
     if (!token) {
         alert('Please log in to view your cart.');
-        window.location.href = '../html/login.html'; // Redirect to login page
+        window.location.href = '../html/login.html'; 
         return;
     }
 
-    // Fetch user cart data from your backend API
     async function fetchCartItems() {
         try {
             const response = await fetch(`${BASE_URL}/Cart/getallproducts`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${token}`,  // Include token for authentication
+                    'Authorization': `Bearer ${token}`, 
                 },
             });
 
             if (!response.ok) {
                 throw new Error('Failed to fetch cart items');
             }
-            const data = await response.json();   // ✅ Don't forget this line
+            const data = await response.json();  
 
-            cartItems = data; // ✅ Store in global variable
-            displayCart(cartItems); // Display cart items if fetched successfully
+            cartItems = data; 
+            displayCart(cartItems);
         } catch (error) {
             console.error('Error fetching cart:', error);
             alert('There was an issue fetching your cart. Please try again later.');
         }
     }
 
-    // Display cart items
+   
     function displayCart(cartItems) {
         const orderContainer = document.getElementById('order-container');
         const totalPriceContainer = document.getElementById('total-price-container');
         let totalPrice = 0;
 
-        // Clear existing items before rendering new ones
+        
         orderContainer.innerHTML = '';
 
         if (cartItems.length === 0) {
@@ -50,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Loop through cart items and display them
+        
         cartItems.forEach(item => {
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('order-item');
@@ -71,19 +70,19 @@ document.addEventListener('DOMContentLoaded', () => {
             totalPrice += item.quantity_in_cart * item.price_per_unit * parseInt(item.selected_weight);
         });
 
-        // Display the total price
+    
         totalPriceContainer.innerHTML = `Total Price: ₹${totalPrice.toFixed(2)}`;
     }
 
-    // Call the fetchCartItems function to load cart data when page is ready
+    
     fetchCartItems();
 });
 
-// Handle payment form submission
+
 document.getElementById('payment-form').addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    // Ensure cartItems is populated before proceeding
+    
     if (cartItems.length === 0) {
         alert('Your cart is empty. Please add items before proceeding.');
         return;
@@ -98,7 +97,7 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     const paymentOption = document.getElementById('payment-option').value;
     const totalPriceContainer = document.getElementById('total-price-container');
 
-    // Validate basic address fields
+ 
     if (!fullName || !addressLine1 || !state || !city || !zipcode || !paymentOption) {
         alert('Please fill all required address and payment fields.');
         return;
@@ -109,7 +108,7 @@ document.getElementById('payment-form').addEventListener('submit', async functio
         return;
     }
 
-    // Validate card fields if payment method is card
+    
     if (paymentOption === 'credit-debit-card') {
         const cardNumber = document.getElementById('card-number').value.trim();
         const expiryDate = document.getElementById('expiry-date').value.trim();
@@ -131,12 +130,10 @@ document.getElementById('payment-form').addEventListener('submit', async functio
         }
     }
 
-    // Make sure the total price is calculated correctly
     const total = parseFloat(totalPriceContainer.innerText.replace(/[^\d.]/g, ''));
 
     const fullAddress = `${fullName}, ${addressLine1}, ${addressLine2}, ${city}, ${state} - ${zipcode}`;
 
-    // Prepare items for order
     const items = cartItems.map(item => ({
         product_id: item.product_id,
         quantity: item.quantity_in_cart,
@@ -164,7 +161,7 @@ document.getElementById('payment-form').addEventListener('submit', async functio
         if (response.ok) {
             alert(`Order placed successfully!`);
             window.location.href = "../html/ordersummary.html";
-            console.log(result.order_id) // Redirect to success page
+            console.log(result.order_id) 
         } else {
             alert(` Failed to place order: ${result.message || result.detail}`);
         }
@@ -174,13 +171,13 @@ document.getElementById('payment-form').addEventListener('submit', async functio
     }
 });
 
-// Handle payment option change (show card details if required)
+
 document.getElementById('payment-option').addEventListener('change', function () {
     const cardDetailsDiv = document.getElementById('card-details');
     if (this.value === 'credit-debit-card') {
-        cardDetailsDiv.style.display = 'block'; // Show card details
+        cardDetailsDiv.style.display = 'block';
     } else {
-        cardDetailsDiv.style.display = 'none'; // Hide card details
+        cardDetailsDiv.style.display = 'none'; 
     }
 });
 

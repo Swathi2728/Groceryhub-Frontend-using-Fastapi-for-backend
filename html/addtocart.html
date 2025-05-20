@@ -8,7 +8,7 @@
 </head>
 <style>
 #empty-cart-message {
-    display: none; /* Hide by default */
+    display: none;
     color: red;
     font-size: 18px;
     font-weight: bold;
@@ -19,17 +19,17 @@
 <body>
     <div class="full">
     <h1>Shopping Cart</h1>
-    <!-- Use <a> for the "Continue shopping" button -->
+
    <a href="../index.html" class="cbtn">Continue shopping</a>
 
     <div id="empty-cart-message">Your cart is empty</div>
 
     <div class="cart-container" id="cart-container">
-        <!-- Cart items will be displayed here -->
+       
     </div>
 
     <div class="cart-total" id="cart-total">
-        <!-- Total price will be injected here -->
+        
     </div>
 
     <button class="checkout-btn">Checkout</button>
@@ -42,7 +42,7 @@
             const checkoutBtn = document.querySelector('.checkout-btn');
             if (checkoutBtn) {
                 checkoutBtn.addEventListener('click', () => {
-                    window.location.href = '../html/order.html';  // Ensure this path is correct
+                    window.location.href = '../html/order.html';  
                 });
             } else {
                 console.warn("Checkout button not found in DOM");

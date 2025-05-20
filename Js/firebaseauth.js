@@ -21,7 +21,7 @@ const passwordInput = document.getElementById("pwd1");
       const msg = document.getElementById("signupmsg");
       msg.style.display = "block";
 
-      // Simple form validation
+    
       if (!f_name || !l_name || !email || !pwd) {
         msg.innerText = "Please fill in all fields.";
         msg.style.color = "red";
@@ -53,7 +53,7 @@ const passwordInput = document.getElementById("pwd1");
           return;
         }
 
-        // Save JWT
+
         if (data.token) {
           localStorage.setItem("jwt_token", data.token);
         }
@@ -61,9 +61,9 @@ const passwordInput = document.getElementById("pwd1");
         msg.innerText = data.message || "Signup successful!";
         msg.style.color = "green";
 
-        // ✅ Delay redirect to give time to read the message
+       
         
-          window.location.href = "../index.html"; // adjust path if needed
+          window.location.href = "../index.html"; 
        
       } catch (error) {
         console.error("Signup error:", error);

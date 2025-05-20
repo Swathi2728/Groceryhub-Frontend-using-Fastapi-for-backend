@@ -1,74 +1,70 @@
 let cart = []; 
 const BASE_URL = 'https://groceryhub-backend-2.onrender.com';
- // Global cart variable
-
-// Function to load the cart data
+ 
 async function loadCart() {
-    // Get the token from localStorage
+    
     const token = localStorage.getItem('authToken');
-    console.log('Token in loadCart:', token); // Debug log to confirm token
+    console.log('Token in loadCart:', token); 
 
-    // If no token exists, show an empty cart and return early
+    
     if (!token) {
         console.warn("No auth token found in localStorage.");
         displayCart([]);
-        alert("please log in to view cart")  // Show empty cart
+        alert("please log in to view cart") 
         return;
     }
 
-    // If token exists, try to fetch cart data from backend
+   
     try {
         console.log('Fetching cart...');
         const response = await fetch(`${BASE_URL}/Cart/getallproducts`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,  // Send token in Authorization header
+                'Authorization': `Bearer ${token}`,  
             },
         });
 
-        // Check if the response is ok (status 200)
+       
         if (!response.ok) {
             throw new Error('Failed to fetch cart');
         }
 
-        // Parse the JSON response data
+      
         const data = await response.json();
-        console.log('Cart Data:', data); // Debug log to confirm the cart data
+        console.log('Cart Data:', data); 
 
-        // Update the cart array with the received data
-        cart = data;  // Store cart items globally
-        displayCart(cart);  // Display cart after data is fetched
+        
+        cart = data;
+        displayCart(cart);
     } catch (error) {
-        console.error("Error loading cart:", error); // Log any errors
-        cart = [];  // Reset cart
-        displayCart(cart);  // Show empty cart in case of an error
+        console.error("Error loading cart:", error);
+        cart = [];  
+        displayCart(cart);
     }
 }
 
-// Function to display the cart items in the DOM
+
 async function displayCart(cart) {
-    console.log("Displaying cart:", cart); // Debug log to confirm cart data
+    console.log("Displaying cart:", cart);
 
     const cartContainer = document.getElementById('cart-container');
     const emptyCartMessage = document.getElementById('empty-cart-message');
     
-    // Check if cart container exists in the DOM
+ 
     if (!cartContainer) {
         console.error("No element with id 'cart-container' found.");
         return;
     }
 
-    // Clear any existing content in the cart container
+   
     cartContainer.innerHTML = '';
 
-    // If the cart is empty, display a message and set the total price to 0
     if (cart.length === 0) {
         emptyCartMessage.style.display = 'block';
         document.getElementById('cart-total').innerHTML = 'Total Price: ₹0.00';
         return;
     }
 
-    // Hide the empty cart message and calculate the total price
     emptyCartMessage.style.display = 'none';
     let totalPrice = 0;
 
@@ -102,14 +98,11 @@ async function displayCart(cart) {
         totalPrice += item.quantity_in_cart * item.price_per_unit * parseInt(item.selected_weight);
     });
 
-    // Update the total price at the bottom
     document.getElementById('cart-total').innerHTML = `Total Price: ₹${totalPrice.toFixed(2)}`;
 
-    // Attach event listeners for quantity and remove buttons
     attachEventListeners(); 
 }
 
-// Function to attach event listeners to quantity buttons (increase/decrease) and remove buttons
 async function updateQuantity(cartId, action) {
     const token = localStorage.getItem('authToken');
 
@@ -118,7 +111,6 @@ async function updateQuantity(cartId, action) {
         return;
     }
 
-    // Debug log
     console.log("Cart ID being sent:", cartId);
     console.log("Action being sent:", action);
 
@@ -130,7 +122,7 @@ async function updateQuantity(cartId, action) {
                 'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({
-                cart_id: cartId,  // ✅ Ensure this is not undefined
+                cart_id: cartId,  
                 action: action
             }),
         });
@@ -152,9 +144,9 @@ async function updateQuantity(cartId, action) {
 }
 
 
-// Function to remove an item from the cart
+
 async function removeFromCart(productId) {
-    const token = localStorage.getItem('authToken');  // Get token from localStorage
+    const token = localStorage.getItem('authToken'); 
 
     if (!token) {
         console.warn("No token found for removal.");
@@ -179,10 +171,10 @@ async function removeFromCart(productId) {
             return;
         }
 
-        // Filter the item out from the cart array
-        cart = cart.filter(item => item.product_id !== productId);  // Remove the item from the array
+       
+        cart = cart.filter(item => item.product_id !== productId);
 
-        // Re-render the cart with updated data
+       
         displayCart(cart);
     } catch (error) {
         console.error("Error during cart item removal:", error);
@@ -198,7 +190,6 @@ function attachEventListeners() {
     const increaseButtons = document.querySelectorAll('.increase');
     const removeButtons = document.querySelectorAll('.remove-btn');
 
-    // Decrease quantity button
     decreaseButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             const cartId = e.target.closest('.cart-item').getAttribute('data-cart-id');  // Correct cart ID
@@ -206,7 +197,6 @@ function attachEventListeners() {
         });
     });
 
-    // Increase quantity button
     increaseButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             const cartId = e.target.closest('.cart-item').getAttribute('data-cart-id');  // Correct cart ID
@@ -214,21 +204,20 @@ function attachEventListeners() {
         });
     });
 
-    // Remove item from cart
-   // Attach event listeners to the remove buttons
+    
 removeButtons.forEach(button => {
     button.addEventListener('click', (e) => {
-        // Get the product_id from the data attribute of the closest cart-item
+       
         const productId = e.target.closest('.cart-item').getAttribute('data-product-id');
         
-        // Call the removeFromCart function with the productId
+       
         removeFromCart(productId);
     });
 });
 
 }
 document.querySelector('.checkout-btn').addEventListener('click', () => {
-    window.location.href = '../html/ordersummary.html';  // Adjust path if needed
+    window.location.href = '../html/ordersummary.html';  
 });
 
 
@@ -236,6 +225,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('authToken');
 
     if (token) {
-        loadCart(); // If token exists, try loading the cart
+        loadCart(); 
     }
 });
