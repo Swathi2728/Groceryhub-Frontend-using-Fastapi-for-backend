@@ -76,18 +76,19 @@ async function displayCart(cart) {
 
       
         itemDiv.setAttribute('data-cart-id', item.cart_id);
+        let total1=item.price_per_unit/1000
 
         itemDiv.innerHTML = `
             <div class="new">
                 <h2>${item.product_name}</h2>
                 <p class="weight">Weight: ${item.selected_weight}</p>
-                <p class="price">Price: ₹${item.price_per_unit}</p>
+                <p class="price">Price: ₹${ item.price_per_unit.toFixed(2)}</p>
                 <p class="price">Quantity: 
                     <button class="quantity-btn decrease" data-index="${index}">-</button>
                     <span class="quantity">${item.quantity_in_cart}</span>
                     <button class="quantity-btn increase" data-index="${index}">+</button>
                 </p>
-                <p class="total">Total: ₹${item.quantity_in_cart * item.price_per_unit * parseInt(item.selected_weight)}</p>
+                <p class="total">Total: ₹${item.quantity_in_cart * total1* parseInt(item.selected_weight)}</p>
                 <button class="remove-btn" data-index="${index}">Remove</button>
             </div>
             <div>
@@ -95,7 +96,7 @@ async function displayCart(cart) {
             </div>
         `;
         cartContainer.appendChild(itemDiv);
-        totalPrice += item.quantity_in_cart * item.price_per_unit * parseInt(item.selected_weight);
+        totalPrice += item.quantity_in_cart * total1* parseInt(item.selected_weight);
     });
 
     document.getElementById('cart-total').innerHTML = `Total Price: ₹${totalPrice.toFixed(2)}`;
