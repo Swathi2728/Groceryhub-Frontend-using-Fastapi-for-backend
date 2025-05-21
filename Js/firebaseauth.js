@@ -55,7 +55,7 @@ const passwordInput = document.getElementById("pwd1");
 
 
         if (data.token) {
-          localStorage.setItem("jwt_token", data.token);
+          localStorage.setItem("authToken", data.token);
         }
 
         msg.innerText = data.message || "Signup successful!";

@@ -1,8 +1,8 @@
 let category = '';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    category = urlParams.get('category') || 'Dairy'; 
+    
+    category = 'Dairy'; 
 
     fetchAndDisplayProducts('', category); 
 
